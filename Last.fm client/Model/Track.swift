@@ -18,6 +18,15 @@ struct TracksResponse {
         
         self.tracks = try tracksArray.map(Track.init(jsonTrack:))
     }
+    
+    init(foundJSONTracks: JSON) throws {
+        guard let tracksArray = foundJSONTracks["results"]["trackmatches"]["track"].array else {
+            fatalError("Unexpected JSON parameters")
+        }
+        
+        self.tracks = try tracksArray.map(Track.init(jsonTrack:))
+    }
+
 }
 
 struct Track {

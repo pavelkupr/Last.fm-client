@@ -1,18 +1,19 @@
 //
-//  ArtistTableViewCell.swift
+//  TrackTableViewCell.swift
 //  Last.fm client
 //
-//  Created by Pavel on 3/25/19.
+//  Created by student on 3/26/19.
 //  Copyright © 2019 student. All rights reserved.
 //
 
 import UIKit
 
-class ArtistTableViewCell: UITableViewCell {
+class TrackTableViewCell: UITableViewCell {
 
     // MARK: Properties
     
-    @IBOutlet weak var artistImageView: UIImageView!
+    @IBOutlet weak var trackImageView: CircleImageView!
+    @IBOutlet weak var trackName: UILabel!
     @IBOutlet weak var artistName: UILabel!
     
     
@@ -26,5 +27,5 @@ class ArtistTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

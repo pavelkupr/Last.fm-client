@@ -9,14 +9,16 @@
 import UIKit
 import SDWebImage
 
-class ArtistsTableViewController: UITableViewController {
+class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: Properties
     
     private var placeholder: UIImage?
     private let serviceModel = ServiceModel()
     private var artists = [Artist]()
-
+    
+    @IBOutlet weak var artistsSearchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +28,7 @@ class ArtistsTableViewController: UITableViewController {
             NSLog("Can't find placeholder")
         }
         
+        artistsSearchBar.delegate = self
         loadArtists()
     }
     
@@ -50,9 +53,7 @@ class ArtistsTableViewController: UITableViewController {
         if let largeImg = artist.photoUrls["large"], let url = URL(string: largeImg) {
             
             cell.artistImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-            /*{ image, _, _, _ in
-                tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.none)
-            }*/
+
         } else {
             
             cell.artistImageView.image = placeholder
@@ -61,6 +62,49 @@ class ArtistsTableViewController: UITableViewController {
         
         return cell
     }
+    
+    // MARK: UISearchBarDelegate
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchArtists(byName: searchBar.text!)
+        view.endEditing(true)
+    }
+    
+    //MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        switch(segue.identifier ?? "") {
+            
+        case "ShowInfo":
+            guard let artistInvoVC = segue.destination as? ArtistInfoViewController else {
+                fatalError("Unexpected destination")
+            }
+            
+            guard let cell = sender as? ArtistTableViewCell else {
+                fatalError("Unexpected sender")
+            }
+            
+            serviceModel.getArtistInfo(byName: cell.artistName.text!) {
+                data, error in
+                if let err = error {
+                    NSLog("Error: \(err)")
+                } else {
+                    artistInvoVC.artist = data
+                }
+            }
+            
+        default:
+            fatalError("Unexpected segue")
+            
+        }
+    }
+    
+    // MARK: Actions
+    
+    
     
     // MARK: Private Functions
     
@@ -75,4 +119,17 @@ class ArtistsTableViewController: UITableViewController {
             }
         }
     }
+    
+    private func searchArtists(byName name: String) {
+        serviceModel.searchArtists(byName: name, onPage: 1, withLimit: 50) {
+            data, error in
+            if let err = error {
+                NSLog("Error: \(err)")
+            } else {
+                self.artists = data
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
 }

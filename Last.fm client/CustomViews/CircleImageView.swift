@@ -23,7 +23,8 @@ class CircleImageView: UIImageView {
     //MARK: Private methods
     
     private func createCircle() {
-        layer.cornerRadius = frame.size.width / 2
+        
+        layer.cornerRadius = 20
         clipsToBounds = true
         layer.borderWidth = 3.0
         layer.borderColor = UIColor.gray.cgColor
