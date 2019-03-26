@@ -12,11 +12,11 @@ struct ArtistsResponse {
     let artists: [Artist]
     
     init(jsonArtists: JSON) throws {
-        guard let jsonArtist = jsonArtists["artists"]["artist"].array else {
+        guard let artistArray = jsonArtists["artists"]["artist"].array else {
             fatalError("Unexpected JSON parameters")
         }
         
-        self.artists = try jsonArtist.map(Artist.init(jsonArtist:))
+        self.artists = try artistArray.map(Artist.init(jsonArtist:))
     }
 }
 
@@ -30,6 +30,7 @@ struct Artist {
         name = jsonArtist["name"].stringValue
         playCount = jsonArtist["playcount"].stringValue
         listeners = jsonArtist["listeners"].stringValue
+        
         for i in 0..<jsonArtist["image"].count {
             photoUrls[jsonArtist["image"][i]["size"].stringValue] = jsonArtist["image"][i]["#text"].stringValue
         }

@@ -11,6 +11,7 @@ import SwiftyJSON
 
 enum APIMethod: String {
     case topArtists = "chart.gettopartists"
+    case topTracks = "chart.gettoptracks"
 }
 
 enum Format: String {
@@ -18,6 +19,8 @@ enum Format: String {
 }
 
 class ServiceModel {
+    
+    // MARK: Properties
     
     private lazy var httpClient: HTTPClient = {
         guard let baseURL = Bundle.main.infoDictionary?["MY_BASE_URL"] as? String else {
@@ -35,12 +38,14 @@ class ServiceModel {
         return apiKey
     }()
     
-    func getArtists(closure: @escaping ([Artist], Error?)->Void ) {
+    func getTopArtists(onPage page: Int, withLimit limit: Int, closure: @escaping ([Artist], Error?)->Void ) {
         
         let params = [
             "method":APIMethod.topArtists.rawValue,
             "api_key":apiKey,
-            "format":Format.json.rawValue
+            "format":Format.json.rawValue,
+            "page": String(page),
+            "limit": String(limit)
         ]
         
         httpClient.get(parameters: params, contentType: .json) {
@@ -55,6 +60,36 @@ class ServiceModel {
                 do {
                     let artistsResponse = try ArtistsResponse(jsonArtists: jsonData)
                     closure(artistsResponse.artists, nil)
+                    
+                } catch let parseError as NSError {
+                    print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                }
+            }
+        }
+    }
+    
+    func getTopTracks(onPage page: Int, withLimit limit: Int, closure: @escaping ([Track], Error?)->Void ) {
+        
+        let params = [
+            "method":APIMethod.topTracks.rawValue,
+            "api_key":apiKey,
+            "format":Format.json.rawValue,
+            "page": String(page),
+            "limit": String(limit)
+        ]
+        
+        httpClient.get(parameters: params, contentType: .json) {
+            data, error in
+            
+            guard error == nil else {
+                closure([], error)
+                return
+            }
+            
+            if let jsonData = data as? JSON {
+                do {
+                    let tracksResponse = try TracksResponse(jsonTracks: jsonData)
+                    closure(tracksResponse.tracks, nil)
                     
                 } catch let parseError as NSError {
                     print( "JSONSerialization error: \(parseError.localizedDescription)\n")

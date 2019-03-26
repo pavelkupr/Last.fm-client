@@ -12,11 +12,19 @@ import SDWebImage
 class ArtistsTableViewController: UITableViewController {
     
     // MARK: Properties
+    
+    private var placeholder: UIImage?
     private let serviceModel = ServiceModel()
     private var artists = [Artist]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let placeholder = UIImage(named: "Placeholder") {
+            self.placeholder = placeholder
+        } else {
+            NSLog("Can't find placeholder")
+        }
         
         loadArtists()
     }
@@ -34,15 +42,20 @@ class ArtistsTableViewController: UITableViewController {
             
             fatalError("Unexpected type of cell")
         }
+        
         let artist = artists[indexPath.row]
+        
         cell.artistName.text = artist.name
         
-        if let url = URL(string: artist.photoUrls["large"]!) {
-            cell.artistImageView.sd_setImage(with: url) { image, _, _, _ in
+        if let largeImg = artist.photoUrls["large"], let url = URL(string: largeImg) {
+            
+            cell.artistImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+            /*{ image, _, _, _ in
                 tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.none)
-            }
+            }*/
         } else {
-            cell.artistImageView.image = nil
+            
+            cell.artistImageView.image = placeholder
         }
         
         
@@ -52,7 +65,7 @@ class ArtistsTableViewController: UITableViewController {
     // MARK: Private Functions
     
     private func loadArtists() {
-        serviceModel.getArtists {
+        serviceModel.getTopArtists(onPage: 1, withLimit: 50) {
             data, error in
             if let err = error {
                 NSLog("Error: \(err)")
