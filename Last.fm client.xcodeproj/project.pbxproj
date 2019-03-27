@@ -245,7 +245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Last.fm client/Pods-Last.fm client-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Last.fm client/Pods-Last.fm client-frameworks.sh\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8FE8FDF76F4286AD6764EEF0 /* [CP] Check Pods Manifest.lock */ = {

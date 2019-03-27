@@ -16,15 +16,16 @@ class TrackTableViewCell: UITableViewCell {
     @IBOutlet weak var trackImageView: CircleImageView!
     @IBOutlet weak var trackName: UILabel!
     @IBOutlet weak var artistName: UILabel!
-    
-    func fillCell(withArtist track: Track, withPlaceholder placeholder: UIImage?, withImageSizeDesc sizeDesc: ImageSize = .large) {
-        
+
+    func fillCell(withArtist track: Track, withPlaceholder placeholder: UIImage?,
+                  withImageSizeDesc sizeDesc: ImageSize = .large) {
+
         trackName.text = track.name
         artistName.text = track.artistName
-        
+
         if let largeImg = track.photoUrls[sizeDesc], let url = URL(string: largeImg) {
             trackImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-            
+
         } else {
             trackImageView.image = placeholder
         }
