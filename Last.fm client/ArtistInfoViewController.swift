@@ -21,9 +21,8 @@ class ArtistInfoViewController: UIViewController {
     
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var artistName: UILabel!
-    @IBOutlet weak var artistInfo: UILabel!
+    @IBOutlet weak var artistInfo: UITextView!
     
-    @IBOutlet weak var artistInfoView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +42,7 @@ class ArtistInfoViewController: UIViewController {
         
         if let artist = artist {
             artistName.text = artist.name
-            artistInfoView.text = artist.info ?? ""
+            artistInfo.text = artist.info ?? ""
             
             if let largeImg = artist.photoUrls["extralarge"], let url = URL(string: largeImg) {
                 
