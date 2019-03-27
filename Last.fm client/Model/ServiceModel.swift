@@ -41,6 +41,8 @@ class ServiceModel {
         return apiKey
     }()
     
+    // MARK: Public Methods
+    
     func getTopArtists(onPage page: Int, withLimit limit: Int, closure: @escaping ([Artist], Error?)->Void ) {
         
         let params = [
