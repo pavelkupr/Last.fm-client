@@ -1,0 +1,10 @@
+
+warning_threshold: 15
+
+excluded: 
+  - Last.fm client/Support Files/AppDelegate.swift
+  - Pods
+
+file_length:
+  warning: 500
+  error: 600

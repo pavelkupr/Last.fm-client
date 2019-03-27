@@ -79,18 +79,11 @@
 		3F43A8B9224904B4002E676C /* Last.fm client */ = {
 			isa = PBXGroup;
 			children = (
+				3FECB265224BC95A00D60B75 /* Support Files */,
 				3F43A8D122491B66002E676C /* Model */,
 				3F43A8CC224917D8002E676C /* Networking */,
-				E9E6E93022499AA0003BFD02 /* CustomViews */,
-				3F43A8BA224904B4002E676C /* AppDelegate.swift */,
-				3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */,
-				3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */,
-				E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */,
-				3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */,
-				3FD9E49F224A554900AE3541 /* Main.storyboard */,
-				3FD9E4A1224A58FD00AE3541 /* ArtistInfoViewController.swift */,
-				3F43A8C1224904B4002E676C /* Assets.xcassets */,
-				3F43A8C3224904B4002E676C /* LaunchScreen.storyboard */,
+				E9E6E93022499AA0003BFD02 /* Custom Views */,
+				3FECB264224BC92E00D60B75 /* Controllers */,
 				3F43A8C6224904B4002E676C /* Info.plist */,
 			);
 			path = "Last.fm client";
@@ -114,6 +107,27 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3FECB264224BC92E00D60B75 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */,
+				3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */,
+				3FD9E4A1224A58FD00AE3541 /* ArtistInfoViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3FECB265224BC95A00D60B75 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3F43A8BA224904B4002E676C /* AppDelegate.swift */,
+				3FD9E49F224A554900AE3541 /* Main.storyboard */,
+				3F43A8C1224904B4002E676C /* Assets.xcassets */,
+				3F43A8C3224904B4002E676C /* LaunchScreen.storyboard */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
 		9365B2DAD23E641A3371436E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,12 +145,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		E9E6E93022499AA0003BFD02 /* CustomViews */ = {
+		E9E6E93022499AA0003BFD02 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */,
+				E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */,
 				E9E6E93722499D77003BFD02 /* CircleImageView.swift */,
 			);
-			path = CustomViews;
+			path = "Custom Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,7 +245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Last.fm client/Pods-Last.fm client-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Last.fm client/Pods-Last.fm client-frameworks.sh\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8FE8FDF76F4286AD6764EEF0 /* [CP] Check Pods Manifest.lock */ = {

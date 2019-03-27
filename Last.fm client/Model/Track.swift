@@ -8,42 +8,26 @@
 
 import SwiftyJSON
 
-struct TracksResponse {
-    let tracks: [Track]
-    
-    init(jsonTracks: JSON) throws {
-        guard let tracksArray = jsonTracks["tracks"]["track"].array else {
-            fatalError("Unexpected JSON parameters")
-        }
-        
-        self.tracks = try tracksArray.map(Track.init(jsonTrack:))
-    }
-    
-    init(foundJSONTracks: JSON) throws {
-        guard let tracksArray = foundJSONTracks["results"]["trackmatches"]["track"].array else {
-            fatalError("Unexpected JSON parameters")
-        }
-        
-        self.tracks = try tracksArray.map(Track.init(jsonTrack:))
-    }
-
-}
-
 struct Track {
     var name: String
     var artistName: String
     var playCount: String
     var listeners: String
-    var photoUrls = [String : String]()
-    
+    var photoUrls = [ImageSize: String]()
+
     init(jsonTrack: JSON) throws {
+
         name = jsonTrack["name"].stringValue
         playCount = jsonTrack["playcount"].stringValue
         listeners = jsonTrack["listeners"].stringValue
         artistName = jsonTrack["artist"]["name"].stringValue
-        
-        for i in 0..<jsonTrack["image"].count {
-            photoUrls[jsonTrack["image"][i]["size"].stringValue] = jsonTrack["image"][i]["#text"].stringValue
+
+        if let imagesInfo = jsonTrack["image"].array {
+            for imageInfo in imagesInfo {
+                if let size = ImageSize(rawValue: imageInfo["size"].stringValue) {
+                    photoUrls[size] = imageInfo["#text"].stringValue
+                }
+            }
         }
     }
 }
