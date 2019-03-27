@@ -12,13 +12,12 @@ import SDWebImage
 class ArtistInfoViewController: UIViewController {
 
     // MARK: Properties
-    var artist: Artist? {
-        didSet {
-            loadInfo()
-        }
-    }
-    private var placeholder: UIImage?
     
+    private let serviceModel = ServiceModel()
+    var artist: Artist?
+    
+    private var placeholder: UIImage?
+
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var artistInfo: UITextView!
@@ -33,7 +32,6 @@ class ArtistInfoViewController: UIViewController {
         }
         
         loadInfo()
-        // Do any additional setup after loading the view.
     }
     
     // MARK: Private Methods
@@ -41,17 +39,30 @@ class ArtistInfoViewController: UIViewController {
     private func loadInfo() {
         
         if let artist = artist {
-            artistName.text = artist.name
-            artistInfo.text = artist.info ?? ""
             
-            if let largeImg = artist.photoUrls["extralarge"], let url = URL(string: largeImg) {
+            if artist.info == nil {
+                artistName.text = artist.name
                 
-                artistImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+                if let largeImg = artist.photoUrls[.extralarge], let url = URL(string: largeImg) {
+                    artistImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+
+                } else {
+                    artistImageView.image = placeholder
+                }
                 
-            } else {
-                
-                artistImageView.image = placeholder
+                serviceModel.getArtistInfo(byName: artist.name) {
+                    data, error in
+                    
+                    if let err = error {
+                        NSLog("Error: \(err)")
+                        
+                    } else if let data = data{
+                        self.artistInfo.text = data.info
+                        
+                    }
+                }
             }
+
         }
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class TracksTableViewController: UITableViewController, UISearchBarDelegate {
 
@@ -21,10 +20,12 @@ class TracksTableViewController: UITableViewController, UISearchBarDelegate {
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         if let placeholder = UIImage(named: "Placeholder") {
             self.placeholder = placeholder
+            
         } else {
             NSLog("Can't find placeholder")
         }
@@ -34,6 +35,7 @@ class TracksTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         view.endEditing(true)
     }
     
@@ -47,26 +49,10 @@ class TracksTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as? TrackTableViewCell else {
-            
             fatalError("Unexpected type of cell")
         }
         
-        let track = tracks[indexPath.row]
-        
-        cell.trackName.text = track.name
-        cell.artistName.text = track.artistName
-        
-        if let largeImg = track.photoUrls["large"], let url = URL(string: largeImg) {
-            
-            cell.trackImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-            /*{ image, _, _, _ in
-             tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.none)
-             }*/
-        } else {
-            
-            cell.trackImageView.image = placeholder
-        }
-        
+        cell.fillCell(withArtist: tracks[indexPath.row], withPlaceholder: placeholder) 
         
         return cell
     }
@@ -83,8 +69,10 @@ class TracksTableViewController: UITableViewController, UISearchBarDelegate {
     private func loadTracks() {
         serviceModel.getTopTracks(onPage: 1, withLimit: 50) {
             data, error in
+            
             if let err = error {
                 NSLog("Error: \(err)")
+                
             } else {
                 self.tracks = data
                 self.tableView.reloadData()
@@ -95,8 +83,10 @@ class TracksTableViewController: UITableViewController, UISearchBarDelegate {
     private func searchTracks(byName name: String) {
         serviceModel.searchTracks(byName: name, onPage: 1, withLimit: 50) {
             data, error in
+            
             if let err = error {
                 NSLog("Error: \(err)")
+                
             } else {
                 self.tracks = data
                 self.tableView.reloadData()

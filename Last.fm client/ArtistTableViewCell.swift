@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ArtistTableViewCell: UITableViewCell {
 
@@ -16,15 +17,23 @@ class ArtistTableViewCell: UITableViewCell {
     @IBOutlet weak var artistName: UILabel!
     
     
+    func fillCell(withArtist artist: Artist, withPlaceholder placeholder: UIImage?, withImageSizeDesc sizeDesc: ImageSize = .large) {
+        artistName.text = artist.name
+        
+        if let largeImg = artist.photoUrls[sizeDesc], let url = URL(string: largeImg) {
+            artistImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+            
+        } else {
+            artistImageView.image = placeholder
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

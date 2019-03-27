@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
     
@@ -46,19 +45,7 @@ class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
             fatalError("Unexpected type of cell")
         }
         
-        let artist = artists[indexPath.row]
-        
-        cell.artistName.text = artist.name
-        
-        if let largeImg = artist.photoUrls["large"], let url = URL(string: largeImg) {
-            
-            cell.artistImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-
-        } else {
-            
-            cell.artistImageView.image = placeholder
-        }
-        
+        cell.fillCell(withArtist: artists[indexPath.row], withPlaceholder: placeholder)
         
         return cell
     }
@@ -72,14 +59,14 @@ class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
     
     //MARK: Navigation
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         super.prepare(for: segue, sender: sender)
         
         switch(segue.identifier ?? "") {
             
         case "ShowInfo":
-            guard let artistInvoVC = segue.destination as? ArtistInfoViewController else {
+            guard let artistInfoVC = segue.destination as? ArtistInfoViewController else {
                 fatalError("Unexpected destination")
             }
             
@@ -87,14 +74,11 @@ class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
                 fatalError("Unexpected sender")
             }
             
-            serviceModel.getArtistInfo(byName: cell.artistName.text!) {
-                data, error in
-                if let err = error {
-                    NSLog("Error: \(err)")
-                } else {
-                    artistInvoVC.artist = data
-                }
+            guard let artistId = tableView.indexPath(for: cell)?.row else {
+                fatalError("Cell: \(cell) is not in the tableView")
             }
+            
+            artistInfoVC.artist =  artists[artistId]
             
         default:
             fatalError("Unexpected segue")
@@ -111,8 +95,10 @@ class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
     private func loadArtists() {
         serviceModel.getTopArtists(onPage: 1, withLimit: 50) {
             data, error in
+            
             if let err = error {
                 NSLog("Error: \(err)")
+                
             } else {
                 self.artists = data
                 self.tableView.reloadData()
@@ -123,8 +109,10 @@ class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
     private func searchArtists(byName name: String) {
         serviceModel.searchArtists(byName: name, onPage: 1, withLimit: 50) {
             data, error in
+            
             if let err = error {
                 NSLog("Error: \(err)")
+                
             } else {
                 self.artists = data
                 self.tableView.reloadData()

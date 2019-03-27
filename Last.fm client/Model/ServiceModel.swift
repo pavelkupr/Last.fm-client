@@ -21,6 +21,56 @@ enum Format: String {
     case json
 }
 
+enum ImageSize: String {
+    case small, medium, large, extralarge, mega
+}
+
+struct ArtistsResponse {
+    let artists: [Artist]
+    
+    init(jsonArtists: JSON) throws {
+        
+        guard let artistArray = jsonArtists["artists"]["artist"].array else {
+            fatalError("Unexpected JSON parameters")
+        }
+        
+        self.artists = try artistArray.map(Artist.init(jsonArtist:))
+    }
+    
+    init(foundJSONArtists: JSON) throws {
+        
+        guard let artistsArray = foundJSONArtists["results"]["artistmatches"]["artist"].array else {
+            fatalError("Unexpected JSON parameters")
+        }
+        
+        self.artists = try artistsArray.map(Artist.init(jsonArtist:))
+    }
+    
+}
+
+struct TracksResponse {
+    let tracks: [Track]
+    
+    init(jsonTracks: JSON) throws {
+        
+        guard let tracksArray = jsonTracks["tracks"]["track"].array else {
+            fatalError("Unexpected JSON parameters")
+        }
+        
+        self.tracks = try tracksArray.map(Track.init(jsonTrack:))
+    }
+    
+    init(foundJSONTracks: JSON) throws {
+        
+        guard let tracksArray = foundJSONTracks["results"]["trackmatches"]["track"].array else {
+            fatalError("Unexpected JSON parameters")
+        }
+        
+        self.tracks = try tracksArray.map(Track.init(jsonTrack:))
+    }
+    
+}
+
 class ServiceModel {
     
     // MARK: Properties
