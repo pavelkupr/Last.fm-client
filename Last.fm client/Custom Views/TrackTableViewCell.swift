@@ -9,17 +9,36 @@
 import UIKit
 import SDWebImage
 
-class TrackTableViewCell: UITableViewCell {
+class FillableCell: UITableViewCell {
+    func fillCell(withInstance instance: Any) {
+    }
+}
+
+class TrackTableViewCell: FillableCell {
 
     // MARK: Properties
 
+    private let sizeDesc = ImageSize.large
+    private lazy var placeholder: UIImage? = {
+        if let placeholder = UIImage(named: "Placeholder") {
+            return placeholder
+            
+        } else {
+            NSLog("Can't find placeholder")
+            return nil
+        }
+    }()
+    
     @IBOutlet weak var trackImageView: CircleImageView!
     @IBOutlet weak var trackName: UILabel!
     @IBOutlet weak var artistName: UILabel!
 
-    func fillCell(withArtist track: Track, withPlaceholder placeholder: UIImage?,
-                  withImageSizeDesc sizeDesc: ImageSize = .large) {
-
+    override func fillCell(withInstance instance: Any) {
+        
+        guard let track = instance as? Track else {
+            fatalError("Unexpected type")
+        }
+        
         trackName.text = track.name
         artistName.text = track.artistName
 

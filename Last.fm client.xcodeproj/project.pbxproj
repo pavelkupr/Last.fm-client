@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */; };
+		3F2EB082224CCC0C00AEE3DE /* RecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */; };
 		3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8BA224904B4002E676C /* AppDelegate.swift */; };
 		3F43A8BD224904B4002E676C /* ArtistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */; };
 		3F43A8C2224904B4002E676C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F43A8C1224904B4002E676C /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTableViewCell.swift; sourceTree = "<group>"; };
 		3F43A8B7224904B4002E676C /* Last.fm client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last.fm client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F43A8BA224904B4002E676C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsTableViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 			children = (
 				3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */,
 				3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */,
+				3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */,
 				3FD9E4A1224A58FD00AE3541 /* ArtistInfoViewController.swift */,
 			);
 			path = Controllers;
@@ -150,6 +155,7 @@
 			children = (
 				3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */,
 				E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */,
+				3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */,
 				E9E6E93722499D77003BFD02 /* CircleImageView.swift */,
 			);
 			path = "Custom Views";
@@ -284,6 +290,8 @@
 				E9E6E93822499D77003BFD02 /* CircleImageView.swift in Sources */,
 				E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */,
 				3FD9E49C224A36F900AE3541 /* TrackTableViewCell.swift in Sources */,
+				3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */,
+				3F2EB082224CCC0C00AEE3DE /* RecentTableViewCell.swift in Sources */,
 				3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */,
 				3F43A8D322491B81002E676C /* Artist.swift in Sources */,
 				E9E6E92D22498BCA003BFD02 /* ArtistTableViewCell.swift in Sources */,

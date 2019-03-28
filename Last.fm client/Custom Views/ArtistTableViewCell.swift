@@ -9,15 +9,30 @@
 import UIKit
 import SDWebImage
 
-class ArtistTableViewCell: UITableViewCell {
+class ArtistTableViewCell: FillableCell {
 
     // MARK: Properties
 
+    private let sizeDesc = ImageSize.large
+    private lazy var placeholder: UIImage? = {
+        if let placeholder = UIImage(named: "Placeholder") {
+            return placeholder
+            
+        } else {
+            NSLog("Can't find placeholder")
+            return nil
+        }
+    }()
+    
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var artistName: UILabel!
 
-    func fillCell(withArtist artist: Artist, withPlaceholder placeholder: UIImage?,
-                  withImageSizeDesc sizeDesc: ImageSize = .large) {
+    override func fillCell(withInstance instance: Any) {
+        
+        guard let artist = instance as? Artist else {
+            fatalError("Unexpected type")
+        }
+        
         artistName.text = artist.name
 
         if let largeImg = artist.photoUrls[sizeDesc], let url = URL(string: largeImg) {

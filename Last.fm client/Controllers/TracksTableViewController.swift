@@ -8,28 +8,18 @@
 
 import UIKit
 
-class TracksTableViewController: UITableViewController, UISearchBarDelegate {
+class TracksTableViewController: UITableViewController {
 
     // MARK: Properties
 
     private var placeholder: UIImage?
     private let serviceModel = ServiceModel()
     private var tracks = [Track]()
-
-    @IBOutlet weak var tracksSearchBar: UISearchBar!
-
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
 
-        if let placeholder = UIImage(named: "Placeholder") {
-            self.placeholder = placeholder
-
-        } else {
-            NSLog("Can't find placeholder")
-        }
-
-        tracksSearchBar.delegate = self
         loadTracks()
     }
 
@@ -52,16 +42,9 @@ class TracksTableViewController: UITableViewController, UISearchBarDelegate {
             fatalError("Unexpected type of cell")
         }
 
-        cell.fillCell(withArtist: tracks[indexPath.row], withPlaceholder: placeholder)
+        cell.fillCell(withInstance: tracks[indexPath.row])
 
         return cell
-    }
-
-    // MARK: UISearchBarDelegate
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchTracks(byName: searchBar.text!)
-        view.endEditing(true)
     }
 
     // MARK: Private Functions

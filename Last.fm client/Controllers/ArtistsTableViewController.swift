@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
+class ArtistsTableViewController: UITableViewController {
 
     // MARK: Properties
 
@@ -16,18 +16,9 @@ class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
     private let serviceModel = ServiceModel()
     private var artists = [Artist]()
 
-    @IBOutlet weak var artistsSearchBar: UISearchBar!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let placeholder = UIImage(named: "Placeholder") {
-            self.placeholder = placeholder
-        } else {
-            NSLog("Can't find placeholder")
-        }
-
-        artistsSearchBar.delegate = self
         loadArtists()
     }
 
@@ -46,16 +37,9 @@ class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
             fatalError("Unexpected type of cell")
         }
 
-        cell.fillCell(withArtist: artists[indexPath.row], withPlaceholder: placeholder)
+        cell.fillCell(withInstance: artists[indexPath.row])
 
         return cell
-    }
-
-    // MARK: UISearchBarDelegate
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchArtists(byName: searchBar.text!)
-        view.endEditing(true)
     }
 
     // MARK: Navigation
@@ -93,19 +77,6 @@ class ArtistsTableViewController: UITableViewController, UISearchBarDelegate {
 
     private func loadArtists() {
         serviceModel.getTopArtists(onPage: 1, withLimit: 50) { data, error in
-
-            if let err = error {
-                NSLog("Error: \(err)")
-
-            } else {
-                self.artists = data
-                self.tableView.reloadData()
-            }
-        }
-    }
-
-    private func searchArtists(byName name: String) {
-        serviceModel.searchArtists(byName: name, onPage: 1, withLimit: 50) { data, error in
 
             if let err = error {
                 NSLog("Error: \(err)")
