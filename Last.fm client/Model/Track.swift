@@ -8,7 +8,8 @@
 
 import SwiftyJSON
 
-struct Track {
+struct Track: Equatable {
+    
     var name: String
     var artistName: String
     var playCount: String
@@ -23,6 +24,22 @@ struct Track {
         artistName = jsonTrack["artist"]["name"].stringValue
 
         if let imagesInfo = jsonTrack["image"].array {
+            for imageInfo in imagesInfo {
+                if let size = ImageSize(rawValue: imageInfo["size"].stringValue) {
+                    photoUrls[size] = imageInfo["#text"].stringValue
+                }
+            }
+        }
+    }
+    
+    init(foundJsonTrack: JSON) throws {
+        
+        name = foundJsonTrack["name"].stringValue
+        playCount = foundJsonTrack["playcount"].stringValue
+        listeners = foundJsonTrack["listeners"].stringValue
+        artistName = foundJsonTrack["artist"].stringValue
+        
+        if let imagesInfo = foundJsonTrack["image"].array {
             for imageInfo in imagesInfo {
                 if let size = ImageSize(rawValue: imageInfo["size"].stringValue) {
                     photoUrls[size] = imageInfo["#text"].stringValue

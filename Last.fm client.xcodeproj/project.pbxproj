@@ -20,6 +20,8 @@
 		3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9E49F224A554900AE3541 /* Main.storyboard */; };
 		3FD9E4A2224A58FD00AE3541 /* ArtistInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E4A1224A58FD00AE3541 /* ArtistInfoViewController.swift */; };
 		CBE8C1B587F881F92710561C /* Pods_Last_fm_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */; };
+		E9D337B72251002E00DA9363 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D337B62251002E00DA9363 /* SectionHeaderView.swift */; };
+		E9D337B92251531300DA9363 /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D337B82251531300DA9363 /* CustomStackView.swift */; };
 		E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DAFA64224A22C900FC1BB7 /* Track.swift */; };
 		E9E6E92B224979B5003BFD02 /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92A224979B5003BFD02 /* ServiceModel.swift */; };
 		E9E6E92D22498BCA003BFD02 /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */; };
@@ -43,6 +45,8 @@
 		3FD9E4A1224A58FD00AE3541 /* ArtistInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoViewController.swift; sourceTree = "<group>"; };
 		69E294A2364B171FBAC5BB88 /* Pods-Last.fm client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Last.fm client.release.xcconfig"; path = "Target Support Files/Pods-Last.fm client/Pods-Last.fm client.release.xcconfig"; sourceTree = "<group>"; };
 		7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Last_fm_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9D337B62251002E00DA9363 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		E9D337B82251531300DA9363 /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		E9DAFA64224A22C900FC1BB7 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		E9E6E92A224979B5003BFD02 /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
 		E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */,
 				3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */,
 				E9E6E93722499D77003BFD02 /* CircleImageView.swift */,
+				E9D337B62251002E00DA9363 /* SectionHeaderView.swift */,
+				E9D337B82251531300DA9363 /* CustomStackView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9D337B92251531300DA9363 /* CustomStackView.swift in Sources */,
 				E9E6E92B224979B5003BFD02 /* ServiceModel.swift in Sources */,
 				3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* ArtistInfoViewController.swift in Sources */,
@@ -294,6 +301,7 @@
 				3F2EB082224CCC0C00AEE3DE /* RecentTableViewCell.swift in Sources */,
 				3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */,
 				3F43A8D322491B81002E676C /* Artist.swift in Sources */,
+				E9D337B72251002E00DA9363 /* SectionHeaderView.swift in Sources */,
 				E9E6E92D22498BCA003BFD02 /* ArtistTableViewCell.swift in Sources */,
 				3F43A8CE2249184A002E676C /* HTTPClient.swift in Sources */,
 			);

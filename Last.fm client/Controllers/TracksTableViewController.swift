@@ -42,7 +42,7 @@ class TracksTableViewController: UITableViewController {
             fatalError("Unexpected type of cell")
         }
 
-        cell.fillCell(withInstance: tracks[indexPath.row])
+        cell.fillCell(withTrack: tracks[indexPath.row])
 
         return cell
     }

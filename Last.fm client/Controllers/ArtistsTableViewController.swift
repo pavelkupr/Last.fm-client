@@ -37,7 +37,7 @@ class ArtistsTableViewController: UITableViewController {
             fatalError("Unexpected type of cell")
         }
 
-        cell.fillCell(withInstance: artists[indexPath.row])
+        cell.fillCell(withArtist: artists[indexPath.row])
 
         return cell
     }

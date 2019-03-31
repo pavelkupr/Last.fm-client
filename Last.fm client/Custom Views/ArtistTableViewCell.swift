@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class ArtistTableViewCell: FillableCell {
+class ArtistTableViewCell: UITableViewCell {
 
     // MARK: Properties
 
@@ -27,11 +27,7 @@ class ArtistTableViewCell: FillableCell {
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var artistName: UILabel!
 
-    override func fillCell(withInstance instance: Any) {
-        
-        guard let artist = instance as? Artist else {
-            fatalError("Unexpected type")
-        }
+    func fillCell(withArtist artist: Artist) {
         
         artistName.text = artist.name
 

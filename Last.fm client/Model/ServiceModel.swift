@@ -66,7 +66,7 @@ struct TracksResponse {
             fatalError("Unexpected JSON parameters")
         }
 
-        self.tracks = try tracksArray.map(Track.init(jsonTrack:))
+        self.tracks = try tracksArray.map(Track.init(foundJsonTrack:))
     }
 
 }

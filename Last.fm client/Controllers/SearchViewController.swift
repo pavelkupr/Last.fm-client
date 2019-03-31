@@ -8,25 +8,13 @@
 
 import UIKit
 
-struct SectionInfo<T: CaseIterable & Hashable> {
-    
-    var data: [T: [Any]] = [:]
-    
-    init() {
-        for value in T.allCases {
-            data[value] = [Any]()
-        }
-    }
-    
-    mutating func replaceData(withKey key: T, byValue value: [Any]) {
-        data[key] = value
-    }
-}
-
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    private enum SearchItems: Int, CaseIterable {
-        case artists = 0, tracks
+    private enum SectionItem {
+        
+        case artists([Artist])
+        case tracks([Track])
+        case resentSearches([String])
         
         func getStringDefinition() -> String {
             switch self {
@@ -34,15 +22,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 return "Artists"
             case .tracks:
                 return "Tracks"
-            }
-        }
-    }
-    
-    private enum RecentItems: Int, CaseIterable {
-        case resentSearches = 0
-        
-        func getStringDefinition() -> String {
-            switch self {
             case .resentSearches:
                 return "Resent Searches"
             }
@@ -52,18 +31,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     // MARK: Properties
     
     private let sectionHeaderHeight = CGFloat(30)
+    private let serviceModel = ServiceModel()
     
     private var isResentMode = true
-    private var searchSectionInfo = SectionInfo<SearchItems>()
-    private var recentSectionInfo = SectionInfo<RecentItems>()
-    private var serviceModel = ServiceModel()
+    private var searchModeSectionsInfo = [SectionItem.artists([]), SectionItem.tracks([])]
+    private var recentModeSectionInfo = [SectionItem.resentSearches([])]
     
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
+    @IBOutlet weak var cancelButtonConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         searchBar.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
@@ -74,136 +55,135 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return isResentMode ? RecentItems.allCases.count : SearchItems.allCases.count
+        return isResentMode ? recentModeSectionInfo.count : searchModeSectionsInfo.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if isResentMode, let tableSection = RecentItems(rawValue: section), let data = recentSectionInfo.data[tableSection] {
-            return data.count
+        if isResentMode {
+            switch recentModeSectionInfo[section] {
+            case .resentSearches(let data):
+                return data.count
+            default:
+                fatalError("Unexpected type of section")
+            }
             
-        } else if !isResentMode, let tableSection = SearchItems(rawValue: section), let data = searchSectionInfo.data[tableSection] {
-            return data.count
+        }
+        else {
+            switch searchModeSectionsInfo[section] {
+            case .artists(let data):
+                return data.count
+            case .tracks(let data):
+                return data.count
+            default:
+                fatalError("Unexpected type of section")
+            }
             
-        } else {
-            fatalError("Unexpected sections")
         }
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var currCell: UITableViewCell
         
-        var currData: Any
-        var currCell: FillableCell
-        
-        if isResentMode, let tableSection = RecentItems(rawValue: indexPath.section), let data = recentSectionInfo.data[tableSection] {
-            currData = data[indexPath.row]
-            switch tableSection {
-                
-            case .resentSearches:
-                currCell = getFillableCell(withIdentifier: "RecentCell", for: indexPath)
-            } 
-            
-        } else if !isResentMode, let tableSection = SearchItems(rawValue: indexPath.section), let data = searchSectionInfo.data[tableSection] {
-            currData = data[indexPath.row]
-            switch tableSection {
-                
-            case .artists:
-                currCell = getFillableCell(withIdentifier: "ArtistCell", for: indexPath)
-                
-            case .tracks:
-                currCell = getFillableCell(withIdentifier: "TrackCell", for: indexPath)
+        if isResentMode {
+            switch recentModeSectionInfo[indexPath.section] {
+            case .resentSearches(let data):
+                guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "RecentCell", for: indexPath) as?
+                    RecentTableViewCell else {
+                        fatalError("Unexpected type of cell")
+                }
+                cell.fillCell(withSearch: data[indexPath.row])
+                currCell = cell
+            default:
+                fatalError("Unexpected type of section")
             }
             
-        } else {
-            fatalError("Unexpected sections")
         }
-        
-        currCell.fillCell(withInstance: currData)
+        else {
+            switch searchModeSectionsInfo[indexPath.section] {
+            case .artists(let data):
+                guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "ArtistCell", for: indexPath) as?
+                    ArtistTableViewCell else {
+                        fatalError("Unexpected type of cell")
+                }
+                cell.fillCell(withArtist: data[indexPath.row])
+                currCell = cell
+                
+            case .tracks(let data):
+                guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as?
+                    TrackTableViewCell else {
+                        fatalError("Unexpected type of cell")
+                }
+                cell.fillCell(withTrack: data[indexPath.row])
+                currCell = cell
+            default:
+                fatalError("Unexpected type of section")
+            }
+            
+        }
         
         return currCell
     }
  
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight))
-        view.backgroundColor = UIColor.init(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
-        //UIColor(red: 253.0/255.0, green: 240.0/255.0, blue: 196.0/255.0, alpha: 1)
-        let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.bounds.width-10, height: sectionHeaderHeight))
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = UIColor.black
-        if isResentMode, let tableSection = RecentItems(rawValue: section) {
-            label.text = tableSection.getStringDefinition()
-        } else if !isResentMode, let tableSection = SearchItems(rawValue: section) {
-            label.text = tableSection.getStringDefinition()
+        var headerName = ""
+        
+        if isResentMode {
+            headerName = recentModeSectionInfo[section].getStringDefinition()
+        }
+        else  {
+            headerName = searchModeSectionsInfo[section].getStringDefinition()
         }
         
-        view.addSubview(label)
-        return view
+        return SectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight), nameOfHeader: headerName)
+        
     }
     
     // MARK: UISearchBarDelegate
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchArtists(byName: searchBar.text!)
         view.endEditing(true)
-    }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    // MARK: Private Methods
-    
-    private func getFillableCell(withIdentifier identifier: String, for index: IndexPath) -> FillableCell{
+        let textForSearch = searchBar.text!
+        searchBar.text = ""
+        self.isResentMode = false
         
-        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: identifier, for: index) as?
-            FillableCell else {
-                fatalError("Unexpected type of cell")
+        searchArtists(byName: textForSearch)
+        searchTracks(byName: textForSearch)
+        
+        cancelButtonConstraint.constant = 100
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
         }
         
-        return cell
+        for index in 0..<recentModeSectionInfo.count {
+            switch recentModeSectionInfo[index] {
+            case .resentSearches(var data):
+                if !data.contains(textForSearch) {
+                    data.append(textForSearch)
+                    recentModeSectionInfo[index] = .resentSearches(data)
+                }
+            default:
+                break
+            }
+        }
+        
     }
+    
+    // MARK: Actions
+    
+    @IBAction func cancelSearchMode(_ sender: UIButton) {
+        cancelButtonConstraint.constant = 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        
+        self.isResentMode = true
+        searchTableView.reloadData()
+    }
+    
+    
+    // MARK: Private Methods
     
     private func searchArtists(byName name: String) {
         serviceModel.searchArtists(byName: name, onPage: 1, withLimit: 3) { data, error in
@@ -212,10 +192,39 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 NSLog("Error: \(err)")
                 
             } else {
-                self.searchSectionInfo.replaceData(withKey: SearchViewController.SearchItems.artists, byValue: data)
-                self.isResentMode = false
+                for index in 0..<self.searchModeSectionsInfo.count {
+                    switch self.searchModeSectionsInfo[index] {
+                    case .artists:
+                        self.searchModeSectionsInfo[index] = .artists(data)
+                        
+                    default:
+                        break
+                    }
+                }
+
                 self.searchTableView.reloadData()
+            }
+        }
+    }
+    
+    private func searchTracks(byName name: String) {
+        serviceModel.searchTracks(byName: name, onPage: 1, withLimit: 3) { data, error in
+            
+            if let err = error {
+                NSLog("Error: \(err)")
                 
+            } else {
+                for index in 0..<self.searchModeSectionsInfo.count {
+                    switch self.searchModeSectionsInfo[index] {
+                    case .tracks:
+                        self.searchModeSectionsInfo[index] = .tracks(data)
+                        
+                    default:
+                        break
+                    }
+                }
+                
+                self.searchTableView.reloadData()
             }
         }
     }

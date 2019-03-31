@@ -9,12 +9,7 @@
 import UIKit
 import SDWebImage
 
-class FillableCell: UITableViewCell {
-    func fillCell(withInstance instance: Any) {
-    }
-}
-
-class TrackTableViewCell: FillableCell {
+class TrackTableViewCell: UITableViewCell {
 
     // MARK: Properties
 
@@ -33,11 +28,7 @@ class TrackTableViewCell: FillableCell {
     @IBOutlet weak var trackName: UILabel!
     @IBOutlet weak var artistName: UILabel!
 
-    override func fillCell(withInstance instance: Any) {
-        
-        guard let track = instance as? Track else {
-            fatalError("Unexpected type")
-        }
+    func fillCell(withTrack track: Track) {
         
         trackName.text = track.name
         artistName.text = track.artistName
