@@ -13,53 +13,56 @@ class TrackInfoViewController: UIViewController {
     private let serviceModel = ServiceModel()
     private var placeholder: UIImage?
     var track: Track?
-    
+
     @IBOutlet weak var trackImageView: CircleImageView!
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var trackName: UILabel!
     @IBOutlet weak var trackInfo: UITextView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let placeholder = UIImage(named: "Placeholder") {
             self.placeholder = placeholder
         } else {
             NSLog("Can't find placeholder")
         }
-        
+
         loadInfo()
     }
-    
+
     // MARK: Private Methods
-    
+
     private func loadInfo() {
-        
+
         if let track = track {
-            
+
             if track.info == nil {
                 artistName.text = "by "+track.artistName
                 trackName.text = track.name
-                
+
                 if let largeImg = track.photoUrls[.extralarge], let url = URL(string: largeImg) {
                     trackImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-                    
+
                 } else {
                     trackImageView.image = placeholder
                 }
-                
+
                 serviceModel.getTrackInfo(byTrackName: track.name, byArtistName: track.artistName) { data, error in
-                    
+
                     if let err = error {
                         NSLog("Error: \(err)")
-                        
+
                     } else if let data = data {
-                        self.trackInfo.text = data.info!.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-                        
+                        self.trackInfo.text = data.info!.replacingOccurrences(of: "<[^>]+>\\.? *",
+                                                                              with: "\n",
+                                                                              options: .regularExpression,
+                                                                              range: nil)
+
                     }
                 }
             }
-            
+
         }
     }
 

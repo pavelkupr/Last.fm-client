@@ -14,21 +14,23 @@ class TracksTableViewController: UITableViewController {
 
     private var placeholder: UIImage?
     private let serviceModel = ServiceModel()
+
     var tracks = [Track]()
     var customNavName: String?
-    
+
+    lazy var dataSource = serviceModel.getTopTracksClosure()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let navName = customNavName {
             navigationItem.title = navName
-        }
-        else {
+        } else {
             navigationItem.title = "Top Artists"
         }
-        
+
         if tracks.count == 0 {
-            loadTracks()
+            getTracksFromSource(onPage: 1)
         }
     }
 
@@ -50,53 +52,41 @@ class TracksTableViewController: UITableViewController {
 
         return cell
     }
-    
+
     // MARK: Navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         super.prepare(for: segue, sender: sender)
-        
+
         switch segue.identifier ?? "" {
-            
+
         case "ShowInfo":
             guard let trackInfoVC = segue.destination as? TrackInfoViewController else {
                 fatalError("Unexpected destination")
             }
-            
+
             guard let cell = sender as? TrackTableViewCell else {
                 fatalError("Unexpected sender")
             }
-            
+
             guard let trackId = tableView.indexPath(for: cell)?.row else {
                 fatalError("Cell: \(cell) is not in the tableView")
             }
-            
+
             trackInfoVC.track =  tracks[trackId]
-            
+
         default:
             fatalError("Unexpected segue")
-            
+
         }
     }
-    
-    // MARK: Private Functions
 
-    private func loadTracks() {
-        serviceModel.getTopTracks(onPage: 1, withLimit: 50, closure: { data, error in
+    // MARK: Private Methods
 
-            if let err = error {
-                NSLog("Error: \(err)")
+    private func getTracksFromSource(onPage page: Int) {
 
-            } else {
-                self.tracks = data
-                self.tableView.reloadData()
-            }
-        })
-    }
-
-    private func searchTracks(byName name: String) {
-        serviceModel.searchTracks(byName: name, onPage: 1, withLimit: 50) { data, error in
+        dataSource(page) { data, error in
 
             if let err = error {
                 NSLog("Error: \(err)")

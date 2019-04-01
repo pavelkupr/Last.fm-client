@@ -76,6 +76,8 @@ class ServiceModel {
 
     // MARK: Properties
 
+    private let itemsPerPage = 50
+
     private lazy var httpClient: HTTPClient = {
         guard let baseURL = Bundle.main.infoDictionary?["MY_BASE_URL"] as? String else {
             fatalError("Can't find base URL")
@@ -94,61 +96,64 @@ class ServiceModel {
 
     // MARK: Public Methods
 
-    func getTopArtists(onPage page: Int, withLimit limit: Int, closure: @escaping ([Artist], Error?) -> Void ) {
+    func getTopArtistsClosure() -> (Int, @escaping ([Artist], Error?) -> Void ) -> Void {
 
-        let params = [
-            "method": APIMethod.topArtists.rawValue,
-            "api_key": apiKey,
-            "format": Format.json.rawValue,
-            "page": String(page),
-            "limit": String(limit)
-        ]
+        return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
+            let params = [
+                "method": APIMethod.topArtists.rawValue,
+                "api_key": self.apiKey,
+                "format": Format.json.rawValue,
+                "page": String(page),
+                "limit": String(self.itemsPerPage)
+            ]
 
-        httpClient.get(parameters: params, contentType: .json) { data, error in
+            self.httpClient.get(parameters: params, contentType: .json) { data, error in
 
-            guard error == nil else {
-                closure([], error)
-                return
-            }
+                guard error == nil else {
+                    closure([], error)
+                    return
+                }
 
-            if let jsonData = data as? JSON {
-                do {
-                    let artistsResponse = try ArtistsResponse(jsonArtists: jsonData)
-                    closure(artistsResponse.artists, nil)
+                if let jsonData = data as? JSON {
+                    do {
+                        let artistsResponse = try ArtistsResponse(jsonArtists: jsonData)
+                        closure(artistsResponse.artists, nil)
 
-                } catch let parseError as NSError {
-                    print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                    } catch let parseError as NSError {
+                        print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                    }
                 }
             }
         }
     }
 
-    func searchArtists(byName name: String, onPage page: Int, withLimit limit: Int,
-                       closure: @escaping ([Artist], Error?) -> Void ) {
+    func getSearchArtistsClosure(byName name: String) -> (Int, @escaping ([Artist], Error?) -> Void ) -> Void {
 
-        let params = [
-            "method": APIMethod.searchArtists.rawValue,
-            "api_key": apiKey,
-            "format": Format.json.rawValue,
-            "artist": name,
-            "page": String(page),
-            "limit": String(limit)
-        ]
+        return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
+            let params = [
+                "method": APIMethod.searchArtists.rawValue,
+                "api_key": self.apiKey,
+                "format": Format.json.rawValue,
+                "artist": name,
+                "page": String(page),
+                "limit": String(self.itemsPerPage)
+            ]
 
-        httpClient.get(parameters: params, contentType: .json) { data, error in
+            self.httpClient.get(parameters: params, contentType: .json) { data, error in
 
-            guard error == nil else {
-                closure([], error)
-                return
-            }
+                guard error == nil else {
+                    closure([], error)
+                    return
+                }
 
-            if let jsonData = data as? JSON {
-                do {
-                    let artistsResponse = try ArtistsResponse(foundJSONArtists: jsonData)
-                    closure(artistsResponse.artists, nil)
+                if let jsonData = data as? JSON {
+                    do {
+                        let artistsResponse = try ArtistsResponse(foundJSONArtists: jsonData)
+                        closure(artistsResponse.artists, nil)
 
-                } catch let parseError as NSError {
-                    print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                    } catch let parseError as NSError {
+                        print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                    }
                 }
             }
         }
@@ -184,73 +189,71 @@ class ServiceModel {
 
     }
 
-    func getTopTracks(onPage page: Int, withLimit limit: Int, closure: @escaping ([Track], Error?) -> Void ) -> (Int,Int)->Void {
-        
-        let closure = { (page:Int, limit:Int) -> Void in
+    func getTopTracksClosure() -> (Int, @escaping ([Track], Error?) -> Void) -> Void {
+
+        return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
             let params = [
                 "method": APIMethod.topTracks.rawValue,
                 "api_key": self.apiKey,
                 "format": Format.json.rawValue,
                 "page": String(page),
-                "limit": String(limit)
+                "limit": String(self.itemsPerPage)
             ]
             self.httpClient.get(parameters: params, contentType: .json) { data, error in
-                
+
                 guard error == nil else {
                     closure([], error)
                     return
                 }
-                
+
                 if let jsonData = data as? JSON {
                     do {
                         let tracksResponse = try TracksResponse(jsonTracks: jsonData)
                         closure(tracksResponse.tracks, nil)
-                        
+
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
                     }
-                }
-            }}
-        
-        closure(page, limit)
-        
-        return closure
-    }
-
-    func searchTracks(byName name: String, onPage page: Int, withLimit limit: Int,
-                      closure: @escaping ([Track], Error?) -> Void ) {
-
-        let params = [
-            "method": APIMethod.searchTracks.rawValue,
-            "api_key": apiKey,
-            "format": Format.json.rawValue,
-            "track": name,
-            "page": String(page),
-            "limit": String(limit)
-        ]
-
-        httpClient.get(parameters: params, contentType: .json) { data, error in
-
-            guard error == nil else {
-                closure([], error)
-                return
-            }
-
-            if let jsonData = data as? JSON {
-                do {
-                    let tracksResponse = try TracksResponse(foundJSONTracks: jsonData)
-                    closure(tracksResponse.tracks, nil)
-
-                } catch let parseError as NSError {
-                    print( "JSONSerialization error: \(parseError.localizedDescription)\n")
                 }
             }
         }
     }
 
-    func getTrackInfo(byTrackName trackName: String, byArtistName artistName: String, closure: @escaping (Track?, Error?)
-        -> Void) {
-        
+    func getSearchTracksClosure(byName name: String) -> (Int, @escaping ([Track], Error?) -> Void ) -> Void {
+
+        return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
+            let params = [
+                "method": APIMethod.searchTracks.rawValue,
+                "api_key": self.apiKey,
+                "format": Format.json.rawValue,
+                "track": name,
+                "page": String(page),
+                "limit": String(self.itemsPerPage)
+            ]
+
+            self.httpClient.get(parameters: params, contentType: .json) { data, error in
+
+                guard error == nil else {
+                    closure([], error)
+                    return
+                }
+
+                if let jsonData = data as? JSON {
+                    do {
+                        let tracksResponse = try TracksResponse(foundJSONTracks: jsonData)
+                        closure(tracksResponse.tracks, nil)
+
+                    } catch let parseError as NSError {
+                        print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                    }
+                }
+            }
+        }
+    }
+
+    func getTrackInfo(byTrackName trackName: String, byArtistName artistName: String,
+                      closure: @escaping (Track?, Error?) -> Void) {
+
         let params = [
             "method": APIMethod.trackInfo.rawValue,
             "api_key": apiKey,
@@ -258,24 +261,24 @@ class ServiceModel {
             "artist": artistName,
             "track": trackName
         ]
-        
+
         httpClient.get(parameters: params, contentType: .json) { data, error in
-            
+
             guard error == nil else {
                 closure(nil, error)
                 return
             }
-            
+
             if let jsonData = data as? JSON {
                 do {
                     let trackResponse = try Track(jsonTrackWithInfo: jsonData)
                     closure(trackResponse, nil)
-                    
+
                 } catch let parseError as NSError {
                     print( "JSONSerialization error: \(parseError.localizedDescription)\n")
                 }
             }
         }
-        
+
     }
 }

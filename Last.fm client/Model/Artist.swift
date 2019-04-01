@@ -9,7 +9,7 @@
 import SwiftyJSON
 
 struct Artist {
-    
+
     var name: String
     var playCount: String
     var listeners: String

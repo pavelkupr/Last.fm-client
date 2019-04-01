@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Last.fm client/Model/ServiceModel.swift"
-            timestampString = "575758039.90931"
+            timestampString = "575835016.679522"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "65"
@@ -145,38 +145,6 @@
             endingLineNumber = "13"
             landmarkName = "init(frame:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Last_fm_client.CustomStackView.__allocating_init(frame: __C.CGRect) -&gt; Last_fm_client.CustomStackView"
-                  moduleName = "Last.fm client"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pavel/Documents/develop/Last.fm%20client/Last.fm%20client/Custom%20Views/CustomStackView.swift"
-                  timestampString = "575803101.763539"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Last_fm_client.CustomStackView.init(frame: __C.CGRect) -&gt; Last_fm_client.CustomStackView"
-                  moduleName = "Last.fm client"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pavel/Documents/develop/Last.fm%20client/Last.fm%20client/Custom%20Views/CustomStackView.swift"
-                  timestampString = "575803101.7723221"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14"
-                  offsetFromSymbolStart = "49">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

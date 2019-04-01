@@ -14,21 +14,23 @@ class ArtistsTableViewController: UITableViewController {
 
     private var placeholder: UIImage?
     private let serviceModel = ServiceModel()
+
     var artists = [Artist]()
     var customNavName: String?
-    
+
+    lazy var dataSource = serviceModel.getTopArtistsClosure()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let navName = customNavName {
             navigationItem.title = navName
-        }
-        else {
+        } else {
             navigationItem.title = "Top Tracks"
         }
-        
+
         if artists.count == 0 {
-            loadArtists()
+            getArtistsFromSource(onPage: 1)
         }
     }
 
@@ -55,29 +57,29 @@ class ArtistsTableViewController: UITableViewController {
     // MARK: Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         super.prepare(for: segue, sender: sender)
-        
+
         switch segue.identifier ?? "" {
-            
+
         case "ShowInfo":
             guard let artistInfoVC = segue.destination as? ArtistInfoViewController else {
                 fatalError("Unexpected destination")
             }
-            
+
             guard let cell = sender as? ArtistTableViewCell else {
                 fatalError("Unexpected sender")
             }
-            
+
             guard let artistId = tableView.indexPath(for: cell)?.row else {
                 fatalError("Cell: \(cell) is not in the tableView")
             }
-            
+
             artistInfoVC.artist =  artists[artistId]
-            
+
         default:
             fatalError("Unexpected segue")
-            
+
         }
     }
 
@@ -85,8 +87,9 @@ class ArtistsTableViewController: UITableViewController {
 
     // MARK: Private Functions
 
-    private func loadArtists() {
-        serviceModel.getTopArtists(onPage: 1, withLimit: 50) { data, error in
+    private func getArtistsFromSource(onPage page: Int) {
+
+        dataSource(page) { data, error in
 
             if let err = error {
                 NSLog("Error: \(err)")

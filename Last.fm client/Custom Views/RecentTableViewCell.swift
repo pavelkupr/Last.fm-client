@@ -11,12 +11,12 @@ import UIKit
 class RecentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var recentSearchString: UILabel!
-    
+
     func fillCell(withSearch search: String) {
-        
+
         recentSearchString.text = search
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

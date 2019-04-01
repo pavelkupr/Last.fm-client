@@ -9,7 +9,7 @@
 import SwiftyJSON
 
 struct Track {
-    
+
     var name: String
     var artistName: String
     var playCount: String
@@ -32,10 +32,10 @@ struct Track {
             }
         }
     }
-    
+
     init(jsonTrackWithInfo json: JSON) throws {
         let jsonTrack = json["track"]
-        
+
         name = jsonTrack["name"].stringValue
         playCount = jsonTrack["playcount"].stringValue
         listeners = jsonTrack["listeners"].stringValue
@@ -49,14 +49,14 @@ struct Track {
             }
         }
     }
-    
+
     init(foundJsonTrack: JSON) throws {
-        
+
         name = foundJsonTrack["name"].stringValue
         playCount = foundJsonTrack["playcount"].stringValue
         listeners = foundJsonTrack["listeners"].stringValue
         artistName = foundJsonTrack["artist"].stringValue
-        
+
         if let imagesInfo = foundJsonTrack["image"].array {
             for imageInfo in imagesInfo {
                 if let size = ImageSize(rawValue: imageInfo["size"].stringValue) {
