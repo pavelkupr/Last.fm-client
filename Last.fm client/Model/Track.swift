@@ -14,6 +14,7 @@ struct Track {
     var artistName: String
     var playCount: String
     var listeners: String
+    var info: String?
     var photoUrls = [ImageSize: String]()
 
     init(jsonTrack: JSON) throws {
@@ -23,6 +24,23 @@ struct Track {
         listeners = jsonTrack["listeners"].stringValue
         artistName = jsonTrack["artist"]["name"].stringValue
 
+        if let imagesInfo = jsonTrack["image"].array {
+            for imageInfo in imagesInfo {
+                if let size = ImageSize(rawValue: imageInfo["size"].stringValue) {
+                    photoUrls[size] = imageInfo["#text"].stringValue
+                }
+            }
+        }
+    }
+    
+    init(jsonTrackWithInfo json: JSON) throws {
+        let jsonTrack = json["track"]
+        
+        name = jsonTrack["name"].stringValue
+        playCount = jsonTrack["playcount"].stringValue
+        listeners = jsonTrack["listeners"].stringValue
+        artistName = jsonTrack["artist"]["name"].stringValue
+        info = jsonTrack["wiki"]["content"].stringValue
         if let imagesInfo = jsonTrack["image"].array {
             for imageInfo in imagesInfo {
                 if let size = ImageSize(rawValue: imageInfo["size"].stringValue) {

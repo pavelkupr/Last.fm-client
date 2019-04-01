@@ -23,11 +23,6 @@ class TracksTableViewController: UITableViewController {
         loadTracks()
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-        view.endEditing(true)
-    }
-
     // MARK: Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,7 +41,36 @@ class TracksTableViewController: UITableViewController {
 
         return cell
     }
-
+    
+    // MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        switch segue.identifier ?? "" {
+            
+        case "ShowInfo":
+            guard let trackInfoVC = segue.destination as? TrackInfoViewController else {
+                fatalError("Unexpected destination")
+            }
+            
+            guard let cell = sender as? TrackTableViewCell else {
+                fatalError("Unexpected sender")
+            }
+            
+            guard let trackId = tableView.indexPath(for: cell)?.row else {
+                fatalError("Cell: \(cell) is not in the tableView")
+            }
+            
+            trackInfoVC.track =  tracks[trackId]
+            
+        default:
+            fatalError("Unexpected segue")
+            
+        }
+    }
+    
     // MARK: Private Functions
 
     private func loadTracks() {

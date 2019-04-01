@@ -30,6 +30,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     // MARK: Properties
     
+    private let searchInfoCount = 3
     private let sectionHeaderHeight = CGFloat(30)
     private let serviceModel = ServiceModel()
     
@@ -72,9 +73,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         else {
             switch searchModeSectionsInfo[section] {
             case .artists(let data):
-                return data.count
+                return data.count > searchInfoCount ? searchInfoCount : data.count
             case .tracks(let data):
-                return data.count
+                return data.count > searchInfoCount ? searchInfoCount : data.count
             default:
                 fatalError("Unexpected type of section")
             }
@@ -125,7 +126,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         return currCell
     }
- 
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerName = ""
         
@@ -140,6 +141,25 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
     }
     
+    // MARK: UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isResentMode {
+            switch recentModeSectionInfo[indexPath.section] {
+            case .resentSearches(let data):
+                view.endEditing(true)
+                searchBarView.searchBar.text = ""
+                search(data[indexPath.row])
+                
+            default:
+                fatalError("Unexpected type of section")
+            }
+            
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     // MARK: UISearchBarDelegate
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -148,22 +168,65 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchBar.text = ""
         
         if textForSearch != "" {
-            searchArtists(byName: textForSearch)
-            searchTracks(byName: textForSearch)
-            self.isResentMode = false
-            searchBarView.isSearchMode = false
+            search(textForSearch)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        switch segue.identifier ?? "" {
             
-            for index in 0..<recentModeSectionInfo.count {
-                switch recentModeSectionInfo[index] {
-                case .resentSearches(var data):
-                    if !data.contains(textForSearch) {
-                        data.append(textForSearch)
-                        recentModeSectionInfo[index] = .resentSearches(data)
-                    }
+        case "ShowArtistInfo":
+            guard let artistInfoVC = segue.destination as? ArtistInfoViewController else {
+                fatalError("Unexpected destination")
+            }
+            
+            guard let cell = sender as? ArtistTableViewCell else {
+                fatalError("Unexpected sender")
+            }
+            
+            guard let artistId = searchTableView.indexPath(for: cell)?.row else {
+                fatalError("Cell: \(cell) is not in the tableView")
+            }
+            
+            for element in searchModeSectionsInfo {
+                switch element {
+                case .artists(var data):
+                    artistInfoVC.artist = data[artistId]
+                    
                 default:
                     break
                 }
             }
+        case "ShowTrackInfo":
+            guard let trackInfoVC = segue.destination as? TrackInfoViewController else {
+                fatalError("Unexpected destination")
+            }
+            
+            guard let cell = sender as? TrackTableViewCell else {
+                fatalError("Unexpected sender")
+            }
+            
+            guard let trackId = searchTableView.indexPath(for: cell)?.row else {
+                fatalError("Cell: \(cell) is not in the tableView")
+            }
+            
+            for element in searchModeSectionsInfo {
+                switch element {
+                case .tracks(var data):
+                    trackInfoVC.track = data[trackId]
+                    
+                default:
+                    break
+                }
+            }
+        default:
+            fatalError("Unexpected segue")
+            
         }
     }
     
@@ -179,8 +242,28 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     // MARK: Private Methods
     
+    private func search(_ info: String) {
+        searchArtists(byName: info)
+        searchTracks(byName: info)
+        self.isResentMode = false
+        searchBarView.isSearchMode = false
+        
+        for index in 0..<recentModeSectionInfo.count {
+            switch recentModeSectionInfo[index] {
+            case .resentSearches(var data):
+                if !data.contains(info) {
+                    data.append(info)
+                    recentModeSectionInfo[index] = .resentSearches(data)
+                }
+                
+            default:
+                break
+            }
+        }
+    }
+    
     private func searchArtists(byName name: String) {
-        serviceModel.searchArtists(byName: name, onPage: 1, withLimit: 3) { data, error in
+        serviceModel.searchArtists(byName: name, onPage: 1, withLimit: 50) { data, error in
             
             if let err = error {
                 NSLog("Error: \(err)")
@@ -202,7 +285,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     private func searchTracks(byName name: String) {
-        serviceModel.searchTracks(byName: name, onPage: 1, withLimit: 3) { data, error in
+        serviceModel.searchTracks(byName: name, onPage: 1, withLimit: 50) { data, error in
             
             if let err = error {
                 NSLog("Error: \(err)")

@@ -15,6 +15,7 @@ enum APIMethod: String {
     case searchArtists = "artist.search"
     case searchTracks = "track.search"
     case artistInfo = "artist.getinfo"
+    case trackInfo = "track.getinfo"
 }
 
 enum Format: String {
@@ -243,4 +244,34 @@ class ServiceModel {
         }
     }
 
+    func getTrackInfo(byTrackName trackName: String, byArtistName artistName: String, closure: @escaping (Track?, Error?)
+        -> Void) {
+        
+        let params = [
+            "method": APIMethod.trackInfo.rawValue,
+            "api_key": apiKey,
+            "format": Format.json.rawValue,
+            "artist": artistName,
+            "track": trackName
+        ]
+        
+        httpClient.get(parameters: params, contentType: .json) { data, error in
+            
+            guard error == nil else {
+                closure(nil, error)
+                return
+            }
+            
+            if let jsonData = data as? JSON {
+                do {
+                    let trackResponse = try Track(jsonTrackWithInfo: jsonData)
+                    closure(trackResponse, nil)
+                    
+                } catch let parseError as NSError {
+                    print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                }
+            }
+        }
+        
+    }
 }

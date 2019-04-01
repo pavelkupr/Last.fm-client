@@ -44,30 +44,30 @@ class ArtistsTableViewController: UITableViewController {
 
     // MARK: Navigation
 
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         super.prepare(for: segue, sender: sender)
-
+        
         switch segue.identifier ?? "" {
-
+            
         case "ShowInfo":
             guard let artistInfoVC = segue.destination as? ArtistInfoViewController else {
                 fatalError("Unexpected destination")
             }
-
+            
             guard let cell = sender as? ArtistTableViewCell else {
                 fatalError("Unexpected sender")
             }
-
+            
             guard let artistId = tableView.indexPath(for: cell)?.row else {
                 fatalError("Cell: \(cell) is not in the tableView")
             }
-
+            
             artistInfoVC.artist =  artists[artistId]
-
+            
         default:
             fatalError("Unexpected segue")
-
+            
         }
     }
 

@@ -53,7 +53,8 @@ class ViewWithSearchBarAndButton: UIView {
         cancelButton.setTitleColor(tintColor, for: .normal)
         cancelButton.setTitleColor(UIColor.lightGray, for: .highlighted)
         
-        layer.addBorder(edge: .bottom, color: UIColor.gray, thickness: 1)
+        layer.addBorder(edge: .bottom, color: UIColor.lightGray, thickness: 1)
+        layer.addBorder(edge: .top, color: UIColor.lightGray, thickness: 1)
     }
     
     private func animateModeChange() {

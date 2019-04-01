@@ -56,7 +56,7 @@ class ArtistInfoViewController: UIViewController {
                         NSLog("Error: \(err)")
 
                     } else if let data = data {
-                        self.artistInfo.text = data.info
+                        self.artistInfo.text = data.info!.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
 
                     }
                 }
