@@ -41,10 +41,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var cancelButtonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBarView: ViewWithSearchBarAndButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        searchBarView.searchBar.delegate = self
         searchBar.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
@@ -151,11 +153,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchArtists(byName: textForSearch)
         searchTracks(byName: textForSearch)
         
-        cancelButtonConstraint.constant = 100
+      /*  cancelButtonConstraint.constant = 100
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
-        }
-        
+        }*/
+        searchBarView.isFullSearchBar = false
         for index in 0..<recentModeSectionInfo.count {
             switch recentModeSectionInfo[index] {
             case .resentSearches(var data):

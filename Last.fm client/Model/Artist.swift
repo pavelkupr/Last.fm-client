@@ -8,7 +8,7 @@
 // TODO: Remove SwiftyJSON
 import SwiftyJSON
 
-struct Artist: Equatable {
+struct Artist {
     
     var name: String
     var playCount: String

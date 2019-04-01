@@ -8,7 +8,7 @@
 
 import SwiftyJSON
 
-struct Track: Equatable {
+struct Track {
     
     var name: String
     var artistName: String
