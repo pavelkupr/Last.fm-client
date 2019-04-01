@@ -15,7 +15,11 @@ class SectionHeaderView: UIView {
     var label: UILabel?
     
     private let labelShift: CGFloat = 30
+    private let moreButtonWidth: CGFloat = 100
+    private let labelWidth: CGFloat = 200
     private let backColor = UIColor.init(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
+    
+    var moreButton: UIButton?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,19 +35,31 @@ class SectionHeaderView: UIView {
         super.init(frame: frame)
         initView()
         label?.text = nameOfHeader
+        
+    }
+    
+    func addMoreButton() {
+        if moreButton == nil {
+            moreButton = UIButton(frame: CGRect(x: bounds.width-moreButtonWidth, y: 0, width: moreButtonWidth, height: bounds.height))
+            moreButton?.setTitle("More...", for: .normal)
+            
+            moreButton?.titleLabel?.font = UIFont(name: "System", size: 15)
+            moreButton?.setTitleColor(tintColor, for: .normal)
+            moreButton?.setTitleColor(UIColor.lightGray, for: .highlighted)
+            addSubview(moreButton!)
+        }
     }
     
     // MARK: Private methods
     
     private func initView() {
-        
         backgroundColor = backColor
-        label = UILabel(frame: CGRect(x: labelShift, y: 0, width: bounds.width - labelShift, height: bounds.height))
+        label = UILabel(frame: CGRect(x: labelShift, y: 0, width: labelWidth, height: bounds.height))
         label?.font = UIFont.boldSystemFont(ofSize: 15)
         label?.textColor = UIColor.black
         
         addSubview(label!)
         
     }
-
+    
 }

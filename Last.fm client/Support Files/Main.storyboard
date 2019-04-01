@@ -87,7 +87,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IVw-gP-wBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="379.71014492753625" y="123.21428571428571"/>
+            <point key="canvasLocation" x="1155" y="123"/>
         </scene>
         <!--Artist Info View Controller-->
         <scene sceneID="HqS-8J-SQy">
@@ -155,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9Y-Q9-2Vr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1359" y="123"/>
+            <point key="canvasLocation" x="2320" y="820"/>
         </scene>
         <!--Top Tracks-->
         <scene sceneID="TM0-gL-PQe">
@@ -226,7 +226,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4g-dz-adj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="379.71014492753625" y="819.64285714285711"/>
+            <point key="canvasLocation" x="1541" y="820"/>
         </scene>
         <!--Track Info View Controller-->
         <scene sceneID="vNj-Jv-9Ji">
@@ -302,7 +302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qw3-gj-7Aa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1358" y="818"/>
+            <point key="canvasLocation" x="2319" y="1545"/>
         </scene>
         <!--Top Artists-->
         <scene sceneID="ik4-Bl-Iu7">
@@ -513,6 +513,8 @@
                     <connections>
                         <outlet property="searchBarView" destination="vrN-2S-gra" id="efF-pe-8lI"/>
                         <outlet property="searchTableView" destination="O86-uJ-wc7" id="dWf-qe-7uC"/>
+                        <segue destination="izM-TV-ban" kind="show" identifier="MoreTracks" id="y9T-hz-dBt"/>
+                        <segue destination="4d7-gk-rro" kind="show" identifier="MoreArtists" id="UJu-cN-fWx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lih-bi-vav" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -543,7 +545,9 @@
         <image name="Placeholder" width="610" height="610"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tOV-8S-32U"/>
-        <segue reference="hwN-CN-V6r"/>
+        <segue reference="Lj3-W7-xyO"/>
+        <segue reference="y9T-hz-dBt"/>
+        <segue reference="75A-cw-Zkg"/>
+        <segue reference="UJu-cN-fWx"/>
     </inferredMetricsTieBreakers>
 </document>

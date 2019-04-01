@@ -14,13 +14,22 @@ class TracksTableViewController: UITableViewController {
 
     private var placeholder: UIImage?
     private let serviceModel = ServiceModel()
-    private var tracks = [Track]()
+    var tracks = [Track]()
+    var customNavName: String?
     
     override func viewDidLoad() {
-
         super.viewDidLoad()
-
-        loadTracks()
+        
+        if let navName = customNavName {
+            navigationItem.title = navName
+        }
+        else {
+            navigationItem.title = "Top Artists"
+        }
+        
+        if tracks.count == 0 {
+            loadTracks()
+        }
     }
 
     // MARK: Table view data source
@@ -74,7 +83,7 @@ class TracksTableViewController: UITableViewController {
     // MARK: Private Functions
 
     private func loadTracks() {
-        serviceModel.getTopTracks(onPage: 1, withLimit: 50) { data, error in
+        serviceModel.getTopTracks(onPage: 1, withLimit: 50, closure: { data, error in
 
             if let err = error {
                 NSLog("Error: \(err)")
@@ -83,7 +92,7 @@ class TracksTableViewController: UITableViewController {
                 self.tracks = data
                 self.tableView.reloadData()
             }
-        }
+        })
     }
 
     private func searchTracks(byName name: String) {

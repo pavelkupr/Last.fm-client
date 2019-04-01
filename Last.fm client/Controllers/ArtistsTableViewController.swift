@@ -14,12 +14,22 @@ class ArtistsTableViewController: UITableViewController {
 
     private var placeholder: UIImage?
     private let serviceModel = ServiceModel()
-    private var artists = [Artist]()
-
+    var artists = [Artist]()
+    var customNavName: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadArtists()
+        
+        if let navName = customNavName {
+            navigationItem.title = navName
+        }
+        else {
+            navigationItem.title = "Top Tracks"
+        }
+        
+        if artists.count == 0 {
+            loadArtists()
+        }
     }
 
     // MARK: Table view data source

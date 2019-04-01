@@ -184,33 +184,37 @@ class ServiceModel {
 
     }
 
-    func getTopTracks(onPage page: Int, withLimit limit: Int, closure: @escaping ([Track], Error?) -> Void ) {
-
-        let params = [
-            "method": APIMethod.topTracks.rawValue,
-            "api_key": apiKey,
-            "format": Format.json.rawValue,
-            "page": String(page),
-            "limit": String(limit)
-        ]
-
-        httpClient.get(parameters: params, contentType: .json) { data, error in
-
-            guard error == nil else {
-                closure([], error)
-                return
-            }
-
-            if let jsonData = data as? JSON {
-                do {
-                    let tracksResponse = try TracksResponse(jsonTracks: jsonData)
-                    closure(tracksResponse.tracks, nil)
-
-                } catch let parseError as NSError {
-                    print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+    func getTopTracks(onPage page: Int, withLimit limit: Int, closure: @escaping ([Track], Error?) -> Void ) -> (Int,Int)->Void {
+        
+        let closure = { (page:Int, limit:Int) -> Void in
+            let params = [
+                "method": APIMethod.topTracks.rawValue,
+                "api_key": self.apiKey,
+                "format": Format.json.rawValue,
+                "page": String(page),
+                "limit": String(limit)
+            ]
+            self.httpClient.get(parameters: params, contentType: .json) { data, error in
+                
+                guard error == nil else {
+                    closure([], error)
+                    return
                 }
-            }
-        }
+                
+                if let jsonData = data as? JSON {
+                    do {
+                        let tracksResponse = try TracksResponse(jsonTracks: jsonData)
+                        closure(tracksResponse.tracks, nil)
+                        
+                    } catch let parseError as NSError {
+                        print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                    }
+                }
+            }}
+        
+        closure(page, limit)
+        
+        return closure
     }
 
     func searchTracks(byName name: String, onPage page: Int, withLimit limit: Int,

@@ -129,15 +129,36 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerName = ""
+        var sectionHeader: SectionHeaderView
         
         if isResentMode {
             headerName = recentModeSectionInfo[section].getStringDefinition()
+            sectionHeader = SectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width,
+                                                            height: sectionHeaderHeight), nameOfHeader: headerName)
         }
         else  {
             headerName = searchModeSectionsInfo[section].getStringDefinition()
+            sectionHeader = SectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width,
+                                                            height: sectionHeaderHeight), nameOfHeader: headerName)
+            switch searchModeSectionsInfo[section] {
+            case .artists(let data):
+                if data.count > searchInfoCount {
+                    sectionHeader.addMoreButton()
+                    sectionHeader.moreButton?.addTarget(self, action: #selector(moreArtists(_:)), for: .touchUpInside)
+                }
+            case .tracks(let data):
+                if data.count > searchInfoCount {
+                    sectionHeader.addMoreButton()
+                    sectionHeader.moreButton?.addTarget(self, action: #selector(moreTracks(_:)), for: .touchUpInside)
+                }
+                
+            default:
+                break
+            }
+            
         }
         
-        return SectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight), nameOfHeader: headerName)
+        return sectionHeader
         
     }
     
@@ -224,6 +245,36 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     break
                 }
             }
+        case "MoreArtists":
+            guard let artistsTVC = segue.destination as? ArtistsTableViewController else {
+                fatalError("Unexpected destination")
+            }
+            
+            for element in searchModeSectionsInfo {
+                switch element {
+                case .artists(let data):
+                    artistsTVC.artists = data
+                    artistsTVC.customNavName = "More Artists"
+                    
+                default:
+                    break
+                }
+            }
+        case "MoreTracks":
+            guard let tracksTVC = segue.destination as? TracksTableViewController else {
+                fatalError("Unexpected destination")
+            }
+            
+            for element in searchModeSectionsInfo {
+                switch element {
+                case .tracks(let data):
+                    tracksTVC.tracks = data
+                    tracksTVC.customNavName = "More Tracks"
+                    
+                default:
+                    break
+                }
+            }
         default:
             fatalError("Unexpected segue")
             
@@ -239,6 +290,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchTableView.reloadData()
     }
     
+    @objc func moreArtists(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "MoreArtists", sender: self)
+    }
+    
+    @objc func moreTracks(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "MoreTracks", sender: self)
+    }
     
     // MARK: Private Methods
     

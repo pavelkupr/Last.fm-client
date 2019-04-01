@@ -23,7 +23,6 @@
 		CBE8C1B587F881F92710561C /* Pods_Last_fm_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */; };
 		E925F0DD2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925F0DC2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift */; };
 		E9D337B72251002E00DA9363 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D337B62251002E00DA9363 /* SectionHeaderView.swift */; };
-		E9D337B92251531300DA9363 /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D337B82251531300DA9363 /* CustomStackView.swift */; };
 		E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DAFA64224A22C900FC1BB7 /* Track.swift */; };
 		E9E6E92B224979B5003BFD02 /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92A224979B5003BFD02 /* ServiceModel.swift */; };
 		E9E6E92D22498BCA003BFD02 /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */; };
@@ -50,7 +49,6 @@
 		7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Last_fm_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E925F0DC2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithSearchBarAndButton.swift; sourceTree = "<group>"; };
 		E9D337B62251002E00DA9363 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
-		E9D337B82251531300DA9363 /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		E9DAFA64224A22C900FC1BB7 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		E9E6E92A224979B5003BFD02 /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
 		E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */,
 				E9E6E93722499D77003BFD02 /* CircleImageView.swift */,
 				E9D337B62251002E00DA9363 /* SectionHeaderView.swift */,
-				E9D337B82251531300DA9363 /* CustomStackView.swift */,
 				E925F0DC2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift */,
 			);
 			path = "Custom Views";
@@ -295,7 +292,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9D337B92251531300DA9363 /* CustomStackView.swift in Sources */,
 				E9E6E92B224979B5003BFD02 /* ServiceModel.swift in Sources */,
 				3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* ArtistInfoViewController.swift in Sources */,
