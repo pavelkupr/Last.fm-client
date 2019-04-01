@@ -12,11 +12,12 @@ import UIKit
 class ViewWithSearchBarAndButton: UIView {
 
     let buttonWidth: CGFloat = 100
-    var isFullSearchBar = true {
+    var isSearchMode = true {
         didSet{
-            changeMode()
+            animateModeChange()
         }
     }
+    
     var searchBar: UISearchBar!
     var cancelButton: UIButton!
     
@@ -33,35 +34,62 @@ class ViewWithSearchBarAndButton: UIView {
     // MARK: Private methods
     
     private func initView() {
-        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height))
+        if isSearchMode {
+            searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height))
+            cancelButton = UIButton(frame: CGRect(x: bounds.width, y: 0, width: 0, height: bounds.height))
+            cancelButton.titleLabel?.alpha = 0
+        }
+        else {
+            searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: bounds.width-buttonWidth, height: bounds.height))
+            cancelButton = UIButton(frame: CGRect(x: bounds.width-buttonWidth, y: 0, width: buttonWidth, height: bounds.height))
+        }
+        addSubview(searchBar)
+        addSubview(cancelButton)
+        
         searchBar.barTintColor = UIColor.init(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
-        cancelButton = UIButton(frame: CGRect(x: bounds.width, y: 0, width: bounds.width, height: bounds.height))
         cancelButton.backgroundColor = UIColor.init(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
         
         cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.setTitleColor(UIColor.blue, for: .normal)
-        addSubview(searchBar)
-        addSubview(cancelButton)
+        cancelButton.setTitleColor(tintColor, for: .normal)
+        cancelButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        
         layer.addBorder(edge: .bottom, color: UIColor.gray, thickness: 1)
-        layer.addBorder(edge: .top, color: UIColor.gray, thickness: 1)
     }
     
-    private func changeMode() {
-        UIView.transition(with: self,
-                          duration: 0.4,
-                          options: [],
-                          animations: {
-                            let rect = self.bounds
-                            if self.isFullSearchBar {
-                                self.searchBar.frame = CGRect(x: 0, y: 0, width: rect.width, height: rect.height)
-                                self.cancelButton.frame = CGRect(x: rect.width, y: 0, width: rect.width, height: rect.height)
-                            }
-                            else {
-                                self.searchBar.frame = CGRect(x: 0, y: 0, width: rect.width-self.buttonWidth, height: rect.height)
-                                self.cancelButton.frame = CGRect(x: rect.width-self.buttonWidth, y: 0, width: rect.width, height: rect.height)
-                            }
-                            
+    private func animateModeChange() {
+        if !isSearchMode {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.unsetSearchMode()
+                self.layoutIfNeeded()
+                
+            }) { result in
+                UIView.animate(withDuration: 0.2) {
+                    self.cancelButton.titleLabel?.alpha = 1
+                    self.layoutIfNeeded()
+                }
+            }
         }
-        )
+        else {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.cancelButton.titleLabel?.alpha = 0
+                self.layoutIfNeeded()
+                
+            }) { result in
+                UIView.animate(withDuration: 0.3) {
+                    self.setSearchMode()
+                    self.layoutIfNeeded()
+                }
+            }
+        }
+    }
+    
+    private func setSearchMode() {
+        searchBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+        cancelButton.frame = CGRect(x: bounds.width, y: 0, width: 0, height: bounds.height)
+    }
+
+    private func unsetSearchMode() {
+        searchBar.frame = CGRect(x: 0, y: 0, width: bounds.width-buttonWidth, height: bounds.height)
+        cancelButton.frame = CGRect(x: bounds.width-buttonWidth, y: 0, width: buttonWidth, height: bounds.height)
     }
 }

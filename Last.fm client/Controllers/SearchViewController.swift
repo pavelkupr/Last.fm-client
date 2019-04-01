@@ -38,16 +38,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     private var recentModeSectionInfo = [SectionItem.resentSearches([])]
     
 
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
-    @IBOutlet weak var cancelButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchBarView: ViewWithSearchBarAndButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchBarView.searchBar.delegate = self
-        searchBar.delegate = self
+        searchBarView.cancelButton.addTarget(self, action: #selector(cancelSearchMode(_:)), for: .touchUpInside)
         searchTableView.delegate = self
         searchTableView.dataSource = self
         searchTableView.tableFooterView = UIView()
@@ -146,40 +144,34 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
-        let textForSearch = searchBar.text!
+        let textForSearch = searchBar.text!.trimmingCharacters(in: .whitespaces)
         searchBar.text = ""
-        self.isResentMode = false
         
-        searchArtists(byName: textForSearch)
-        searchTracks(byName: textForSearch)
-        
-      /*  cancelButtonConstraint.constant = 100
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }*/
-        searchBarView.isFullSearchBar = false
-        for index in 0..<recentModeSectionInfo.count {
-            switch recentModeSectionInfo[index] {
-            case .resentSearches(var data):
-                if !data.contains(textForSearch) {
-                    data.append(textForSearch)
-                    recentModeSectionInfo[index] = .resentSearches(data)
+        if textForSearch != "" {
+            searchArtists(byName: textForSearch)
+            searchTracks(byName: textForSearch)
+            self.isResentMode = false
+            searchBarView.isSearchMode = false
+            
+            for index in 0..<recentModeSectionInfo.count {
+                switch recentModeSectionInfo[index] {
+                case .resentSearches(var data):
+                    if !data.contains(textForSearch) {
+                        data.append(textForSearch)
+                        recentModeSectionInfo[index] = .resentSearches(data)
+                    }
+                default:
+                    break
                 }
-            default:
-                break
             }
         }
-        
     }
     
     // MARK: Actions
     
-    @IBAction func cancelSearchMode(_ sender: UIButton) {
-        cancelButtonConstraint.constant = 0
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
+    @objc func cancelSearchMode(_ sender: UIButton) {
         
+        searchBarView.isSearchMode = true
         self.isResentMode = true
         searchTableView.reloadData()
     }

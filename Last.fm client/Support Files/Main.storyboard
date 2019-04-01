@@ -283,30 +283,6 @@
                                             <constraint firstAttribute="height" constant="50" id="tr8-Xu-L2H"/>
                                         </constraints>
                                     </view>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUC-ll-TjS" customClass="CustomStackView" customModule="Last_fm_client" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                        <subviews>
-                                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="mlD-X8-hdr">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                                <color key="barTintColor" red="0.86274509803921573" green="0.86274509803921573" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </searchBar>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geF-2Z-EVy">
-                                                <rect key="frame" x="414" y="0.0" width="0.0" height="50"/>
-                                                <color key="backgroundColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" id="Zn5-6y-gJw"/>
-                                                </constraints>
-                                                <state key="normal" title="Cancel"/>
-                                                <connections>
-                                                    <action selector="cancelSearchMode:" destination="3ha-xm-hlv" eventType="touchUpInside" id="emm-nL-adZ"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="1ao-J4-Wre"/>
-                                        </constraints>
-                                    </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="O86-uJ-wc7">
                                         <rect key="frame" x="0.0" y="50" width="414" height="719"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -437,10 +413,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="O86-uJ-wc7" firstAttribute="leading" secondItem="wpc-W0-S40" secondAttribute="leading" id="81a-Cl-E21"/>
-                                    <constraint firstAttribute="trailing" secondItem="vUC-ll-TjS" secondAttribute="trailing" id="L11-0g-65M"/>
                                     <constraint firstAttribute="bottom" secondItem="O86-uJ-wc7" secondAttribute="bottom" id="Unl-4K-ngT"/>
-                                    <constraint firstItem="vUC-ll-TjS" firstAttribute="top" secondItem="wpc-W0-S40" secondAttribute="top" id="X3e-b2-GUk"/>
-                                    <constraint firstItem="vUC-ll-TjS" firstAttribute="leading" secondItem="wpc-W0-S40" secondAttribute="leading" id="eFS-Jv-Bgb"/>
                                     <constraint firstAttribute="trailing" secondItem="O86-uJ-wc7" secondAttribute="trailing" id="eZv-I7-MmG"/>
                                 </constraints>
                             </stackView>
@@ -456,8 +429,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" id="WXH-gD-KZf"/>
                     <connections>
-                        <outlet property="cancelButtonConstraint" destination="Zn5-6y-gJw" id="Flp-Ds-8Wg"/>
-                        <outlet property="searchBar" destination="mlD-X8-hdr" id="aXr-je-cCK"/>
                         <outlet property="searchBarView" destination="vrN-2S-gra" id="efF-pe-8lI"/>
                         <outlet property="searchTableView" destination="O86-uJ-wc7" id="dWf-qe-7uC"/>
                     </connections>
@@ -468,6 +439,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Placeholder" width="305" height="305"/>
+        <image name="Placeholder" width="610" height="610"/>
     </resources>
 </document>
