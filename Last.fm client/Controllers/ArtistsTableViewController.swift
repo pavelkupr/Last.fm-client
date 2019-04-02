@@ -13,12 +13,13 @@ class ArtistsTableViewController: UITableViewController {
     // MARK: Properties
 
     private var placeholder: UIImage?
-    private let serviceModel = ServiceModel()
-
+    private let apiService = APIService()
+    private var currPage = 1
+    
     var artists = [Artist]()
     var customNavName: String?
 
-    lazy var dataSource = serviceModel.getTopArtistsClosure()
+    lazy var dataSource = apiService.getTopArtistsClosure()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class ArtistsTableViewController: UITableViewController {
         }
 
         if artists.count == 0 {
-            getArtistsFromSource(onPage: 1)
+            getArtistsFromSource(onPage: currPage)
         }
     }
 
@@ -50,7 +51,12 @@ class ArtistsTableViewController: UITableViewController {
         }
 
         cell.fillCell(withArtist: artists[indexPath.row])
-
+        //  TODO: Create method for paging
+        if indexPath.row + 1 == apiService.itemsPerPage * currPage {
+            currPage += 1
+            getArtistsFromSource(onPage: currPage)
+        }
+        
         return cell
     }
 
@@ -95,10 +101,15 @@ class ArtistsTableViewController: UITableViewController {
                 NSLog("Error: \(err)")
 
             } else {
-                self.artists = data
+                self.artists += data
                 self.tableView.reloadData()
             }
         }
     }
 
+}
+extension ArtistsTableViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+    }
 }

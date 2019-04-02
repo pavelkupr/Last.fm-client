@@ -10,7 +10,7 @@ import UIKit
 
 class TrackInfoViewController: UIViewController {
 
-    private let serviceModel = ServiceModel()
+    private let apiService = APIService()
     private var placeholder: UIImage?
     var track: Track?
 
@@ -48,7 +48,7 @@ class TrackInfoViewController: UIViewController {
                     trackImageView.image = placeholder
                 }
 
-                serviceModel.getTrackInfo(byTrackName: track.name, byArtistName: track.artistName) { data, error in
+                apiService.getTrackInfo(byTrackName: track.name, byArtistName: track.artistName) { data, error in
 
                     if let err = error {
                         NSLog("Error: \(err)")

@@ -13,7 +13,7 @@ class ArtistInfoViewController: UIViewController {
 
     // MARK: Properties
 
-    private let serviceModel = ServiceModel()
+    private let apiService = APIService()
     var artist: Artist?
 
     private var placeholder: UIImage?
@@ -50,7 +50,7 @@ class ArtistInfoViewController: UIViewController {
                     artistImageView.image = placeholder
                 }
 
-                serviceModel.getArtistInfo(byName: artist.name) { data, error in
+                apiService.getArtistInfo(byName: artist.name) { data, error in
 
                     if let err = error {
                         NSLog("Error: \(err)")

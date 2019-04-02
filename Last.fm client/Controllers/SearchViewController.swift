@@ -33,7 +33,7 @@ UITableViewDelegate, UITableViewDataSource {
 
     private let searchInfoCount = 3
     private let sectionHeaderHeight = CGFloat(30)
-    private let serviceModel = ServiceModel()
+    private let apiService = APIService()
 
     private var isResentMode = true
     private var searchModeSectionsInfo = [SectionItem.artists([]), SectionItem.tracks([])]
@@ -289,7 +289,7 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     private func searchArtists(byName name: String) {
-        artistsSource = serviceModel.getSearchArtistsClosure(byName: name)
+        artistsSource = apiService.getSearchArtistsClosure(byName: name)
         artistsSource!(1) { data, error in
 
             if let err = error {
@@ -312,7 +312,7 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     private func searchTracks(byName name: String) {
-        tracksSource = serviceModel.getSearchTracksClosure(byName: name)
+        tracksSource = apiService.getSearchTracksClosure(byName: name)
         tracksSource!(1) { data, error in
 
             if let err = error {

@@ -13,12 +13,13 @@ class TracksTableViewController: UITableViewController {
     // MARK: Properties
 
     private var placeholder: UIImage?
-    private let serviceModel = ServiceModel()
-
+    private let apiService = APIService()
+    private var currPage = 1
+    
     var tracks = [Track]()
     var customNavName: String?
 
-    lazy var dataSource = serviceModel.getTopTracksClosure()
+    lazy var dataSource = apiService.getTopTracksClosure()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class TracksTableViewController: UITableViewController {
         }
 
         if tracks.count == 0 {
-            getTracksFromSource(onPage: 1)
+            getTracksFromSource(onPage: currPage)
         }
     }
 
@@ -49,7 +50,12 @@ class TracksTableViewController: UITableViewController {
         }
 
         cell.fillCell(withTrack: tracks[indexPath.row])
-
+        //  TODO: Create method for paging
+        if indexPath.row + 1 == apiService.itemsPerPage * currPage {
+            currPage += 1
+            getTracksFromSource(onPage: currPage)
+        }
+        
         return cell
     }
 
@@ -92,7 +98,7 @@ class TracksTableViewController: UITableViewController {
                 NSLog("Error: \(err)")
 
             } else {
-                self.tracks = data
+                self.tracks += data
                 self.tableView.reloadData()
             }
         }

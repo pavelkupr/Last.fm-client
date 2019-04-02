@@ -1,5 +1,5 @@
 //
-//  ServiceModel.swift
+//  APIService.swift
 //  Last.fm client
 //
 //  Created by Pavel on 3/25/19.
@@ -72,11 +72,11 @@ struct TracksResponse {
 
 }
 
-class ServiceModel {
+class APIService {
 
     // MARK: Properties
 
-    private let itemsPerPage = 50
+    let itemsPerPage = 50
 
     private lazy var httpClient: HTTPClient = {
         guard let baseURL = Bundle.main.infoDictionary?["MY_BASE_URL"] as? String else {
@@ -117,7 +117,7 @@ class ServiceModel {
                 if let jsonData = data as? JSON {
                     do {
                         let artistsResponse = try ArtistsResponse(jsonArtists: jsonData)
-                        closure(artistsResponse.artists, nil)
+                        closure(self.apiTopArtistsSecondPageBugFix(page, artistsResponse.artists), nil)
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -281,4 +281,16 @@ class ServiceModel {
         }
 
     }
+    
+    // MARK: Private Methods
+    
+    private func apiTopArtistsSecondPageBugFix(_ page: Int, _ data: [Artist]) -> [Artist] {
+        if page == 2 {
+            return Array(data.suffix(itemsPerPage))
+        }
+        else {
+            return data
+        }
+    }
+    
 }
