@@ -52,6 +52,7 @@ UITableViewDelegate, UITableViewDataSource {
         searchBarView.cancelButton.addTarget(self, action: #selector(cancelSearchMode(_:)), for: .touchUpInside)
         searchTableView.delegate = self
         searchTableView.dataSource = self
+        // TODO: Make activity view load from code and be able to use here
         searchTableView.tableFooterView = UIView()
     }
 

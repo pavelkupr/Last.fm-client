@@ -37,6 +37,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="rRq-DC-gDa">
+                            <rect key="frame" x="0.0" y="118" width="414" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="plY-zW-gOd">
+                                    <rect key="frame" x="197" y="40" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="plY-zW-gOd" firstAttribute="centerX" secondItem="rRq-DC-gDa" secondAttribute="centerX" id="SoP-My-ye0"/>
+                                <constraint firstItem="plY-zW-gOd" firstAttribute="centerY" secondItem="rRq-DC-gDa" secondAttribute="centerY" id="s32-tk-i22"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistCell" rowHeight="90" id="gC6-Bf-KPb" customClass="ArtistTableViewCell" customModule="Last_fm_client" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="90"/>
@@ -177,6 +191,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="8xo-QH-U2l">
+                            <rect key="frame" x="0.0" y="118" width="414" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="w7z-Rb-t1U">
+                                    <rect key="frame" x="197" y="40" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="w7z-Rb-t1U" firstAttribute="centerY" secondItem="8xo-QH-U2l" secondAttribute="centerY" id="JmE-ta-9Je"/>
+                                <constraint firstItem="w7z-Rb-t1U" firstAttribute="centerX" secondItem="8xo-QH-U2l" secondAttribute="centerX" id="yNc-6Y-b4N"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackCell" rowHeight="90" id="YnJ-Wk-jnt" customClass="TrackTableViewCell" customModule="Last_fm_client" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="90"/>
