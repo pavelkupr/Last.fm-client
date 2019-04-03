@@ -24,14 +24,20 @@ class TrackTableViewCell: UITableViewCell {
         }
     }()
 
-    @IBOutlet weak var trackImageView: CircleImageView!
+    @IBOutlet weak var trackImageView: RoundedImageView!
     @IBOutlet weak var trackName: UILabel!
     @IBOutlet weak var artistName: UILabel!
+    @IBOutlet weak var topInfo: UILabel!
 
-    func fillCell(withTrack track: Track) {
+    func fillCell(withTrack track: Track, numInChart: Int? = nil) {
+
+        if let top = numInChart {
+            topInfo.isHidden = false
+            topInfo.text = "Top " + String(top)
+        }
 
         trackName.text = track.name
-        artistName.text = track.artistName
+        artistName.text = "by " + track.artistName
 
         if let largeImg = track.photoUrls[sizeDesc], let url = URL(string: largeImg) {
             trackImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)

@@ -12,14 +12,16 @@ class ArtistsTableViewController: UITableViewController {
 
     // MARK: Properties
 
-    private var placeholder: UIImage?
     private let apiService = APIService()
-    private var currPage = 1
-    
-    var artists = [Artist]()
-    var customNavName: String?
+    private let preLoadCount = 3
 
-    lazy var dataSource = apiService.getTopArtistsClosure()
+    private var currPage = 1
+    private var placeholder: UIImage?
+    private var artists = [Artist]()
+    private var customNavName: String?
+    private var isTopChart = true
+
+    private lazy var dataSource = apiService.getTopArtistsClosure()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,7 @@ class ArtistsTableViewController: UITableViewController {
         if let navName = customNavName {
             navigationItem.title = navName
         } else {
-            navigationItem.title = "Top Tracks"
+            navigationItem.title = "Top Artists"
         }
 
         if artists.count == 0 {
@@ -49,14 +51,16 @@ class ArtistsTableViewController: UITableViewController {
 
             fatalError("Unexpected type of cell")
         }
-
-        cell.fillCell(withArtist: artists[indexPath.row])
-        //  TODO: Create method for paging
-        if indexPath.row + 1 == apiService.itemsPerPage * currPage {
-            currPage += 1
-            getArtistsFromSource(onPage: currPage)
+        if isTopChart {
+            cell.fillCell(withArtist: artists[indexPath.row], numInChart: indexPath.row + 1)
+        } else {
+            cell.fillCell(withArtist: artists[indexPath.row])
         }
-        
+
+        if isStartLoadNextPage(currRow: indexPath.row) {
+            getArtistsFromSource(onPage: currPage.increment())
+        }
+
         return cell
     }
 
@@ -89,9 +93,26 @@ class ArtistsTableViewController: UITableViewController {
         }
     }
 
-    // MARK: Actions
+    func setCustomStartInfo(withSource source: @escaping ArtistSource, withName name: String,
+                            withFirstPage fisrstPage: [Artist]?) {
+        customNavName = name
+        dataSource = source
+        isTopChart = false
+        if let page = fisrstPage {
+            artists = page
+        }
+    }
 
     // MARK: Private Functions
+
+    private func isStartLoadNextPage(currRow: Int) -> Bool {
+
+        if apiService.itemsPerPage > preLoadCount {
+            return currRow + 1 == artists.count - preLoadCount
+        } else {
+            return currRow + 1 == artists.count
+        }
+    }
 
     private func getArtistsFromSource(onPage page: Int) {
 
@@ -107,9 +128,4 @@ class ArtistsTableViewController: UITableViewController {
         }
     }
 
-}
-extension ArtistsTableViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        
-    }
 }

@@ -26,8 +26,14 @@ class ArtistTableViewCell: UITableViewCell {
 
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var artistName: UILabel!
+    @IBOutlet weak var topInfo: UILabel!
 
-    func fillCell(withArtist artist: Artist) {
+    func fillCell(withArtist artist: Artist, numInChart: Int? = nil) {
+
+        if let top = numInChart {
+            topInfo.isHidden = false
+            topInfo.text = "Top " + String(top)
+        }
 
         artistName.text = artist.name
 

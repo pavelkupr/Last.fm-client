@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F04FFFB2254BB4700C48292 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F04FFFA2254BB4700C48292 /* CALayerExtension.swift */; };
+		3F04FFFD2254BB9500C48292 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F04FFFC2254BB9500C48292 /* IntExtension.swift */; };
 		3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */; };
 		3F2EB082224CCC0C00AEE3DE /* RecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */; };
 		3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8BA224904B4002E676C /* AppDelegate.swift */; };
@@ -26,10 +28,12 @@
 		E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DAFA64224A22C900FC1BB7 /* Track.swift */; };
 		E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92A224979B5003BFD02 /* APIService.swift */; };
 		E9E6E92D22498BCA003BFD02 /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */; };
-		E9E6E93822499D77003BFD02 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E93722499D77003BFD02 /* CircleImageView.swift */; };
+		E9E6E93822499D77003BFD02 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E93722499D77003BFD02 /* RoundedImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F04FFFA2254BB4700C48292 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		3F04FFFC2254BB9500C48292 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTableViewCell.swift; sourceTree = "<group>"; };
 		3F43A8B7224904B4002E676C /* Last.fm client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last.fm client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,7 +56,7 @@
 		E9DAFA64224A22C900FC1BB7 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		E9E6E92A224979B5003BFD02 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
-		E9E6E93722499D77003BFD02 /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		E9E6E93722499D77003BFD02 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		F13DC256ED07955FE5E87E2B /* Pods-Last.fm client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Last.fm client.debug.xcconfig"; path = "Target Support Files/Pods-Last.fm client/Pods-Last.fm client.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +72,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F0400002254F39000C48292 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E9E6E92A224979B5003BFD02 /* APIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3F04FFF92254BB1000C48292 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3F04FFFA2254BB4700C48292 /* CALayerExtension.swift */,
+				3F04FFFC2254BB9500C48292 /* IntExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		3F43A8AE224904B4002E676C = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +111,9 @@
 			isa = PBXGroup;
 			children = (
 				3FECB265224BC95A00D60B75 /* Support Files */,
-				3F43A8D122491B66002E676C /* Model */,
+				3F04FFF92254BB1000C48292 /* Extensions */,
+				3F43A8D122491B66002E676C /* Models */,
+				3F0400002254F39000C48292 /* Services */,
 				3F43A8CC224917D8002E676C /* Networking */,
 				E9E6E93022499AA0003BFD02 /* Custom Views */,
 				3FECB264224BC92E00D60B75 /* Controllers */,
@@ -107,14 +130,13 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		3F43A8D122491B66002E676C /* Model */ = {
+		3F43A8D122491B66002E676C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				3F43A8D222491B81002E676C /* Artist.swift */,
 				E9DAFA64224A22C900FC1BB7 /* Track.swift */,
-				E9E6E92A224979B5003BFD02 /* APIService.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3FECB264224BC92E00D60B75 /* Controllers */ = {
@@ -163,7 +185,7 @@
 				3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */,
 				E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */,
 				3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */,
-				E9E6E93722499D77003BFD02 /* CircleImageView.swift */,
+				E9E6E93722499D77003BFD02 /* RoundedImageView.swift */,
 				E9D337B62251002E00DA9363 /* SectionHeaderView.swift */,
 				E925F0DC2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift */,
 			);
@@ -296,7 +318,8 @@
 				3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* ArtistInfoViewController.swift in Sources */,
 				3F43A8BD224904B4002E676C /* ArtistsTableViewController.swift in Sources */,
-				E9E6E93822499D77003BFD02 /* CircleImageView.swift in Sources */,
+				E9E6E93822499D77003BFD02 /* RoundedImageView.swift in Sources */,
+				3F04FFFD2254BB9500C48292 /* IntExtension.swift in Sources */,
 				E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */,
 				3FD9E49C224A36F900AE3541 /* TrackTableViewCell.swift in Sources */,
 				E925F0DD2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift in Sources */,
@@ -308,6 +331,7 @@
 				E9D337B72251002E00DA9363 /* SectionHeaderView.swift in Sources */,
 				E9E6E92D22498BCA003BFD02 /* ArtistTableViewCell.swift in Sources */,
 				3F43A8CE2249184A002E676C /* HTTPClient.swift in Sources */,
+				3F04FFFB2254BB4700C48292 /* CALayerExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

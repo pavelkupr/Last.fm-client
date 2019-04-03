@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
+typealias ArtistSource = ((_ page: Int, _ closure: @escaping ([Artist], Error?) -> Void ) -> Void)
+typealias TrackSource = ((_ page: Int, _ closure: @escaping ([Track], Error?) -> Void ) -> Void)
+
 enum APIMethod: String {
     case topArtists = "chart.gettopartists"
     case topTracks = "chart.gettoptracks"
@@ -96,7 +99,7 @@ class APIService {
 
     // MARK: Public Methods
 
-    func getTopArtistsClosure() -> (Int, @escaping ([Artist], Error?) -> Void ) -> Void {
+    func getTopArtistsClosure() -> ArtistSource {
 
         return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
             let params = [
@@ -127,7 +130,7 @@ class APIService {
         }
     }
 
-    func getSearchArtistsClosure(byName name: String) -> (Int, @escaping ([Artist], Error?) -> Void ) -> Void {
+    func getSearchArtistsClosure(byName name: String) -> ArtistSource {
 
         return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
             let params = [
@@ -189,7 +192,7 @@ class APIService {
 
     }
 
-    func getTopTracksClosure() -> (Int, @escaping ([Track], Error?) -> Void) -> Void {
+    func getTopTracksClosure() -> TrackSource {
 
         return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
             let params = [
@@ -219,7 +222,7 @@ class APIService {
         }
     }
 
-    func getSearchTracksClosure(byName name: String) -> (Int, @escaping ([Track], Error?) -> Void ) -> Void {
+    func getSearchTracksClosure(byName name: String) -> TrackSource {
 
         return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
             let params = [
@@ -281,16 +284,15 @@ class APIService {
         }
 
     }
-    
+
     // MARK: Private Methods
-    
+
     private func apiTopArtistsSecondPageBugFix(_ page: Int, _ data: [Artist]) -> [Artist] {
         if page == 2 {
             return Array(data.suffix(itemsPerPage))
-        }
-        else {
+        } else {
             return data
         }
     }
-    
+
 }

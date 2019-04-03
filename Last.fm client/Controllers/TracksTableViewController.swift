@@ -12,14 +12,16 @@ class TracksTableViewController: UITableViewController {
 
     // MARK: Properties
 
-    private var placeholder: UIImage?
     private let apiService = APIService()
-    private var currPage = 1
-    
-    var tracks = [Track]()
-    var customNavName: String?
+    private let preLoadCount = 3
 
-    lazy var dataSource = apiService.getTopTracksClosure()
+    private var currPage = 1
+    private var placeholder: UIImage?
+    private var tracks = [Track]()
+    private var customNavName: String?
+    private var isTopChart = true
+
+    private lazy var dataSource = apiService.getTopTracksClosure()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,7 @@ class TracksTableViewController: UITableViewController {
         if let navName = customNavName {
             navigationItem.title = navName
         } else {
-            navigationItem.title = "Top Artists"
+            navigationItem.title = "Top Tracks"
         }
 
         if tracks.count == 0 {
@@ -48,14 +50,15 @@ class TracksTableViewController: UITableViewController {
             TrackTableViewCell else {
             fatalError("Unexpected type of cell")
         }
-
-        cell.fillCell(withTrack: tracks[indexPath.row])
-        //  TODO: Create method for paging
-        if indexPath.row + 1 == apiService.itemsPerPage * currPage {
-            currPage += 1
-            getTracksFromSource(onPage: currPage)
+        if isTopChart {
+            cell.fillCell(withTrack: tracks[indexPath.row], numInChart: indexPath.row + 1)
+        } else {
+            cell.fillCell(withTrack: tracks[indexPath.row])
         }
-        
+        if isStartLoadNextPage(currRow: indexPath.row) {
+            getTracksFromSource(onPage: currPage.increment())
+        }
+
         return cell
     }
 
@@ -88,7 +91,26 @@ class TracksTableViewController: UITableViewController {
         }
     }
 
+    func setCustomStartInfo(withSource source: @escaping TrackSource, withName name: String,
+                            withFirstPage fisrstPage: [Track]?) {
+        customNavName = name
+        dataSource = source
+        isTopChart = false
+        if let page = fisrstPage {
+            tracks = page
+        }
+    }
+
     // MARK: Private Methods
+
+    private func isStartLoadNextPage(currRow: Int) -> Bool {
+
+        if apiService.itemsPerPage > preLoadCount {
+            return currRow + 1 == tracks.count - preLoadCount
+        } else {
+            return currRow + 1 == tracks.count
+        }
+    }
 
     private func getTracksFromSource(onPage page: Int) {
 

@@ -14,7 +14,7 @@ class TrackInfoViewController: UIViewController {
     private var placeholder: UIImage?
     var track: Track?
 
-    @IBOutlet weak var trackImageView: CircleImageView!
+    @IBOutlet weak var trackImageView: RoundedImageView!
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var trackName: UILabel!
     @IBOutlet weak var trackInfo: UITextView!

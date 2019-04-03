@@ -39,8 +39,8 @@ UITableViewDelegate, UITableViewDataSource {
     private var searchModeSectionsInfo = [SectionItem.artists([]), SectionItem.tracks([])]
     private var recentModeSectionInfo = [SectionItem.resentSearches([])]
 
-    private var tracksSource: ((Int, @escaping ([Track], Error?) -> Void ) -> Void)?
-    private var artistsSource: ((Int, @escaping ([Artist], Error?) -> Void ) -> Void)?
+    private var tracksSource: TrackSource?
+    private var artistsSource: ArtistSource?
 
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchBarView: ViewWithSearchBarAndButton!
@@ -365,10 +365,7 @@ UITableViewDelegate, UITableViewDataSource {
                 guard let source = artistsSource else {
                     fatalError("Source is empty")
                 }
-
-                artistsTVC.artists = data
-                artistsTVC.customNavName = "More Artists"
-                artistsTVC.dataSource = source
+                artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists", withFirstPage: data)
 
             default:
                 break
@@ -383,10 +380,7 @@ UITableViewDelegate, UITableViewDataSource {
                 guard let source = tracksSource else {
                     fatalError("Source is empty")
                 }
-
-                tracksTVC.tracks = data
-                tracksTVC.customNavName = "More Tracks"
-                tracksTVC.dataSource = source
+                tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks", withFirstPage: data)
 
             default:
                 break

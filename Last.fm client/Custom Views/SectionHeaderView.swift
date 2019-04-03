@@ -14,7 +14,7 @@ class SectionHeaderView: UIView {
 
     var label: UILabel?
 
-    private let labelShift: CGFloat = 30
+    private let labelShift: CGFloat = 35
     private let moreButtonWidth: CGFloat = 100
     private let labelWidth: CGFloat = 200
     private let backColor = UIColor.init(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
@@ -44,7 +44,7 @@ class SectionHeaderView: UIView {
                                                 width: moreButtonWidth, height: bounds.height))
             moreButton?.setTitle("More...", for: .normal)
 
-            moreButton?.titleLabel?.font = UIFont(name: "System", size: 15)
+            moreButton?.titleLabel?.font = UIFont(name: "System", size: 14)
             moreButton?.setTitleColor(tintColor, for: .normal)
             moreButton?.setTitleColor(UIColor.lightGray, for: .highlighted)
             addSubview(moreButton!)
