@@ -127,20 +127,35 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="olR-d6-RTX">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="G4z-YS-c0V">
                                                 <rect key="frame" x="20" y="400" width="374" height="33"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
+                                                <subviews>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BzR-jo-j3y">
+                                                        <rect key="frame" x="5" y="0.0" width="364" height="0.0"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olR-d6-RTX">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="33"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="BzR-jo-j3y" firstAttribute="leading" secondItem="G4z-YS-c0V" secondAttribute="leading" constant="5" id="h6v-Fj-2py"/>
+                                                    <constraint firstItem="olR-d6-RTX" firstAttribute="leading" secondItem="G4z-YS-c0V" secondAttribute="leading" id="ubE-dH-Hhb"/>
+                                                </constraints>
+                                            </stackView>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="isz-Ro-Sap">
                                                 <rect key="frame" x="197" y="441" width="20" height="20"/>
                                             </activityIndicatorView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="QaB-Jk-eFS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="C9X-1B-8jK" secondAttribute="leading" constant="40" id="aLf-d2-Kua"/>
-                                            <constraint firstItem="olR-d6-RTX" firstAttribute="leading" secondItem="C9X-1B-8jK" secondAttribute="leading" constant="20" id="hbs-sz-eGC"/>
                                             <constraint firstItem="aUd-x6-GkQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="C9X-1B-8jK" secondAttribute="leading" constant="40" id="xg7-Mn-9F2"/>
+                                            <constraint firstItem="G4z-YS-c0V" firstAttribute="leading" secondItem="C9X-1B-8jK" secondAttribute="leading" constant="20" id="yv2-me-9Qh"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -163,6 +178,7 @@
                         <viewLayoutGuide key="safeArea" id="fBH-pr-89Z"/>
                     </view>
                     <connections>
+                        <outlet property="aboutLabel" destination="BzR-jo-j3y" id="kiN-hj-jyJ"/>
                         <outlet property="activityIndicator" destination="isz-Ro-Sap" id="rlR-Xu-P7W"/>
                         <outlet property="artistImageView" destination="QaB-Jk-eFS" id="D3b-2M-4HP"/>
                         <outlet property="artistInfo" destination="olR-d6-RTX" id="jyn-R5-nQc"/>
@@ -288,7 +304,7 @@
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PWy-mJ-Qhz">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWy-mJ-Qhz">
                                                 <rect key="frame" x="20" y="428.5" width="374" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

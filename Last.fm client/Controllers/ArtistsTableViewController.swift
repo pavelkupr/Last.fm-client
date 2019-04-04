@@ -104,6 +104,7 @@ class ArtistsTableViewController: UITableViewController {
         isTopChart = false
         if let page = fisrstPage {
             artists = page
+            nextPage += 1
         }
     }
 

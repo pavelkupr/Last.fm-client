@@ -18,6 +18,7 @@
 		3F43A8CE2249184A002E676C /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8CD2249184A002E676C /* HTTPClient.swift */; };
 		3F43A8D322491B81002E676C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8D222491B81002E676C /* Artist.swift */; };
 		3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */; };
+		3F6FC431225621650051CE06 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC430225621650051CE06 /* StringExtension.swift */; };
 		3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */; };
 		3FD9E49C224A36F900AE3541 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */; };
 		3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9E49F224A554900AE3541 /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 		3F43A8CD2249184A002E676C /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3F43A8D222491B81002E676C /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewActivityIndicator.swift; sourceTree = "<group>"; };
+		3F6FC430225621650051CE06 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		3FD9E49F224A554900AE3541 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				3F04FFFA2254BB4700C48292 /* CALayerExtension.swift */,
 				3F04FFFC2254BB9500C48292 /* IntExtension.swift */,
+				3F6FC430225621650051CE06 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				E925F0DD2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift in Sources */,
 				3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */,
 				3F2EB082224CCC0C00AEE3DE /* RecentTableViewCell.swift in Sources */,
+				3F6FC431225621650051CE06 /* StringExtension.swift in Sources */,
 				3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */,
 				3FE75BB7225247E00027C48C /* TrackInfoViewController.swift in Sources */,
 				3F43A8D322491B81002E676C /* Artist.swift in Sources */,

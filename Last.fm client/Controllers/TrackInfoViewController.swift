@@ -55,13 +55,10 @@ class TrackInfoViewController: UIViewController {
                     if let err = error {
                         NSLog("Error: \(err)")
 
-                    } else if let data = data {
-                        self.trackInfo.text = data.info!.replacingOccurrences(of: "<[^>]+>\\.? *",
-                                                                              with: "\n",
-                                                                              options: .regularExpression,
-                                                                              range: nil)
-                        self.activityIndicator.stopAnimating()
+                    } else if let info = data?.info, info != "" {
+                        self.trackInfo.text = info.removeStartingNewlineIfExists().removeHTMLTags()
                     }
+                    self.activityIndicator.stopAnimating()
                 }
             }
 

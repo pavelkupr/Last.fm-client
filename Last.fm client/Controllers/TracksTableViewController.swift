@@ -102,6 +102,7 @@ class TracksTableViewController: UITableViewController {
         isTopChart = false
         if let page = fisrstPage {
             tracks = page
+            nextPage += 1
         }
     }
 
