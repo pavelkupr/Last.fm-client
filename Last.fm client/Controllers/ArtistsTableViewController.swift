@@ -15,16 +15,20 @@ class ArtistsTableViewController: UITableViewController {
     private let apiService = APIService()
     private let preLoadCount = 3
 
-    private var currPage = 1
+    private var nextPage = 1
     private var placeholder: UIImage?
     private var artists = [Artist]()
     private var customNavName: String?
     private var isTopChart = true
+    private var activityIndicator: TableViewActivityIndicator!
 
     private lazy var dataSource = apiService.getTopArtistsClosure()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        activityIndicator = TableViewActivityIndicator()
+        tableView.tableFooterView = activityIndicator
 
         if let navName = customNavName {
             navigationItem.title = navName
@@ -33,7 +37,7 @@ class ArtistsTableViewController: UITableViewController {
         }
 
         if artists.count == 0 {
-            getArtistsFromSource(onPage: currPage)
+            getArtistsFromSource(onPage: nextPage)
         }
     }
 
@@ -58,7 +62,7 @@ class ArtistsTableViewController: UITableViewController {
         }
 
         if isStartLoadNextPage(currRow: indexPath.row) {
-            getArtistsFromSource(onPage: currPage.increment())
+            getArtistsFromSource(onPage: nextPage)
         }
 
         return cell
@@ -106,7 +110,10 @@ class ArtistsTableViewController: UITableViewController {
     // MARK: Private Functions
 
     private func isStartLoadNextPage(currRow: Int) -> Bool {
-
+        guard !activityIndicator.isLoading else {
+            return false
+        }
+        
         if apiService.itemsPerPage > preLoadCount {
             return currRow + 1 == artists.count - preLoadCount
         } else {
@@ -115,6 +122,7 @@ class ArtistsTableViewController: UITableViewController {
     }
 
     private func getArtistsFromSource(onPage page: Int) {
+        activityIndicator.showAndAnimate()
 
         dataSource(page) { data, error in
 
@@ -122,9 +130,11 @@ class ArtistsTableViewController: UITableViewController {
                 NSLog("Error: \(err)")
 
             } else {
+                self.nextPage += 1
                 self.artists += data
                 self.tableView.reloadData()
             }
+            self.activityIndicator.hideAndStop()
         }
     }
 

@@ -42,6 +42,7 @@ UITableViewDelegate, UITableViewDataSource {
     private var tracksSource: TrackSource?
     private var artistsSource: ArtistSource?
 
+    private var activityIndicator: TableViewActivityIndicator?
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchBarView: ViewWithSearchBarAndButton!
 
@@ -52,8 +53,8 @@ UITableViewDelegate, UITableViewDataSource {
         searchBarView.cancelButton.addTarget(self, action: #selector(cancelSearchMode(_:)), for: .touchUpInside)
         searchTableView.delegate = self
         searchTableView.dataSource = self
-        // TODO: Make activity view load from code and be able to use here
-        searchTableView.tableFooterView = UIView()
+        activityIndicator = TableViewActivityIndicator()
+        searchTableView.tableFooterView = activityIndicator
     }
 
     // MARK: - Table view data source
@@ -291,6 +292,8 @@ UITableViewDelegate, UITableViewDataSource {
 
     private func searchArtists(byName name: String) {
         artistsSource = apiService.getSearchArtistsClosure(byName: name)
+
+        activityIndicator?.showAndAnimate()
         artistsSource!(1) { data, error in
 
             if let err = error {
@@ -308,12 +311,15 @@ UITableViewDelegate, UITableViewDataSource {
                 }
 
                 self.searchTableView.reloadData()
+                self.activityIndicator?.hideAndStop()
             }
         }
     }
 
     private func searchTracks(byName name: String) {
         tracksSource = apiService.getSearchTracksClosure(byName: name)
+
+        activityIndicator?.showAndAnimate()
         tracksSource!(1) { data, error in
 
             if let err = error {
@@ -331,6 +337,7 @@ UITableViewDelegate, UITableViewDataSource {
                 }
 
                 self.searchTableView.reloadData()
+                self.activityIndicator?.hideAndStop()
             }
         }
     }

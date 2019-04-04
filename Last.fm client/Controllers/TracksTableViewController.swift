@@ -15,16 +15,20 @@ class TracksTableViewController: UITableViewController {
     private let apiService = APIService()
     private let preLoadCount = 3
 
-    private var currPage = 1
+    private var nextPage = 1
     private var placeholder: UIImage?
     private var tracks = [Track]()
     private var customNavName: String?
     private var isTopChart = true
+    private var activityIndicator: TableViewActivityIndicator!
 
     private lazy var dataSource = apiService.getTopTracksClosure()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        activityIndicator = TableViewActivityIndicator()
+        tableView.tableFooterView = activityIndicator
 
         if let navName = customNavName {
             navigationItem.title = navName
@@ -33,7 +37,7 @@ class TracksTableViewController: UITableViewController {
         }
 
         if tracks.count == 0 {
-            getTracksFromSource(onPage: currPage)
+            getTracksFromSource(onPage: nextPage)
         }
     }
 
@@ -56,7 +60,7 @@ class TracksTableViewController: UITableViewController {
             cell.fillCell(withTrack: tracks[indexPath.row])
         }
         if isStartLoadNextPage(currRow: indexPath.row) {
-            getTracksFromSource(onPage: currPage.increment())
+            getTracksFromSource(onPage: nextPage)
         }
 
         return cell
@@ -104,7 +108,10 @@ class TracksTableViewController: UITableViewController {
     // MARK: Private Methods
 
     private func isStartLoadNextPage(currRow: Int) -> Bool {
-
+        guard !activityIndicator.isLoading else {
+            return false
+        }
+        
         if apiService.itemsPerPage > preLoadCount {
             return currRow + 1 == tracks.count - preLoadCount
         } else {
@@ -113,6 +120,7 @@ class TracksTableViewController: UITableViewController {
     }
 
     private func getTracksFromSource(onPage page: Int) {
+        activityIndicator.showAndAnimate()
 
         dataSource(page) { data, error in
 
@@ -120,9 +128,11 @@ class TracksTableViewController: UITableViewController {
                 NSLog("Error: \(err)")
 
             } else {
+                self.nextPage += 1
                 self.tracks += data
                 self.tableView.reloadData()
             }
+            self.activityIndicator.hideAndStop()
         }
     }
 

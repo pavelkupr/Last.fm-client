@@ -18,6 +18,7 @@ class TrackInfoViewController: UIViewController {
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var trackName: UILabel!
     @IBOutlet weak var trackInfo: UITextView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,7 @@ class TrackInfoViewController: UIViewController {
                     trackImageView.image = placeholder
                 }
 
+                activityIndicator.startAnimating()
                 apiService.getTrackInfo(byTrackName: track.name, byArtistName: track.artistName) { data, error in
 
                     if let err = error {
@@ -58,7 +60,7 @@ class TrackInfoViewController: UIViewController {
                                                                               with: "\n",
                                                                               options: .regularExpression,
                                                                               range: nil)
-
+                        self.activityIndicator.stopAnimating()
                     }
                 }
             }

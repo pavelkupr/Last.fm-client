@@ -21,6 +21,7 @@ class ArtistInfoViewController: UIViewController {
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var artistName: UILabel!
     @IBOutlet weak var artistInfo: UITextView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,7 @@ class ArtistInfoViewController: UIViewController {
                     artistImageView.image = placeholder
                 }
 
+                activityIndicator.startAnimating()
                 apiService.getArtistInfo(byName: artist.name) { data, error in
 
                     if let err = error {
@@ -60,7 +62,7 @@ class ArtistInfoViewController: UIViewController {
                                                                                with: "\n",
                                                                                options: .regularExpression,
                                                                                range: nil)
-
+                        self.activityIndicator.stopAnimating()
                     }
                 }
             }

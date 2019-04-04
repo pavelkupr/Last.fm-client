@@ -100,8 +100,15 @@ class APIService {
     // MARK: Public Methods
 
     func getTopArtistsClosure() -> ArtistSource {
-
+        var lastPage: Int?
+        
         return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
+            
+            if let lastPage = lastPage, page > lastPage {
+                closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                return
+            }
+            
             let params = [
                 "method": APIMethod.topArtists.rawValue,
                 "api_key": self.apiKey,
@@ -120,6 +127,11 @@ class APIService {
                 if let jsonData = data as? JSON {
                     do {
                         let artistsResponse = try ArtistsResponse(jsonArtists: jsonData)
+                        if artistsResponse.artists.count == 0 {
+                            lastPage = page - 1
+                            closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                            return
+                        }
                         closure(self.apiTopArtistsSecondPageBugFix(page, artistsResponse.artists), nil)
 
                     } catch let parseError as NSError {
@@ -131,8 +143,15 @@ class APIService {
     }
 
     func getSearchArtistsClosure(byName name: String) -> ArtistSource {
-
+        var lastPage: Int?
+        
         return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
+            
+            if let lastPage = lastPage, page > lastPage {
+                closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                return
+            }
+            
             let params = [
                 "method": APIMethod.searchArtists.rawValue,
                 "api_key": self.apiKey,
@@ -152,6 +171,11 @@ class APIService {
                 if let jsonData = data as? JSON {
                     do {
                         let artistsResponse = try ArtistsResponse(foundJSONArtists: jsonData)
+                        if artistsResponse.artists.count == 0 {
+                            lastPage = page - 1
+                            closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                            return
+                        }
                         closure(artistsResponse.artists, nil)
 
                     } catch let parseError as NSError {
@@ -193,8 +217,15 @@ class APIService {
     }
 
     func getTopTracksClosure() -> TrackSource {
-
+        var lastPage: Int?
+        
         return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
+            
+            if let lastPage = lastPage, page > lastPage {
+                closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                return
+            }
+            
             let params = [
                 "method": APIMethod.topTracks.rawValue,
                 "api_key": self.apiKey,
@@ -202,6 +233,7 @@ class APIService {
                 "page": String(page),
                 "limit": String(self.itemsPerPage)
             ]
+            
             self.httpClient.get(parameters: params, contentType: .json) { data, error in
 
                 guard error == nil else {
@@ -212,6 +244,11 @@ class APIService {
                 if let jsonData = data as? JSON {
                     do {
                         let tracksResponse = try TracksResponse(jsonTracks: jsonData)
+                        if tracksResponse.tracks.count == 0 {
+                            lastPage = page - 1
+                            closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                            return
+                        }
                         closure(tracksResponse.tracks, nil)
 
                     } catch let parseError as NSError {
@@ -223,8 +260,15 @@ class APIService {
     }
 
     func getSearchTracksClosure(byName name: String) -> TrackSource {
-
+        var lastPage: Int?
+        
         return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
+            
+            if let lastPage = lastPage, page > lastPage {
+                closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                return
+            }
+            
             let params = [
                 "method": APIMethod.searchTracks.rawValue,
                 "api_key": self.apiKey,
@@ -235,7 +279,7 @@ class APIService {
             ]
 
             self.httpClient.get(parameters: params, contentType: .json) { data, error in
-
+                
                 guard error == nil else {
                     closure([], error)
                     return
@@ -244,6 +288,11 @@ class APIService {
                 if let jsonData = data as? JSON {
                     do {
                         let tracksResponse = try TracksResponse(foundJSONTracks: jsonData)
+                        if tracksResponse.tracks.count == 0 {
+                            lastPage = page - 1
+                            closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                            return
+                        }
                         closure(tracksResponse.tracks, nil)
 
                     } catch let parseError as NSError {
