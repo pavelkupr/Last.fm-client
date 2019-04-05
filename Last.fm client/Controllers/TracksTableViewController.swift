@@ -112,7 +112,7 @@ class TracksTableViewController: UITableViewController {
         guard !activityIndicator.isLoading else {
             return false
         }
-        
+
         if apiService.itemsPerPage > preLoadCount {
             return currRow + 1 == tracks.count - preLoadCount
         } else {

@@ -23,7 +23,7 @@ class ArtistInfoViewController: UIViewController {
     @IBOutlet weak var artistInfo: UITextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var aboutLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,10 +54,10 @@ class ArtistInfoViewController: UIViewController {
 
                 activityIndicator.startAnimating()
                 apiService.getArtistInfo(byName: artist.name) { data, error in
-                    
+
                     if let err = error {
                         NSLog("Error: \(err)")
-                        
+
                     } else if let info = data?.info, info != "" {
                         self.artistInfo.text = info.removeStartingNewlineIfExists().removeHTMLTags()
                         self.aboutLabel.isHidden = false
@@ -65,7 +65,7 @@ class ArtistInfoViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                 }
             }
-            
+
         }
     }
 }

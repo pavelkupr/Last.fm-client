@@ -114,7 +114,7 @@ class ArtistsTableViewController: UITableViewController {
         guard !activityIndicator.isLoading else {
             return false
         }
-        
+
         if apiService.itemsPerPage > preLoadCount {
             return currRow + 1 == artists.count - preLoadCount
         } else {

@@ -11,6 +11,19 @@ import UIKit
 class ViewWithSearchBarAndButton: UIView {
 
     let buttonWidth: CGFloat = 100
+    
+    override var frame: CGRect {
+        didSet {
+            updateView()
+        }
+    }
+    
+    override var bounds: CGRect {
+        didSet {
+            updateView()
+        }
+    }
+    
     var isSearchMode = true {
         didSet {
             animateModeChange()
@@ -86,7 +99,19 @@ class ViewWithSearchBarAndButton: UIView {
             })
         }
     }
-
+    
+    private func updateView(){
+        if searchBar != nil, cancelButton != nil {
+            if isSearchMode {
+                setSearchMode()
+            } else {
+                unsetSearchMode()
+            }
+            layer.addBorder(edge: .bottom, color: UIColor.lightGray, thickness: 1)
+            layer.addBorder(edge: .top, color: UIColor.lightGray, thickness: 1)
+        }
+    }
+    
     private func setSearchMode() {
         searchBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
         cancelButton.frame = CGRect(x: bounds.width, y: 0, width: 0, height: bounds.height)
