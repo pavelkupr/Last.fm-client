@@ -56,7 +56,7 @@ class TrackInfoViewController: UIViewController {
                         NSLog("Error: \(err)")
 
                     } else if let info = data?.info, info != "" {
-                        self.trackInfo.text = info.removeStartingNewlineIfExists().removeHTMLTags()
+                        self.trackInfo.text = info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n")
                     }
                     self.activityIndicator.stopAnimating()
                 }

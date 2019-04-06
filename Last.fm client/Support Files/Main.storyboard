@@ -113,7 +113,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="C9X-1B-8jK">
-                                        <rect key="frame" x="0.0" y="20" width="414" height="461"/>
+                                        <rect key="frame" x="0.0" y="20" width="414" height="594.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QaB-Jk-eFS" customClass="RoundedImageView" customModule="Last_fm_client" customModuleProvider="target">
                                                 <rect key="frame" x="40" y="0.0" width="334" height="334"/>
@@ -127,29 +127,33 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="G4z-YS-c0V">
-                                                <rect key="frame" x="20" y="400" width="374" height="33"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="G4z-YS-c0V">
+                                                <rect key="frame" x="20" y="400" width="374" height="166.5"/>
                                                 <subviews>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BzR-jo-j3y">
-                                                        <rect key="frame" x="5" y="0.0" width="364" height="0.0"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olR-d6-RTX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="33"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVy-w7-1hK" customClass="HeaderView" customModule="Last_fm_client" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="0.0" width="364" height="30"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="M8q-04-9tJ"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olR-d6-RTX">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="166.5"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="166.5" id="810-Jj-s6E"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="BzR-jo-j3y" firstAttribute="leading" secondItem="G4z-YS-c0V" secondAttribute="leading" constant="5" id="h6v-Fj-2py"/>
+                                                    <constraint firstItem="QVy-w7-1hK" firstAttribute="leading" secondItem="G4z-YS-c0V" secondAttribute="leading" constant="5" id="5Fn-MF-Ra9"/>
                                                     <constraint firstItem="olR-d6-RTX" firstAttribute="leading" secondItem="G4z-YS-c0V" secondAttribute="leading" id="ubE-dH-Hhb"/>
                                                 </constraints>
                                             </stackView>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="isz-Ro-Sap">
-                                                <rect key="frame" x="197" y="441" width="20" height="20"/>
+                                                <rect key="frame" x="197" y="574.5" width="20" height="20"/>
                                             </activityIndicatorView>
                                         </subviews>
                                         <constraints>
@@ -178,11 +182,12 @@
                         <viewLayoutGuide key="safeArea" id="fBH-pr-89Z"/>
                     </view>
                     <connections>
-                        <outlet property="aboutLabel" destination="BzR-jo-j3y" id="kiN-hj-jyJ"/>
+                        <outlet property="aboutHeader" destination="QVy-w7-1hK" id="AGc-9F-x2l"/>
                         <outlet property="activityIndicator" destination="isz-Ro-Sap" id="rlR-Xu-P7W"/>
                         <outlet property="artistImageView" destination="QaB-Jk-eFS" id="D3b-2M-4HP"/>
                         <outlet property="artistInfo" destination="olR-d6-RTX" id="jyn-R5-nQc"/>
                         <outlet property="artistName" destination="aUd-x6-GkQ" id="539-tN-Kuh"/>
+                        <outlet property="summaryConstraint" destination="810-Jj-s6E" id="RoN-rM-AHS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9Y-Q9-2Vr" userLabel="First Responder" sceneMemberID="firstResponder"/>

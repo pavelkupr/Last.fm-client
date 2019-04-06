@@ -131,26 +131,27 @@ UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerName = ""
-        var sectionHeader: SectionHeaderView
+        var sectionHeader: HeaderView
 
         if isResentMode {
             headerName = recentModeSectionInfo[section].getStringDefinition()
-            sectionHeader = SectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width,
-                                                            height: sectionHeaderHeight), nameOfHeader: headerName)
+            sectionHeader = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width,
+                                                            height: sectionHeaderHeight), labelShift: 20,
+                                                                                          nameOfHeader: headerName)
+            sectionHeader.moreButton.isHidden = true
         } else {
             headerName = searchModeSectionsInfo[section].getStringDefinition()
-            sectionHeader = SectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width,
-                                                            height: sectionHeaderHeight), nameOfHeader: headerName)
+            sectionHeader = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width,
+                                                            height: sectionHeaderHeight), labelShift: 20,
+                                                                                          nameOfHeader: headerName)
             switch searchModeSectionsInfo[section] {
             case .artists(let data):
                 if data.count > searchInfoCount {
-                    sectionHeader.addMoreButton()
-                    sectionHeader.moreButton?.addTarget(self, action: #selector(moreArtists(_:)), for: .touchUpInside)
+                    sectionHeader.moreButton.addTarget(self, action: #selector(moreArtists(_:)), for: .touchUpInside)
                 }
             case .tracks(let data):
                 if data.count > searchInfoCount {
-                    sectionHeader.addMoreButton()
-                    sectionHeader.moreButton?.addTarget(self, action: #selector(moreTracks(_:)), for: .touchUpInside)
+                    sectionHeader.moreButton.addTarget(self, action: #selector(moreTracks(_:)), for: .touchUpInside)
                 }
 
             default:

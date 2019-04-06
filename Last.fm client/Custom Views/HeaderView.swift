@@ -8,15 +8,16 @@
 
 import UIKit
 
-class SectionHeaderView: UIView {
+@IBDesignable
+class HeaderView: UIView {
 
     // MARK: Properties
 
-    private let labelShift: CGFloat = 30
+    private var labelShift: CGFloat = 0
     private let moreButtonWidth: CGFloat = 100
     private let labelWidth: CGFloat = 200
-    private let backColor = UIColor.init(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
-    
+    private let backColor = UIColor.white
+
     override var frame: CGRect {
         didSet {
             updateView()
@@ -27,9 +28,9 @@ class SectionHeaderView: UIView {
             updateView()
         }
     }
-    var moreButton: UIButton?
+    var moreButton: UIButton!
     var label: UILabel!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
@@ -40,27 +41,27 @@ class SectionHeaderView: UIView {
         initView()
     }
 
-    init(frame: CGRect, nameOfHeader: String) {
+    init(frame: CGRect, labelShift shift: CGFloat, nameOfHeader: String) {
         super.init(frame: frame)
+        labelShift = shift
         initView()
         label?.text = nameOfHeader
 
     }
 
-    func addMoreButton() {
-        if moreButton == nil {
-            moreButton = UIButton(frame: CGRect(x: bounds.width-moreButtonWidth, y: 0,
-                                                width: moreButtonWidth, height: bounds.height))
-            moreButton?.setTitle("More...", for: .normal)
-
-            moreButton?.titleLabel?.font = UIFont(name: "System", size: 14)
-            moreButton?.setTitleColor(tintColor, for: .normal)
-            moreButton?.setTitleColor(UIColor.lightGray, for: .highlighted)
-            addSubview(moreButton!)
-        }
-    }
-
     // MARK: Private methods
+
+    private func addMoreButton() {
+        moreButton = UIButton(frame: CGRect(x: bounds.width-moreButtonWidth, y: 0,
+                                            width: moreButtonWidth, height: bounds.height))
+        moreButton.setTitle("More...", for: .normal)
+
+        moreButton.titleLabel?.font = UIFont(name: "System", size: 14)
+        moreButton.setTitleColor(tintColor, for: .normal)
+        moreButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+        addSubview(moreButton)
+
+    }
 
     private func updateView() {
         if let button = moreButton {
@@ -71,14 +72,15 @@ class SectionHeaderView: UIView {
             label.frame = CGRect(x: labelShift, y: 0, width: labelWidth, height: bounds.height)
         }
     }
-    
+
     private func initView() {
         backgroundColor = backColor
         label = UILabel(frame: CGRect(x: labelShift, y: 0, width: labelWidth, height: bounds.height))
-        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         label.textColor = UIColor.black
 
         addSubview(label)
+        addMoreButton()
     }
 
 }

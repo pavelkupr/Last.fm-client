@@ -10,15 +10,15 @@ import Foundation
 
 extension String {
 
-    func removeHTMLTags() -> String {
+    func removeHTMLTags(with replaceStr: String) -> String {
         return self.replacingOccurrences(of: "<[^>]+>\\.? *",
-                                          with: "\n",
+                                          with: replaceStr,
                                           options: .regularExpression,
                                           range: nil)
     }
 
     func removeStartingNewlineIfExists() -> String {
-        return self.replacingOccurrences(of: "^(\\n)",
+        return self.replacingOccurrences(of: "^(\\n)*",
                                           with: "",
                                           options: .regularExpression,
                                           range: nil)
