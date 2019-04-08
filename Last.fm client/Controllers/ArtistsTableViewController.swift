@@ -77,7 +77,7 @@ class ArtistsTableViewController: UITableViewController {
         switch segue.identifier ?? "" {
 
         case "ShowInfo":
-            guard let artistInfoVC = segue.destination as? ArtistInfoViewController else {
+            guard let artistInfoVC = segue.destination as? InfoViewController else {
                 fatalError("Unexpected destination")
             }
 
@@ -89,7 +89,7 @@ class ArtistsTableViewController: UITableViewController {
                 fatalError("Cell: \(cell) is not in the tableView")
             }
 
-            artistInfoVC.artist =  artists[artistId]
+            artistInfoVC.setArtist(artists[artistId])
 
         default:
             fatalError("Unexpected segue")

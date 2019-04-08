@@ -11,16 +11,15 @@ import SwiftyJSON
 struct Artist {
 
     var name: String
-    var playCount: String
-    var listeners: String
+    var playCount: String?
+    var listeners: String?
     var info: String?
     var photoUrls = [ImageSize: String]()
+    var similar = [Artist]()
 
     init(jsonArtist: JSON) throws {
 
         name = jsonArtist["name"].stringValue
-        playCount = jsonArtist["playcount"].stringValue
-        listeners = jsonArtist["listeners"].stringValue
 
         if let imagesInfo = jsonArtist["image"].array {
             for imageInfo in imagesInfo {
@@ -46,6 +45,13 @@ struct Artist {
                 }
             }
         }
+
+        if let similarInfo = jsonArtist["similar"]["artist"].array {
+            for artistInfo in similarInfo {
+                similar.append(try Artist(jsonArtist: artistInfo))
+            }
+        }
+
     }
 
 }

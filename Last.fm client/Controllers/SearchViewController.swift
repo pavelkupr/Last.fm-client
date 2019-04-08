@@ -44,13 +44,12 @@ UITableViewDelegate, UITableViewDataSource {
 
     private var activityIndicator: TableViewActivityIndicator?
     @IBOutlet weak var searchTableView: UITableView!
-    @IBOutlet weak var searchBarView: ViewWithSearchBarAndButton!
+    @IBOutlet weak var searchBarView: CustomSearchBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchBarView.searchBar.delegate = self
-        searchBarView.cancelButton.addTarget(self, action: #selector(cancelSearchMode(_:)), for: .touchUpInside)
+        searchBarView.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
         activityIndicator = TableViewActivityIndicator()
@@ -171,7 +170,7 @@ UITableViewDelegate, UITableViewDataSource {
             switch recentModeSectionInfo[indexPath.section] {
             case .resentSearches(let data):
                 view.endEditing(true)
-                searchBarView.searchBar.text = ""
+                searchBarView.text = ""
                 search(data[indexPath.row])
 
             default:
@@ -187,12 +186,19 @@ UITableViewDelegate, UITableViewDataSource {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
+        searchBar.resignFirstResponder()
         let textForSearch = searchBar.text!.trimmingCharacters(in: .whitespaces)
         searchBar.text = ""
 
         if textForSearch != "" {
             search(textForSearch)
         }
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBarView.setShowsCancelButton(false, animated: true)
+        self.isResentMode = true
+        searchTableView.reloadData()
     }
 
     // MARK: Navigation
@@ -204,7 +210,7 @@ UITableViewDelegate, UITableViewDataSource {
         switch segue.identifier ?? "" {
 
         case "ShowArtistInfo":
-            guard let artistInfoVC = segue.destination as? ArtistInfoViewController else {
+            guard let artistInfoVC = segue.destination as? InfoViewController else {
                 fatalError("Unexpected destination")
             }
 
@@ -219,7 +225,7 @@ UITableViewDelegate, UITableViewDataSource {
             prepareArtistInfoView(artistInfoVC, numOfData: artistId)
 
         case "ShowTrackInfo":
-            guard let trackInfoVC = segue.destination as? TrackInfoViewController else {
+            guard let trackInfoVC = segue.destination as? InfoViewController else {
                 fatalError("Unexpected destination")
             }
 
@@ -252,13 +258,6 @@ UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Actions
 
-    @objc func cancelSearchMode(_ sender: UIButton) {
-
-        searchBarView.isSearchMode = true
-        self.isResentMode = true
-        searchTableView.reloadData()
-    }
-
     @objc func moreArtists(_ sender: UIButton) {
 
         performSegue(withIdentifier: "MoreArtists", sender: self)
@@ -275,7 +274,7 @@ UITableViewDelegate, UITableViewDataSource {
         searchArtists(byName: info)
         searchTracks(byName: info)
         self.isResentMode = false
-        searchBarView.isSearchMode = false
+        searchBarView.setShowsCancelButton(true, animated: true)
 
         for index in 0..<recentModeSectionInfo.count {
             switch recentModeSectionInfo[index] {
@@ -343,11 +342,11 @@ UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    private func prepareArtistInfoView(_ artistInfoVC: ArtistInfoViewController, numOfData: Int) {
+    private func prepareArtistInfoView(_ artistInfoVC: InfoViewController, numOfData: Int) {
         for element in searchModeSectionsInfo {
             switch element {
             case .artists(var data):
-                artistInfoVC.artist = data[numOfData]
+                artistInfoVC.setArtist(data[numOfData])
 
             default:
                 break
@@ -355,11 +354,11 @@ UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    private func prepareTrackInfoView(_ trackInfoVC: TrackInfoViewController, numOfData: Int) {
+    private func prepareTrackInfoView(_ trackInfoVC: InfoViewController, numOfData: Int) {
         for element in searchModeSectionsInfo {
             switch element {
             case .tracks(var data):
-                trackInfoVC.track = data[numOfData]
+                trackInfoVC.setTrack(data[numOfData])
 
             default:
                 break

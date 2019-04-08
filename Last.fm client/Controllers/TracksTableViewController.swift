@@ -75,7 +75,7 @@ class TracksTableViewController: UITableViewController {
         switch segue.identifier ?? "" {
 
         case "ShowInfo":
-            guard let trackInfoVC = segue.destination as? TrackInfoViewController else {
+            guard let trackInfoVC = segue.destination as? InfoViewController else {
                 fatalError("Unexpected destination")
             }
 
@@ -87,7 +87,7 @@ class TracksTableViewController: UITableViewController {
                 fatalError("Cell: \(cell) is not in the tableView")
             }
 
-            trackInfoVC.track =  tracks[trackId]
+            trackInfoVC.setTrack(tracks[trackId])
 
         default:
             fatalError("Unexpected segue")
