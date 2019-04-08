@@ -28,6 +28,7 @@
 		E925F0DD2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925F0DC2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift */; };
 		E9346FF3225B2B3400C70DE3 /* CustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */; };
 		E9346FF5225B2C0100C70DE3 /* CustomCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */; };
+		E9346FF7225B419A00C70DE3 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9346FF6225B419A00C70DE3 /* HeaderView.xib */; };
 		E9D337B72251002E00DA9363 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D337B62251002E00DA9363 /* HeaderView.swift */; };
 		E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DAFA64224A22C900FC1BB7 /* Track.swift */; };
 		E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92A224979B5003BFD02 /* APIService.swift */; };
@@ -60,6 +61,7 @@
 		E925F0DC2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithSearchBarAndButton.swift; sourceTree = "<group>"; };
 		E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellView.xib; sourceTree = "<group>"; };
 		E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellView.swift; sourceTree = "<group>"; };
+		E9346FF6225B419A00C70DE3 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		E9D337B62251002E00DA9363 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		E9DAFA64224A22C900FC1BB7 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		E9E6E92A224979B5003BFD02 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -121,9 +123,10 @@
 			children = (
 				3FECB265224BC95A00D60B75 /* Support Files */,
 				3F04FFF92254BB1000C48292 /* Extensions */,
+				3F43A8CC224917D8002E676C /* Networking */,
 				3F43A8D122491B66002E676C /* Models */,
 				3F0400002254F39000C48292 /* Services */,
-				3F43A8CC224917D8002E676C /* Networking */,
+				E9346FF8225B44F600C70DE3 /* User Interface */,
 				E9E6E93022499AA0003BFD02 /* Custom Views */,
 				3FECB264224BC92E00D60B75 /* Controllers */,
 				3F43A8C6224904B4002E676C /* Info.plist */,
@@ -164,7 +167,6 @@
 			isa = PBXGroup;
 			children = (
 				3F43A8BA224904B4002E676C /* AppDelegate.swift */,
-				3FD9E49F224A554900AE3541 /* Main.storyboard */,
 				3F43A8C1224904B4002E676C /* Assets.xcassets */,
 				3F43A8C3224904B4002E676C /* LaunchScreen.storyboard */,
 			);
@@ -188,12 +190,21 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E9346FF8225B44F600C70DE3 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				3FD9E49F224A554900AE3541 /* Main.storyboard */,
+				E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */,
+				E9346FF6225B419A00C70DE3 /* HeaderView.xib */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
 		E9E6E93022499AA0003BFD02 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
 				3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */,
 				E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */,
-				E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */,
 				E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */,
 				3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */,
 				E9E6E93722499D77003BFD02 /* RoundedImageView.swift */,
@@ -265,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */,
+				E9346FF7225B419A00C70DE3 /* HeaderView.xib in Resources */,
 				E9346FF3225B2B3400C70DE3 /* CustomCellView.xib in Resources */,
 				3F43A8C5224904B4002E676C /* LaunchScreen.storyboard in Resources */,
 				3F43A8C2224904B4002E676C /* Assets.xcassets in Resources */,
