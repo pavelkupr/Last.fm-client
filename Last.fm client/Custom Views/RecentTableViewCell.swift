@@ -10,11 +10,11 @@ import UIKit
 
 class RecentTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var recentSearchString: UILabel!
+    @IBOutlet weak var infoView: CustomCellView!
 
     func fillCell(withSearch search: String) {
-
-        recentSearchString.text = search
+        infoView.setRecentMode()
+        infoView.mainInfoLabel.text = search
     }
 
     override func awakeFromNib() {

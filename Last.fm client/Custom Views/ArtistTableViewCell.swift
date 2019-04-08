@@ -24,24 +24,24 @@ class ArtistTableViewCell: UITableViewCell {
         }
     }()
 
-    @IBOutlet weak var artistImageView: UIImageView!
-    @IBOutlet weak var artistName: UILabel!
-    @IBOutlet weak var topInfo: UILabel!
+    @IBOutlet weak var infoView: CustomCellView!
 
     func fillCell(withArtist artist: Artist, numInChart: Int? = nil) {
 
         if let top = numInChart {
-            topInfo.isHidden = false
-            topInfo.text = "Top " + String(top)
+            infoView.setArtistMode(withTop: true)
+            infoView.headInfoLabel.text = "Top " + String(top)
+        } else {
+            infoView.setArtistMode(withTop: false)
         }
 
-        artistName.text = artist.name
+        infoView.mainInfoLabel.text = artist.name
 
         if let largeImg = artist.photoUrls[sizeDesc], let url = URL(string: largeImg) {
-            artistImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+            infoView.imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
 
         } else {
-            artistImageView.image = placeholder
+            infoView.imageView.image = placeholder
         }
     }
 

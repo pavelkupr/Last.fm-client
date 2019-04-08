@@ -24,26 +24,25 @@ class TrackTableViewCell: UITableViewCell {
         }
     }()
 
-    @IBOutlet weak var trackImageView: RoundedImageView!
-    @IBOutlet weak var trackName: UILabel!
-    @IBOutlet weak var artistName: UILabel!
-    @IBOutlet weak var topInfo: UILabel!
+    @IBOutlet weak var infoView: CustomCellView!
 
     func fillCell(withTrack track: Track, numInChart: Int? = nil) {
 
         if let top = numInChart {
-            topInfo.isHidden = false
-            topInfo.text = "Top " + String(top)
+            infoView.setTrackMode(withTop: true)
+            infoView.headInfoLabel.text = "Top " + String(top)
+        } else {
+            infoView.setTrackMode(withTop: false)
         }
 
-        trackName.text = track.name
-        artistName.text = "by " + track.artistName
+        infoView.mainInfoLabel.text = track.name
+        infoView.bottomInfoLabel.text = "by " + track.artistName
 
         if let largeImg = track.photoUrls[sizeDesc], let url = URL(string: largeImg) {
-            trackImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+            infoView.imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
 
         } else {
-            trackImageView.image = placeholder
+            infoView.imageView.image = placeholder
         }
     }
     override func awakeFromNib() {

@@ -26,6 +26,8 @@
 		3FE75BB7225247E00027C48C /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE75BB6225247E00027C48C /* TrackInfoViewController.swift */; };
 		CBE8C1B587F881F92710561C /* Pods_Last_fm_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */; };
 		E925F0DD2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E925F0DC2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift */; };
+		E9346FF3225B2B3400C70DE3 /* CustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */; };
+		E9346FF5225B2C0100C70DE3 /* CustomCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */; };
 		E9D337B72251002E00DA9363 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D337B62251002E00DA9363 /* HeaderView.swift */; };
 		E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DAFA64224A22C900FC1BB7 /* Track.swift */; };
 		E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92A224979B5003BFD02 /* APIService.swift */; };
@@ -56,6 +58,8 @@
 		69E294A2364B171FBAC5BB88 /* Pods-Last.fm client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Last.fm client.release.xcconfig"; path = "Target Support Files/Pods-Last.fm client/Pods-Last.fm client.release.xcconfig"; sourceTree = "<group>"; };
 		7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Last_fm_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E925F0DC2251FFC7001AB40B /* ViewWithSearchBarAndButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithSearchBarAndButton.swift; sourceTree = "<group>"; };
+		E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellView.xib; sourceTree = "<group>"; };
+		E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellView.swift; sourceTree = "<group>"; };
 		E9D337B62251002E00DA9363 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		E9DAFA64224A22C900FC1BB7 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		E9E6E92A224979B5003BFD02 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 			children = (
 				3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */,
 				E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */,
+				E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */,
+				E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */,
 				3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */,
 				E9E6E93722499D77003BFD02 /* RoundedImageView.swift */,
 				E9D337B62251002E00DA9363 /* HeaderView.swift */,
@@ -259,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */,
+				E9346FF3225B2B3400C70DE3 /* CustomCellView.xib in Resources */,
 				3F43A8C5224904B4002E676C /* LaunchScreen.storyboard in Resources */,
 				3F43A8C2224904B4002E676C /* Assets.xcassets in Resources */,
 			);
@@ -321,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */,
+				E9346FF5225B2C0100C70DE3 /* CustomCellView.swift in Sources */,
 				3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* ArtistInfoViewController.swift in Sources */,
 				3F43A8BD224904B4002E676C /* ArtistsTableViewController.swift in Sources */,
