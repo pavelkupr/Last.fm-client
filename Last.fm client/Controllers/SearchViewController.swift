@@ -32,7 +32,7 @@ UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
 
     private let searchInfoCount = 3
-    private let sectionHeaderHeight = CGFloat(30)
+    private let sectionLabelShift:CGFloat = 20
     private let apiService = APIService()
 
     private var isResentMode = true
@@ -48,7 +48,10 @@ UITableViewDelegate, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        searchTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "CustomCell")
+        
         searchBarView.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
@@ -87,17 +90,16 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var currCell: UITableViewCell
-
+        
+        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as?
+            CustomTableViewCell else {
+                fatalError("Unexpected type of cell")
+        }
+        
         if isResentMode {
             switch recentModeSectionInfo[indexPath.section] {
             case .resentSearches(let data):
-                guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "RecentCell", for: indexPath) as?
-                    RecentTableViewCell else {
-                        fatalError("Unexpected type of cell")
-                }
-                cell.fillCell(withSearch: data[indexPath.row])
-                currCell = cell
+                cell.fillCell(withRecentInfo: data[indexPath.row])
             default:
                 fatalError("Unexpected type of section")
             }
@@ -105,27 +107,18 @@ UITableViewDelegate, UITableViewDataSource {
         } else {
             switch searchModeSectionsInfo[indexPath.section] {
             case .artists(let data):
-                guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "ArtistCell", for: indexPath) as?
-                    ArtistTableViewCell else {
-                        fatalError("Unexpected type of cell")
-                }
                 cell.fillCell(withArtist: data[indexPath.row])
-                currCell = cell
 
             case .tracks(let data):
-                guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as?
-                    TrackTableViewCell else {
-                        fatalError("Unexpected type of cell")
-                }
                 cell.fillCell(withTrack: data[indexPath.row])
-                currCell = cell
+                
             default:
                 fatalError("Unexpected type of section")
             }
 
         }
 
-        return currCell
+        return cell
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -134,15 +127,12 @@ UITableViewDelegate, UITableViewDataSource {
 
         if isResentMode {
             headerName = recentModeSectionInfo[section].getStringDefinition()
-            sectionHeader = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width,
-                                                            height: sectionHeaderHeight), labelShift: 20,
-                                                                                          nameOfHeader: headerName)
+            sectionHeader = HeaderView(labelShift: sectionLabelShift, nameOfHeader: headerName)
             sectionHeader.moreButton.isHidden = true
         } else {
             headerName = searchModeSectionsInfo[section].getStringDefinition()
-            sectionHeader = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width,
-                                                            height: sectionHeaderHeight), labelShift: 20,
-                                                                                          nameOfHeader: headerName)
+            sectionHeader = HeaderView(labelShift: sectionLabelShift, nameOfHeader: headerName)
+            
             switch searchModeSectionsInfo[section] {
             case .artists(let data):
                 if data.count > searchInfoCount {
@@ -178,6 +168,16 @@ UITableViewDelegate, UITableViewDataSource {
             }
 
         }
+        else {
+            switch searchModeSectionsInfo[indexPath.section] {
+            case .artists, .tracks:
+                performSegue(withIdentifier: "ShowInfo", sender: tableView.cellForRow(at: indexPath))
+                
+            default:
+                fatalError("Unexpected type of section")
+            }
+            
+        }
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -209,34 +209,20 @@ UITableViewDelegate, UITableViewDataSource {
 
         switch segue.identifier ?? "" {
 
-        case "ShowArtistInfo":
-            guard let artistInfoVC = segue.destination as? InfoViewController else {
+        case "ShowInfo":
+            guard let infoVC = segue.destination as? InfoViewController else {
                 fatalError("Unexpected destination")
             }
 
-            guard let cell = sender as? ArtistTableViewCell else {
+            guard let cell = sender as? CustomTableViewCell else {
                 fatalError("Unexpected sender")
             }
 
-            guard let artistId = searchTableView.indexPath(for: cell)?.row else {
+            guard let artistId = searchTableView.indexPath(for: cell) else {
                 fatalError("Cell: \(cell) is not in the tableView")
             }
 
-            prepareArtistInfoView(artistInfoVC, numOfData: artistId)
-
-        case "ShowTrackInfo":
-            guard let trackInfoVC = segue.destination as? InfoViewController else {
-                fatalError("Unexpected destination")
-            }
-
-            guard let cell = sender as? TrackTableViewCell else {
-                fatalError("Unexpected sender")
-            }
-
-            guard let trackId = searchTableView.indexPath(for: cell)?.row else {
-                fatalError("Cell: \(cell) is not in the tableView")
-            }
-            prepareTrackInfoView(trackInfoVC, numOfData: trackId)
+            prepareInfoView(infoVC, index: artistId)
 
         case "MoreArtists":
             guard let artistsTVC = segue.destination as? ArtistsTableViewController else {
@@ -342,28 +328,17 @@ UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    private func prepareArtistInfoView(_ artistInfoVC: InfoViewController, numOfData: Int) {
-        for element in searchModeSectionsInfo {
-            switch element {
+    private func prepareInfoView(_ infoVC: InfoViewController, index: IndexPath) {
+        
+            switch searchModeSectionsInfo[index.section] {
             case .artists(var data):
-                artistInfoVC.setArtist(data[numOfData])
-
-            default:
-                break
-            }
-        }
-    }
-
-    private func prepareTrackInfoView(_ trackInfoVC: InfoViewController, numOfData: Int) {
-        for element in searchModeSectionsInfo {
-            switch element {
+                infoVC.setArtist(data[index.row])
             case .tracks(var data):
-                trackInfoVC.setTrack(data[numOfData])
-
+                infoVC.setTrack(data[index.row])
             default:
                 break
             }
-        }
+        
     }
 
     private func prepareArtistsTableView(_ artistsTVC: ArtistsTableViewController) {

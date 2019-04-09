@@ -33,43 +33,19 @@
         <scene sceneID="CAk-2C-UWP">
             <objects>
                 <tableViewController id="4d7-gk-rro" customClass="ArtistsTableViewController" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="bch-0A-etj">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bch-0A-etj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistCell" rowHeight="90" id="gC6-Bf-KPb" customClass="ArtistTableViewCell" customModule="Last_fm_client" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="90"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gC6-Bf-KPb" id="xog-kV-ICT">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j97-Dg-AXN" customClass="CustomCellView" customModule="Last_fm_client" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="j97-Dg-AXN" secondAttribute="bottom" id="6Fb-Gt-zWx"/>
-                                        <constraint firstAttribute="trailing" secondItem="j97-Dg-AXN" secondAttribute="trailing" id="QC1-fK-KO8"/>
-                                        <constraint firstItem="j97-Dg-AXN" firstAttribute="leading" secondItem="xog-kV-ICT" secondAttribute="leading" id="SnN-Fp-Qbi"/>
-                                        <constraint firstItem="j97-Dg-AXN" firstAttribute="top" secondItem="xog-kV-ICT" secondAttribute="top" id="Wup-UG-xMU"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outlet property="infoView" destination="j97-Dg-AXN" id="QAp-C2-z8H"/>
-                                    <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowInfo" id="75A-cw-Zkg"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="4d7-gk-rro" id="9NO-Ph-KP7"/>
                             <outlet property="delegate" destination="4d7-gk-rro" id="eEA-gN-B09"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Artists" id="qw2-xV-SG2"/>
+                    <connections>
+                        <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowInfo" id="WXZ-Lh-Yx1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IVw-gP-wBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -113,38 +89,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackCell" rowHeight="90" id="YnJ-Wk-jnt" customClass="TrackTableViewCell" customModule="Last_fm_client" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="90"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YnJ-Wk-jnt" id="Pgk-A7-fn6">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dcy-WD-d8Z" customClass="CustomCellView" customModule="Last_fm_client" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="Dcy-WD-d8Z" firstAttribute="top" secondItem="Pgk-A7-fn6" secondAttribute="top" id="1re-60-p8b"/>
-                                        <constraint firstAttribute="bottom" secondItem="Dcy-WD-d8Z" secondAttribute="bottom" id="PcS-fu-Uwx"/>
-                                        <constraint firstItem="Dcy-WD-d8Z" firstAttribute="leading" secondItem="Pgk-A7-fn6" secondAttribute="leading" id="tdz-6o-mkN"/>
-                                        <constraint firstAttribute="trailing" secondItem="Dcy-WD-d8Z" secondAttribute="trailing" id="ux8-Qm-ISr"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="infoView" destination="Dcy-WD-d8Z" id="lwh-zs-ycM"/>
-                                    <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowInfo" id="PDY-qM-q59"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="izM-TV-ban" id="TvK-wO-kDA"/>
                             <outlet property="delegate" destination="izM-TV-ban" id="wLr-MT-JzZ"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Tracks" id="VH6-Yg-1P8"/>
+                    <connections>
+                        <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowInfo" id="jjP-nb-mlm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q4g-dz-adj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -209,88 +162,6 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="O86-uJ-wc7">
                                         <rect key="frame" x="0.0" y="50" width="414" height="675"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentCell" rowHeight="40" id="o0i-16-Up7" customClass="RecentTableViewCell" customModule="Last_fm_client" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="414" height="40"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o0i-16-Up7" id="TkJ-2l-hkJ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="39.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cwx-bp-IKZ" customClass="CustomCellView" customModule="Last_fm_client" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="39.5"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="39.5" id="c1A-ws-puS"/>
-                                                            </constraints>
-                                                        </view>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="Cwx-bp-IKZ" firstAttribute="leading" secondItem="TkJ-2l-hkJ" secondAttribute="leading" id="5zc-RM-lX8"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Cwx-bp-IKZ" secondAttribute="trailing" id="FwU-J4-WXC"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Cwx-bp-IKZ" secondAttribute="bottom" id="Y8G-nh-ZOb"/>
-                                                        <constraint firstItem="Cwx-bp-IKZ" firstAttribute="top" secondItem="TkJ-2l-hkJ" secondAttribute="top" id="yej-Ge-AKC"/>
-                                                    </constraints>
-                                                </tableViewCellContentView>
-                                                <connections>
-                                                    <outlet property="infoView" destination="Cwx-bp-IKZ" id="TCk-Sh-hb5"/>
-                                                </connections>
-                                            </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistCell" rowHeight="90" id="LEO-EO-eGi" customClass="ArtistTableViewCell" customModule="Last_fm_client" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="68" width="414" height="90"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LEO-EO-eGi" id="v79-bn-d1v">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NCg-QX-Syp" customClass="CustomCellView" customModule="Last_fm_client" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="89.5" id="ej5-D3-EwP"/>
-                                                            </constraints>
-                                                        </view>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="NCg-QX-Syp" secondAttribute="bottom" id="7Zs-KW-4J1"/>
-                                                        <constraint firstAttribute="trailing" secondItem="NCg-QX-Syp" secondAttribute="trailing" id="KQJ-lf-l9d"/>
-                                                        <constraint firstItem="NCg-QX-Syp" firstAttribute="leading" secondItem="v79-bn-d1v" secondAttribute="leading" id="SgE-ZM-bQJ"/>
-                                                        <constraint firstItem="NCg-QX-Syp" firstAttribute="top" secondItem="v79-bn-d1v" secondAttribute="top" id="sP7-2W-PGn"/>
-                                                    </constraints>
-                                                </tableViewCellContentView>
-                                                <connections>
-                                                    <outlet property="infoView" destination="NCg-QX-Syp" id="RA9-tr-Obn"/>
-                                                    <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowArtistInfo" id="hwN-CN-V6r"/>
-                                                </connections>
-                                            </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrackCell" rowHeight="90" id="RdC-HI-wTa" customClass="TrackTableViewCell" customModule="Last_fm_client" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="158" width="414" height="90"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RdC-HI-wTa" id="UwR-7f-iF2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QDX-iA-CeB" customClass="CustomCellView" customModule="Last_fm_client" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="89.5" id="fT4-zL-kJA"/>
-                                                            </constraints>
-                                                        </view>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="QDX-iA-CeB" firstAttribute="leading" secondItem="UwR-7f-iF2" secondAttribute="leading" id="48d-xE-R2i"/>
-                                                        <constraint firstAttribute="trailing" secondItem="QDX-iA-CeB" secondAttribute="trailing" id="8Pk-uq-Xw5"/>
-                                                        <constraint firstItem="QDX-iA-CeB" firstAttribute="top" secondItem="UwR-7f-iF2" secondAttribute="top" id="m9z-LA-KJS"/>
-                                                        <constraint firstAttribute="bottom" secondItem="QDX-iA-CeB" secondAttribute="bottom" id="wgk-XG-RPE"/>
-                                                    </constraints>
-                                                </tableViewCellContentView>
-                                                <connections>
-                                                    <outlet property="infoView" destination="QDX-iA-CeB" id="aXb-xB-GgW"/>
-                                                    <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowTrackInfo" id="JAK-A0-rJd"/>
-                                                </connections>
-                                            </tableViewCell>
-                                        </prototypes>
                                     </tableView>
                                 </subviews>
                                 <constraints>
@@ -319,6 +190,7 @@
                         <outlet property="searchTableView" destination="O86-uJ-wc7" id="dWf-qe-7uC"/>
                         <segue destination="izM-TV-ban" kind="show" identifier="MoreTracks" id="y9T-hz-dBt"/>
                         <segue destination="4d7-gk-rro" kind="show" identifier="MoreArtists" id="UJu-cN-fWx"/>
+                        <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowInfo" id="Cch-1l-sUC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lih-bi-vav" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -347,7 +219,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="y9T-hz-dBt"/>
-        <segue reference="hwN-CN-V6r"/>
+        <segue reference="Cch-1l-sUC"/>
         <segue reference="UJu-cN-fWx"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -26,16 +26,17 @@ class ArtistsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         activityIndicator = TableViewActivityIndicator()
         tableView.tableFooterView = activityIndicator
-
+        tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "ArtistCell")
         if let navName = customNavName {
             navigationItem.title = navName
         } else {
             navigationItem.title = "Top Artists"
         }
-
+        
         if artists.count == 0 {
             getArtistsFromSource(onPage: nextPage)
         }
@@ -51,7 +52,7 @@ class ArtistsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistCell", for: indexPath) as?
-            ArtistTableViewCell else {
+            CustomTableViewCell else {
 
             fatalError("Unexpected type of cell")
         }
@@ -67,7 +68,14 @@ class ArtistsTableViewController: UITableViewController {
 
         return cell
     }
-
+    
+    // MARK: TableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "ShowInfo", sender: tableView.cellForRow(at: indexPath))
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     // MARK: Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -81,7 +89,7 @@ class ArtistsTableViewController: UITableViewController {
                 fatalError("Unexpected destination")
             }
 
-            guard let cell = sender as? ArtistTableViewCell else {
+            guard let cell = sender as? CustomTableViewCell else {
                 fatalError("Unexpected sender")
             }
 

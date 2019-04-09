@@ -15,7 +15,6 @@
 		3F2AC976225B9A0300492D42 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AC975225B9A0300492D42 /* CustomCollectionViewCell.swift */; };
 		3F2AC97A225BB1B100492D42 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AC978225BB1B100492D42 /* CollectionViewCell.xib */; };
 		3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */; };
-		3F2EB082224CCC0C00AEE3DE /* RecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */; };
 		3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8BA224904B4002E676C /* AppDelegate.swift */; };
 		3F43A8BD224904B4002E676C /* ArtistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */; };
 		3F43A8C2224904B4002E676C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F43A8C1224904B4002E676C /* Assets.xcassets */; };
@@ -25,17 +24,15 @@
 		3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */; };
 		3F6FC431225621650051CE06 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC430225621650051CE06 /* StringExtension.swift */; };
 		3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */; };
-		3FD9E49C224A36F900AE3541 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */; };
 		3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9E49F224A554900AE3541 /* Main.storyboard */; };
 		3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */; };
 		CBE8C1B587F881F92710561C /* Pods_Last_fm_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */; };
-		E9346FF3225B2B3400C70DE3 /* CustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */; };
-		E9346FF5225B2C0100C70DE3 /* CustomCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */; };
+		E9233B5C225C73CF00F34CA0 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9233B5A225C73CF00F34CA0 /* CustomTableViewCell.swift */; };
+		E9233B5D225C73CF00F34CA0 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9233B5B225C73CF00F34CA0 /* CustomTableViewCell.xib */; };
 		E9346FF7225B419A00C70DE3 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9346FF6225B419A00C70DE3 /* HeaderView.xib */; };
 		E9D337B72251002E00DA9363 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D337B62251002E00DA9363 /* HeaderView.swift */; };
 		E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DAFA64224A22C900FC1BB7 /* Track.swift */; };
 		E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92A224979B5003BFD02 /* APIService.swift */; };
-		E9E6E92D22498BCA003BFD02 /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */; };
 		E9E6E93822499D77003BFD02 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E6E93722499D77003BFD02 /* RoundedImageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +45,6 @@
 		3F2AC975225B9A0300492D42 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		3F2AC978225BB1B100492D42 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTableViewCell.swift; sourceTree = "<group>"; };
 		3F43A8B7224904B4002E676C /* Last.fm client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last.fm client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F43A8BA224904B4002E676C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsTableViewController.swift; sourceTree = "<group>"; };
@@ -60,18 +56,16 @@
 		3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewActivityIndicator.swift; sourceTree = "<group>"; };
 		3F6FC430225621650051CE06 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
-		3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		3FD9E49F224A554900AE3541 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		69E294A2364B171FBAC5BB88 /* Pods-Last.fm client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Last.fm client.release.xcconfig"; path = "Target Support Files/Pods-Last.fm client/Pods-Last.fm client.release.xcconfig"; sourceTree = "<group>"; };
 		7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Last_fm_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellView.xib; sourceTree = "<group>"; };
-		E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellView.swift; sourceTree = "<group>"; };
+		E9233B5A225C73CF00F34CA0 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		E9233B5B225C73CF00F34CA0 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		E9346FF6225B419A00C70DE3 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		E9D337B62251002E00DA9363 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		E9DAFA64224A22C900FC1BB7 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		E9E6E92A224979B5003BFD02 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
 		E9E6E93722499D77003BFD02 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		F13DC256ED07955FE5E87E2B /* Pods-Last.fm client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Last.fm client.debug.xcconfig"; path = "Target Support Files/Pods-Last.fm client/Pods-Last.fm client.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,10 +193,10 @@
 			isa = PBXGroup;
 			children = (
 				3FD9E49F224A554900AE3541 /* Main.storyboard */,
-				E9346FF2225B2B3400C70DE3 /* CustomCellView.xib */,
 				E9346FF6225B419A00C70DE3 /* HeaderView.xib */,
 				3F2AC96F225B7F9700492D42 /* InfoView.xib */,
 				3F2AC978225BB1B100492D42 /* CollectionViewCell.xib */,
+				E9233B5B225C73CF00F34CA0 /* CustomTableViewCell.xib */,
 			);
 			path = "User Interface";
 			sourceTree = "<group>";
@@ -210,16 +204,13 @@
 		E9E6E93022499AA0003BFD02 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				3FD9E49B224A36F900AE3541 /* TrackTableViewCell.swift */,
-				E9E6E92C22498BCA003BFD02 /* ArtistTableViewCell.swift */,
-				3F2EB081224CCC0C00AEE3DE /* RecentTableViewCell.swift */,
-				E9346FF4225B2C0100C70DE3 /* CustomCellView.swift */,
+				E9233B5A225C73CF00F34CA0 /* CustomTableViewCell.swift */,
+				3F2AC975225B9A0300492D42 /* CustomCollectionViewCell.swift */,
 				E9E6E93722499D77003BFD02 /* RoundedImageView.swift */,
 				E9D337B62251002E00DA9363 /* HeaderView.swift */,
 				3F2AC969225B63F900492D42 /* CustomSearchBar.swift */,
 				3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */,
 				3F2AC971225B826E00492D42 /* InfoView.swift */,
-				3F2AC975225B9A0300492D42 /* CustomCollectionViewCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -287,9 +278,9 @@
 				3F2AC970225B7F9700492D42 /* InfoView.xib in Resources */,
 				3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */,
 				E9346FF7225B419A00C70DE3 /* HeaderView.xib in Resources */,
-				E9346FF3225B2B3400C70DE3 /* CustomCellView.xib in Resources */,
 				3F43A8C5224904B4002E676C /* LaunchScreen.storyboard in Resources */,
 				3F43A8C2224904B4002E676C /* Assets.xcassets in Resources */,
+				E9233B5D225C73CF00F34CA0 /* CustomTableViewCell.xib in Resources */,
 				3F2AC97A225BB1B100492D42 /* CollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,23 +342,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */,
-				E9346FF5225B2C0100C70DE3 /* CustomCellView.swift in Sources */,
 				3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */,
 				3F43A8BD224904B4002E676C /* ArtistsTableViewController.swift in Sources */,
 				E9E6E93822499D77003BFD02 /* RoundedImageView.swift in Sources */,
 				3F04FFFD2254BB9500C48292 /* IntExtension.swift in Sources */,
+				E9233B5C225C73CF00F34CA0 /* CustomTableViewCell.swift in Sources */,
 				E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */,
-				3FD9E49C224A36F900AE3541 /* TrackTableViewCell.swift in Sources */,
 				3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */,
 				3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */,
-				3F2EB082224CCC0C00AEE3DE /* RecentTableViewCell.swift in Sources */,
 				3F6FC431225621650051CE06 /* StringExtension.swift in Sources */,
 				3F2AC972225B826E00492D42 /* InfoView.swift in Sources */,
 				3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */,
 				3F43A8D322491B81002E676C /* Artist.swift in Sources */,
 				E9D337B72251002E00DA9363 /* HeaderView.swift in Sources */,
-				E9E6E92D22498BCA003BFD02 /* ArtistTableViewCell.swift in Sources */,
 				3F43A8CE2249184A002E676C /* HTTPClient.swift in Sources */,
 				3F2AC96A225B63F900492D42 /* CustomSearchBar.swift in Sources */,
 				3F04FFFB2254BB4700C48292 /* CALayerExtension.swift in Sources */,

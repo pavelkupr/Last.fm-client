@@ -26,8 +26,8 @@ class HeaderView: UIView {
         initView()
     }
 
-    init(frame: CGRect, labelShift shift: CGFloat, nameOfHeader: String) {
-        super.init(frame: frame)
+    init(labelShift shift: CGFloat, nameOfHeader: String) {
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         initView()
         leadingShift.constant = shift
         label?.text = nameOfHeader

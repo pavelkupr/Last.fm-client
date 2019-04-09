@@ -26,13 +26,13 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         infoView.collectionView.delegate = self
         infoView.collectionView.dataSource = self
-        
+
         if let placeholder = UIImage(named: "Placeholder") {
             self.placeholder = placeholder
         } else {
             NSLog("Can't find placeholder")
         }
-        
+
         if isArtistMode {
             loadArtistInfo()
         } else {
@@ -53,14 +53,15 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return similar.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell",
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell",
                                                             for: indexPath) as? CustomCollectionViewCell else {
             fatalError("Unexpected type")
         }
-        cell.mainInfo.text = "test"
+        
+        cell.fillCell(withArtist: similar[indexPath.row])
         return cell
     }
 
@@ -91,7 +92,7 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
                             info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
                     }
                     self.similar = data.similar
-                    self.infoView.collectionView.reloadData()
+                    self.infoView.showSimilar()
                 }
                 self.infoView.activityIndicator.stopAnimating()
             }

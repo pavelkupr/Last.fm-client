@@ -19,6 +19,7 @@ class InfoView: UIView {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var summaryConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerSimilarView: HeaderView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,21 +46,32 @@ class InfoView: UIView {
                                                  for: .touchUpInside)
         }
     }
-
-    // MARK: Private methods
     
+    func showSimilar() {
+        collectionView.reloadData()
+        headerSimilarView.label.text = "Similar"
+        headerSimilarView.moreButton.isHidden = true
+        collectionView.isHidden = false
+        headerSimilarView.isHidden = false
+    }
+    
+    // MARK: Private methods
+
     private func initView() {
         Bundle.main.loadNibNamed("InfoView", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil),
-                                forCellWithReuseIdentifier: "myCell")
+                                forCellWithReuseIdentifier: "CustomCell")
         headerAboutView.isHidden = true
         aboutView.isHidden = true
+        collectionView.isHidden = true
+        headerSimilarView.isHidden = true
         summaryConstraint.isActive = false
     }
-    
+
     @objc private func changeInfoMode(_ sender: UIButton) {
 
         if summaryConstraint.isActive {

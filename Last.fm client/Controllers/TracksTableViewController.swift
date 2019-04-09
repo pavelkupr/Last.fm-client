@@ -29,7 +29,8 @@ class TracksTableViewController: UITableViewController {
 
         activityIndicator = TableViewActivityIndicator()
         tableView.tableFooterView = activityIndicator
-
+        tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "TrackCell")
         if let navName = customNavName {
             navigationItem.title = navName
         } else {
@@ -51,7 +52,7 @@ class TracksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as?
-            TrackTableViewCell else {
+            CustomTableViewCell else {
             fatalError("Unexpected type of cell")
         }
         if isTopChart {
@@ -65,7 +66,14 @@ class TracksTableViewController: UITableViewController {
 
         return cell
     }
-
+    
+    // MARK: TableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "ShowInfo", sender: tableView.cellForRow(at: indexPath))
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     // MARK: Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,7 +87,7 @@ class TracksTableViewController: UITableViewController {
                 fatalError("Unexpected destination")
             }
 
-            guard let cell = sender as? TrackTableViewCell else {
+            guard let cell = sender as? CustomTableViewCell else {
                 fatalError("Unexpected sender")
             }
 

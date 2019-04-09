@@ -18,6 +18,7 @@
                 <outlet property="collectionView" destination="wK4-cA-dlQ" id="Xs5-e4-1AC"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="Knr-M3-gc0"/>
                 <outlet property="headerAboutView" destination="FyF-sQ-Ylr" id="cZC-PQ-49U"/>
+                <outlet property="headerSimilarView" destination="cjZ-gz-P9a" id="aP6-qE-hMQ"/>
                 <outlet property="imageView" destination="fec-rn-jGw" id="V80-RX-9Wk"/>
                 <outlet property="mainLabel" destination="FIB-eC-CZr" id="3i8-SA-jbE"/>
                 <outlet property="summaryConstraint" destination="RSO-2q-Nht" id="Bvg-fb-lfE"/>
@@ -31,29 +32,34 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCt-IZ-bm4">
                     <rect key="frame" x="0.0" y="20" width="375" height="935"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zIp-Wk-pH3">
-                            <rect key="frame" x="0.0" y="20" width="375" height="708"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="zIp-Wk-pH3">
+                            <rect key="frame" x="0.0" y="20" width="375" height="830"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fec-rn-jGw" customClass="RoundedImageView" customModule="Last_fm_client" customModuleProvider="target">
-                                    <rect key="frame" x="40" y="0.0" width="295" height="295"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="fec-rn-jGw" secondAttribute="height" multiplier="1:1" id="S5h-0g-Jku"/>
-                                    </constraints>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="FIB-eC-CZr">
-                                    <rect key="frame" x="152.5" y="303" width="70" height="33.5"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="RAZ-LC-HcR">
-                                    <rect key="frame" x="156.5" y="344.5" width="62.5" height="23"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="b2w-oy-CJZ">
+                                    <rect key="frame" x="40" y="0.0" width="295" height="367.5"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fec-rn-jGw" customClass="RoundedImageView" customModule="Last_fm_client" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="295" height="295"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="fec-rn-jGw" secondAttribute="height" multiplier="1:1" id="S5h-0g-Jku"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="FIB-eC-CZr">
+                                            <rect key="frame" x="112.5" y="303" width="70" height="33.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="RAZ-LC-HcR">
+                                            <rect key="frame" x="116.5" y="344.5" width="62.5" height="23"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="v58-He-kpe">
-                                    <rect key="frame" x="20" y="375.5" width="335" height="196.5"/>
+                                    <rect key="frame" x="20" y="383.5" width="335" height="196.5"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FyF-sQ-Ylr" customClass="HeaderView" customModule="Last_fm_client" customModuleProvider="target">
                                             <rect key="frame" x="5" y="0.0" width="325" height="30"/>
@@ -77,30 +83,43 @@
                                         <constraint firstItem="FyF-sQ-Ylr" firstAttribute="leading" secondItem="v58-He-kpe" secondAttribute="leading" constant="5" id="Z5X-oe-avS"/>
                                     </constraints>
                                 </stackView>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wK4-cA-dlQ">
-                                    <rect key="frame" x="0.0" y="580" width="375" height="100"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sBn-mj-7AX">
+                                    <rect key="frame" x="0.0" y="596" width="375" height="198"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjZ-gz-P9a" customClass="HeaderView" customModule="Last_fm_client" customModuleProvider="target">
+                                            <rect key="frame" x="25" y="0.0" width="325" height="30"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="wit-qi-Yft"/>
+                                            </constraints>
+                                        </view>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wK4-cA-dlQ">
+                                            <rect key="frame" x="0.0" y="38" width="375" height="160"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="160" id="l8Z-bz-MrO"/>
+                                            </constraints>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dN4-3e-mds">
+                                                <size key="itemSize" width="140" height="150"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                        </collectionView>
+                                    </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="100" id="l8Z-bz-MrO"/>
+                                        <constraint firstItem="cjZ-gz-P9a" firstAttribute="leading" secondItem="sBn-mj-7AX" secondAttribute="leading" constant="25" id="buv-aH-hep"/>
+                                        <constraint firstItem="wK4-cA-dlQ" firstAttribute="leading" secondItem="sBn-mj-7AX" secondAttribute="leading" id="wWD-qa-cVb"/>
                                     </constraints>
-                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dN4-3e-mds">
-                                        <size key="itemSize" width="100" height="100"/>
-                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </collectionViewFlowLayout>
-                                </collectionView>
+                                </stackView>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fVh-49-bYb">
-                                    <rect key="frame" x="177.5" y="688" width="20" height="20"/>
+                                    <rect key="frame" x="177.5" y="810" width="20" height="20"/>
                                 </activityIndicatorView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="fec-rn-jGw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zIp-Wk-pH3" secondAttribute="leading" constant="40" id="B6P-Un-Aid"/>
-                                <constraint firstItem="wK4-cA-dlQ" firstAttribute="leading" secondItem="zIp-Wk-pH3" secondAttribute="leading" id="Lk1-EL-Li7"/>
                                 <constraint firstItem="v58-He-kpe" firstAttribute="leading" secondItem="zIp-Wk-pH3" secondAttribute="leading" constant="20" id="Uht-HR-rMH"/>
-                                <constraint firstItem="FIB-eC-CZr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zIp-Wk-pH3" secondAttribute="leading" constant="40" id="VRa-Fz-1D8"/>
-                                <constraint firstItem="RAZ-LC-HcR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zIp-Wk-pH3" secondAttribute="leading" constant="40" id="bVb-WL-feB"/>
-                                <constraint firstAttribute="trailing" secondItem="wK4-cA-dlQ" secondAttribute="trailing" id="n8P-nH-sIT"/>
+                                <constraint firstItem="sBn-mj-7AX" firstAttribute="leading" secondItem="zIp-Wk-pH3" secondAttribute="leading" id="eQf-k7-JuW"/>
+                                <constraint firstItem="b2w-oy-CJZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zIp-Wk-pH3" secondAttribute="leading" constant="40" id="iv2-EV-a2k"/>
                             </constraints>
                         </stackView>
                     </subviews>
