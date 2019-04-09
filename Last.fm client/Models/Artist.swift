@@ -17,7 +17,7 @@ struct Artist {
     var photoUrls = [ImageSize: String]()
     var similar = [Artist]()
     var numInChart: Int?
-    
+
     init(jsonArtist: JSON, numInChart: Int? = nil) throws {
         self.numInChart = numInChart
         name = jsonArtist["name"].stringValue
@@ -61,29 +61,24 @@ extension Artist: Storable {
     var mainInfo: String {
         return name
     }
-    
+
     var topInfo: String? {
         if let num = numInChart {
             return "Top "+String(num)
         }
         return nil
     }
-    
+
     var bottomInfo: String? {
         return nil
     }
-    
+
     var aboutInfo: String? {
         return info
     }
-    
-    var imageURLs: [ImageSize : String]? {
+
+    var imageURLs: [ImageSize: String]? {
         return photoUrls
     }
-    
-    var similarData: [Storable]? {
-        return similar
-    }
-    
-    
+
 }

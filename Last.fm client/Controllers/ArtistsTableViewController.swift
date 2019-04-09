@@ -17,7 +17,7 @@ class ArtistsTableViewController: UITableViewController {
 
     private var nextPage = 1
     private var placeholder: UIImage?
-    private var artists = [Artist]()
+    private var artists = [Storable]()
     private var customNavName: String?
     private var isTopChart = true
     private var activityIndicator: TableViewActivityIndicator!
@@ -26,7 +26,7 @@ class ArtistsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         activityIndicator = TableViewActivityIndicator()
         tableView.tableFooterView = activityIndicator
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
@@ -36,7 +36,7 @@ class ArtistsTableViewController: UITableViewController {
         } else {
             navigationItem.title = "Top Artists"
         }
-        
+
         if artists.count == 0 {
             getArtistsFromSource(onPage: nextPage)
         }
@@ -56,23 +56,23 @@ class ArtistsTableViewController: UITableViewController {
 
             fatalError("Unexpected type of cell")
         }
-        
+
         cell.fillCell(withStorableData: artists[indexPath.row], isWithImg: true)
-        
+
         if isStartLoadNextPage(currRow: indexPath.row) {
             getArtistsFromSource(onPage: nextPage)
         }
 
         return cell
     }
-    
+
     // MARK: TableViewDelegate
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "ShowInfo", sender: tableView.cellForRow(at: indexPath))
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
     // MARK: Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -94,7 +94,7 @@ class ArtistsTableViewController: UITableViewController {
                 fatalError("Cell: \(cell) is not in the tableView")
             }
 
-            artistInfoVC.setArtist(artists[artistId])
+            artistInfoVC.setStoreableData(artists[artistId], mode: .artist)
 
         default:
             fatalError("Unexpected segue")
@@ -103,7 +103,7 @@ class ArtistsTableViewController: UITableViewController {
     }
 
     func setCustomStartInfo(withSource source: @escaping ArtistSource, withName name: String,
-                            withFirstPage fisrstPage: [Artist]?) {
+                            withFirstPage fisrstPage: [Storable]?) {
         customNavName = name
         dataSource = source
         isTopChart = false
@@ -137,7 +137,8 @@ class ArtistsTableViewController: UITableViewController {
 
             } else {
                 self.nextPage += 1
-                self.artists += data
+                let convert: [Storable] = data
+                self.artists += convert
                 self.tableView.reloadData()
             }
             self.activityIndicator.hideAndStop()

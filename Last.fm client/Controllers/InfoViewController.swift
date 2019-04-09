@@ -9,14 +9,17 @@
 import UIKit
 import SDWebImage
 
+enum DataRepresentationMode {
+    case artist, track
+}
+
 class InfoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     // MARK: Properties
 
     private let apiService = APIService()
-    private var isArtistMode = true
-    private var artist: Artist?
-    private var track: Track?
+    private var mode = DataRepresentationMode.artist
+    private var data: Storable?
     private var placeholder: UIImage?
     private var similar = [Artist]()
 
@@ -32,22 +35,18 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         } else {
             NSLog("Can't find placeholder")
         }
-
-        if isArtistMode {
+        switch mode {
+        case .artist:
             loadArtistInfo()
-        } else {
+        case .track:
             loadTrackInfo()
+
         }
     }
 
-    func setArtist(_ artist: Artist) {
-        isArtistMode = true
-        self.artist = artist
-    }
-
-    func setTrack(_ track: Track) {
-        isArtistMode = false
-        self.track = track
+    func setStoreableData(_ data: Storable, mode: DataRepresentationMode) {
+        self.mode = mode
+        self.data = data
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -60,7 +59,7 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                                             for: indexPath) as? CustomCollectionViewCell else {
             fatalError("Unexpected type")
         }
-        
+
         cell.fillCell(withArtist: similar[indexPath.row])
         return cell
     }
@@ -69,11 +68,11 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     private func loadArtistInfo() {
 
-        if let artistVal = artist {
+        if let dataVal = data {
             infoView.bottomLabel.isHidden = true
-            infoView.mainLabel.text = artistVal.name
+            infoView.mainLabel.text = dataVal.mainInfo
 
-            if let largeImg = artistVal.photoUrls[.extralarge], let url = URL(string: largeImg) {
+            if let imgs = dataVal.imageURLs, let img = imgs[.extralarge], let url = URL(string: img) {
                 infoView.imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
 
             } else {
@@ -81,7 +80,7 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
 
             infoView.activityIndicator.startAnimating()
-            apiService.getArtistInfo(byName: artistVal.name) { data, error in
+            apiService.getArtistInfo(byName: dataVal.mainInfo) { data, error in
 
                 if let err = error {
                     NSLog("Error: \(err)")
@@ -102,32 +101,34 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     private func loadTrackInfo() {
 
-        if let trackVal = track {
+        if let dataVal = data {
             infoView.bottomLabel.isHidden = false
-            infoView.mainLabel.text = trackVal.name
-            infoView.bottomLabel.text = "by "+trackVal.artistName
+            infoView.mainLabel.text = dataVal.mainInfo
 
-            if let largeImg = trackVal.photoUrls[.extralarge], let url = URL(string: largeImg) {
+            if let imgs = dataVal.imageURLs, let img = imgs[.extralarge], let url = URL(string: img) {
                 infoView.imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
 
             } else {
                 infoView.imageView.image = placeholder
             }
 
-            infoView.activityIndicator.startAnimating()
-            apiService.getTrackInfo(byTrackName: trackVal.name, byArtistName:
-            trackVal.artistName) { data, error in
+            if let bottomData = dataVal.bottomInfo {
+                infoView.bottomLabel.text = "by " + bottomData
+                infoView.activityIndicator.startAnimating()
+                apiService.getTrackInfo(byTrackName: dataVal.mainInfo, byArtistName:
+                bottomData) { data, error in
 
-                if let err = error {
-                    NSLog("Error: \(err)")
+                    if let err = error {
+                        NSLog("Error: \(err)")
 
-                } else if let data = data {
-                    if let info = data.info, info != "" {
-                        self.infoView.setAboutInfo(withInfo:
-                            info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
+                    } else if let data = data {
+                        if let info = data.info, info != "" {
+                            self.infoView.setAboutInfo(withInfo:
+                                info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
+                        }
                     }
+                    self.infoView.activityIndicator.stopAnimating()
                 }
-                self.infoView.activityIndicator.stopAnimating()
             }
         }
     }

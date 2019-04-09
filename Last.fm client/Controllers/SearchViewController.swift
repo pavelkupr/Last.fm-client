@@ -13,9 +13,9 @@ UITableViewDelegate, UITableViewDataSource {
 
     private enum SectionItem {
 
-        case artists([Artist])
-        case tracks([Track])
-        case resentSearches([String])
+        case artists
+        case tracks
+        case resentSearches
 
         func getStringDefinition() -> String {
             switch self {
@@ -32,13 +32,14 @@ UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
 
     private let searchInfoCount = 3
-    private let sectionLabelShift:CGFloat = 20
+    private let sectionLabelShift: CGFloat = 20
     private let apiService = APIService()
 
     private var isResentMode = true
-    private var searchModeSectionsInfo = [SectionItem.artists([]), SectionItem.tracks([])]
-    private var recentModeSectionInfo = [SectionItem.resentSearches([])]
-
+    private var searchModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
+        [(.tracks, [Track]()), (.artists, [Artist]())]
+    private var recentModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
+        [(.resentSearches, [String]())]
     private var tracksSource: TrackSource?
     private var artistsSource: ArtistSource?
 
@@ -48,10 +49,10 @@ UITableViewDelegate, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         searchTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "CustomCell")
-        
+
         searchBarView.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
@@ -63,59 +64,34 @@ UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
 
-        return isResentMode ? recentModeSectionInfo.count : searchModeSectionsInfo.count
+        return isResentMode ? recentModeSectionsInfo.count : searchModeSectionsInfo.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if isResentMode {
-            switch recentModeSectionInfo[section] {
-            case .resentSearches(let data):
-                return data.count
-            default:
-                fatalError("Unexpected type of section")
-            }
+            return recentModeSectionsInfo[section].value.count
 
         } else {
-            switch searchModeSectionsInfo[section] {
-            case .artists(let data):
-                return data.count > searchInfoCount ? searchInfoCount : data.count
-            case .tracks(let data):
-                return data.count > searchInfoCount ? searchInfoCount : data.count
-            default:
-                fatalError("Unexpected type of section")
-            }
-
+            let count = searchModeSectionsInfo[section].value.count
+            return count > searchInfoCount ? searchInfoCount : count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as?
             CustomTableViewCell else {
                 fatalError("Unexpected type of cell")
         }
-        
+
         if isResentMode {
-            switch recentModeSectionInfo[indexPath.section] {
-            case .resentSearches(let data):
-                cell.fillCell(withRecentInfo: data[indexPath.row])
-            default:
-                fatalError("Unexpected type of section")
-            }
+            let data = recentModeSectionsInfo[indexPath.section].value[indexPath.row]
+            cell.fillCell(withStorableData: data, isWithImg: false)
 
         } else {
-            switch searchModeSectionsInfo[indexPath.section] {
-            case .artists(let data):
-                cell.fillCell(withArtist: data[indexPath.row])
-
-            case .tracks(let data):
-                cell.fillCell(withTrack: data[indexPath.row])
-                
-            default:
-                fatalError("Unexpected type of section")
-            }
-
+            let data = searchModeSectionsInfo[indexPath.section].value[indexPath.row]
+            cell.fillCell(withStorableData: data, isWithImg: true)
         }
 
         return cell
@@ -124,29 +100,26 @@ UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerName = ""
         var sectionHeader: HeaderView
-
+        
         if isResentMode {
-            headerName = recentModeSectionInfo[section].getStringDefinition()
+            headerName = recentModeSectionsInfo[section].key.getStringDefinition()
             sectionHeader = HeaderView(labelShift: sectionLabelShift, nameOfHeader: headerName)
             sectionHeader.moreButton.isHidden = true
         } else {
-            headerName = searchModeSectionsInfo[section].getStringDefinition()
+            headerName = searchModeSectionsInfo[section].key.getStringDefinition()
             sectionHeader = HeaderView(labelShift: sectionLabelShift, nameOfHeader: headerName)
-            
-            switch searchModeSectionsInfo[section] {
-            case .artists(let data):
-                if data.count > searchInfoCount {
+
+            if searchModeSectionsInfo[section].value.count > searchInfoCount {
+                switch searchModeSectionsInfo[section].key {
+                case .artists:
                     sectionHeader.moreButton.addTarget(self, action: #selector(moreArtists(_:)), for: .touchUpInside)
-                }
-            case .tracks(let data):
-                if data.count > searchInfoCount {
+                case .tracks:
                     sectionHeader.moreButton.addTarget(self, action: #selector(moreTracks(_:)), for: .touchUpInside)
+
+                default:
+                    break
                 }
-
-            default:
-                break
             }
-
         }
 
         return sectionHeader
@@ -157,26 +130,11 @@ UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isResentMode {
-            switch recentModeSectionInfo[indexPath.section] {
-            case .resentSearches(let data):
-                view.endEditing(true)
-                searchBarView.text = ""
-                search(data[indexPath.row])
-
-            default:
-                fatalError("Unexpected type of section")
-            }
-
-        }
-        else {
-            switch searchModeSectionsInfo[indexPath.section] {
-            case .artists, .tracks:
-                performSegue(withIdentifier: "ShowInfo", sender: tableView.cellForRow(at: indexPath))
-                
-            default:
-                fatalError("Unexpected type of section")
-            }
-            
+            view.endEditing(true)
+            searchBarView.text = ""
+            search(recentModeSectionsInfo[indexPath.section].value[indexPath.row].mainInfo)
+        } else {
+            performSegue(withIdentifier: "ShowInfo", sender: tableView.cellForRow(at: indexPath))
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -257,17 +215,28 @@ UITableViewDelegate, UITableViewDataSource {
     // MARK: Private Methods
 
     private func search(_ info: String) {
-        searchArtists(byName: info)
+        
+        for index in 0..<searchModeSectionsInfo.count {
+            switch searchModeSectionsInfo[index].key {
+            case .artists:
+                searchModeSectionsInfo[index].value = []
+            case .tracks:
+                searchModeSectionsInfo[index].value = []
+            default:
+                break
+            }
+        }
+        
         searchTracks(byName: info)
+        searchArtists(byName: info)
         self.isResentMode = false
         searchBarView.setShowsCancelButton(true, animated: true)
 
-        for index in 0..<recentModeSectionInfo.count {
-            switch recentModeSectionInfo[index] {
-            case .resentSearches(var data):
-                if !data.contains(info) {
-                    data.append(info)
-                    recentModeSectionInfo[index] = .resentSearches(data)
+        for index in 0..<recentModeSectionsInfo.count {
+            switch recentModeSectionsInfo[index].key {
+            case .resentSearches:
+                if !recentModeSectionsInfo[index].value.contains(where: { $0.mainInfo == info}) {
+                    recentModeSectionsInfo[index].value.append(info)
                 }
 
             default:
@@ -287,9 +256,9 @@ UITableViewDelegate, UITableViewDataSource {
 
             } else {
                 for index in 0..<self.searchModeSectionsInfo.count {
-                    switch self.searchModeSectionsInfo[index] {
+                    switch self.searchModeSectionsInfo[index].key {
                     case .artists:
-                        self.searchModeSectionsInfo[index] = .artists(data)
+                        self.searchModeSectionsInfo[index].value = data
 
                     default:
                         break
@@ -313,9 +282,9 @@ UITableViewDelegate, UITableViewDataSource {
 
             } else {
                 for index in 0..<self.searchModeSectionsInfo.count {
-                    switch self.searchModeSectionsInfo[index] {
+                    switch self.searchModeSectionsInfo[index].key {
                     case .tracks:
-                        self.searchModeSectionsInfo[index] = .tracks(data)
+                        self.searchModeSectionsInfo[index].value = data
 
                     default:
                         break
@@ -329,26 +298,27 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     private func prepareInfoView(_ infoVC: InfoViewController, index: IndexPath) {
-        
-            switch searchModeSectionsInfo[index.section] {
-            case .artists(var data):
-                infoVC.setArtist(data[index.row])
-            case .tracks(var data):
-                infoVC.setTrack(data[index.row])
+
+            switch searchModeSectionsInfo[index.section].key {
+            case .artists:
+                infoVC.setStoreableData(searchModeSectionsInfo[index.section].value[index.row], mode: .artist)
+            case .tracks:
+                infoVC.setStoreableData(searchModeSectionsInfo[index.section].value[index.row], mode: .track)
             default:
                 break
             }
-        
+
     }
 
     private func prepareArtistsTableView(_ artistsTVC: ArtistsTableViewController) {
         for element in searchModeSectionsInfo {
-            switch element {
-            case .artists(let data):
+            switch element.key {
+            case .artists:
                 guard let source = artistsSource else {
                     fatalError("Source is empty")
                 }
-                artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists", withFirstPage: data)
+                artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists",
+                                              withFirstPage: element.value)
 
             default:
                 break
@@ -358,12 +328,13 @@ UITableViewDelegate, UITableViewDataSource {
 
     private func prepareTracksTableView(_ tracksTVC: TracksTableViewController) {
         for element in searchModeSectionsInfo {
-            switch element {
-            case .tracks(let data):
+            switch element.key {
+            case .tracks:
                 guard let source = tracksSource else {
                     fatalError("Source is empty")
                 }
-                tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks", withFirstPage: data)
+                tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks",
+                                             withFirstPage: element.value)
 
             default:
                 break

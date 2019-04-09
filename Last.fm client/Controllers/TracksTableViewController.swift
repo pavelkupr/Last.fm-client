@@ -17,7 +17,7 @@ class TracksTableViewController: UITableViewController {
 
     private var nextPage = 1
     private var placeholder: UIImage?
-    private var tracks = [Track]()
+    private var tracks = [Storable]()
     private var customNavName: String?
     private var isTopChart = true
     private var activityIndicator: TableViewActivityIndicator!
@@ -55,23 +55,23 @@ class TracksTableViewController: UITableViewController {
             CustomTableViewCell else {
             fatalError("Unexpected type of cell")
         }
-        
+
         cell.fillCell(withStorableData: tracks[indexPath.row], isWithImg: true)
-        
+
         if isStartLoadNextPage(currRow: indexPath.row) {
             getTracksFromSource(onPage: nextPage)
         }
 
         return cell
     }
-    
+
     // MARK: TableViewDelegate
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "ShowInfo", sender: tableView.cellForRow(at: indexPath))
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
     // MARK: Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -93,7 +93,7 @@ class TracksTableViewController: UITableViewController {
                 fatalError("Cell: \(cell) is not in the tableView")
             }
 
-            trackInfoVC.setTrack(tracks[trackId])
+            trackInfoVC.setStoreableData(tracks[trackId], mode: .track)
 
         default:
             fatalError("Unexpected segue")
@@ -102,7 +102,7 @@ class TracksTableViewController: UITableViewController {
     }
 
     func setCustomStartInfo(withSource source: @escaping TrackSource, withName name: String,
-                            withFirstPage fisrstPage: [Track]?) {
+                            withFirstPage fisrstPage: [Storable]?) {
         customNavName = name
         dataSource = source
         isTopChart = false
@@ -136,7 +136,8 @@ class TracksTableViewController: UITableViewController {
 
             } else {
                 self.nextPage += 1
-                self.tracks += data
+                let convert: [Storable] = data
+                self.tracks += convert
                 self.tableView.reloadData()
             }
             self.activityIndicator.hideAndStop()

@@ -20,7 +20,7 @@ class InfoView: UIView {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var summaryConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerSimilarView: HeaderView!
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
@@ -46,7 +46,7 @@ class InfoView: UIView {
                                                  for: .touchUpInside)
         }
     }
-    
+
     func showSimilar() {
         collectionView.reloadData()
         headerSimilarView.label.text = "Similar"
@@ -54,7 +54,7 @@ class InfoView: UIView {
         collectionView.isHidden = false
         headerSimilarView.isHidden = false
     }
-    
+
     // MARK: Private methods
 
     private func initView() {
@@ -62,7 +62,7 @@ class InfoView: UIView {
         addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        
+
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil),
                                 forCellWithReuseIdentifier: "CustomCell")
         headerAboutView.isHidden = true

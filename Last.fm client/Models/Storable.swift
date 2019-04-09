@@ -9,10 +9,9 @@
 import Foundation
 
 protocol Storable {
-    var mainInfo:String { get }
-    var topInfo:String? { get }
-    var bottomInfo:String? { get }
-    var aboutInfo:String? { get }
-    var imageURLs:[ImageSize: String]? { get }
-    var similarData:[Storable]? { get }
+    var mainInfo: String { get }
+    var topInfo: String? { get }
+    var bottomInfo: String? { get }
+    var aboutInfo: String? { get }
+    var imageURLs: [ImageSize: String]? { get }
 }

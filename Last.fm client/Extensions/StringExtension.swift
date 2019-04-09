@@ -24,3 +24,26 @@ extension String {
                                           range: nil)
     }
 }
+
+extension String: Storable {
+    var mainInfo: String {
+        return self
+    }
+
+    var topInfo: String? {
+        return nil
+    }
+
+    var bottomInfo: String? {
+        return nil
+    }
+
+    var aboutInfo: String? {
+        return nil
+    }
+
+    var imageURLs: [ImageSize: String]? {
+        return nil
+    }
+
+}

@@ -28,7 +28,7 @@ enum Format: String {
 enum ImageSize: String {
     case small, medium, large, extralarge, mega
 }
-//TODO: create auto paging
+
 class APIService {
 
     // MARK: Properties
@@ -56,7 +56,7 @@ class APIService {
     func getTopArtistsClosure() -> ArtistSource {
         var lastPage: Int?
         var topCounter = 0
-        
+
         return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
 
             if let lastPage = lastPage, page > lastPage {
@@ -84,9 +84,9 @@ class APIService {
                         guard var artistArray = jsonData["artists"]["artist"].array else {
                             fatalError("Unexpected JSON parameters")
                         }
-                        artistArray = self.apiTopArtistsSecondPageBugFix(page, artistArray)
+                        artistArray = self.apiSecondPageBugFix(page, artistArray)
                         artists = try artistArray.map {try Artist(jsonArtist: $0, numInChart: topCounter.increment())}
-                        
+
                         if artists.count == 0 {
                             lastPage = page - 1
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
@@ -134,13 +134,13 @@ class APIService {
                             fatalError("Unexpected JSON parameters")
                         }
                         artists = try artistsArray.map {try Artist(jsonArtist: $0)}
-                        
+
                         if artists.count == 0 {
                             lastPage = page - 1
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
-                        
+
                         closure(artists, nil)
 
                     } catch let parseError as NSError {
@@ -213,7 +213,7 @@ class APIService {
                             fatalError("Unexpected JSON parameters")
                         }
                         tracks = try tracksArray.map {try Track(jsonTrack: $0, numInChart: topCounter.increment())}
-                        
+
                         if tracks.count == 0 {
                             lastPage = page - 1
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
@@ -257,11 +257,12 @@ class APIService {
 
                 if let jsonData = data as? JSON {
                     do {
-                        guard let tracksArray = jsonData["results"]["trackmatches"]["track"].array else {
+                        guard var tracksArray = jsonData["results"]["trackmatches"]["track"].array else {
                             fatalError("Unexpected JSON parameters")
                         }
+                        tracksArray = self.apiSecondPageBugFix(page, tracksArray)
                         tracks = try tracksArray.map {try Track(foundJsonTrack: $0)}
-                        
+
                         if tracks.count == 0 {
                             lastPage = page - 1
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
@@ -310,7 +311,7 @@ class APIService {
 
     // MARK: Private Methods
 
-    private func apiTopArtistsSecondPageBugFix(_ page: Int, _ data: [JSON]) -> [JSON] {
+    private func apiSecondPageBugFix(_ page: Int, _ data: [JSON]) -> [JSON] {
         if page == 2 {
             return Array(data.suffix(itemsPerPage))
         } else {
