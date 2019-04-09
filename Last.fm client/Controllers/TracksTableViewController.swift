@@ -55,11 +55,9 @@ class TracksTableViewController: UITableViewController {
             CustomTableViewCell else {
             fatalError("Unexpected type of cell")
         }
-        if isTopChart {
-            cell.fillCell(withTrack: tracks[indexPath.row], numInChart: indexPath.row + 1)
-        } else {
-            cell.fillCell(withTrack: tracks[indexPath.row])
-        }
+        
+        cell.fillCell(withStorableData: tracks[indexPath.row], isWithImg: true)
+        
         if isStartLoadNextPage(currRow: indexPath.row) {
             getTracksFromSource(onPage: nextPage)
         }

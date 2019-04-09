@@ -115,7 +115,8 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
 
             infoView.activityIndicator.startAnimating()
-            apiService.getArtistInfo(byName: trackVal.name) { data, error in
+            apiService.getTrackInfo(byTrackName: trackVal.name, byArtistName:
+            trackVal.artistName) { data, error in
 
                 if let err = error {
                     NSLog("Error: \(err)")

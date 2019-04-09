@@ -16,9 +16,11 @@ struct Track {
     var listeners: String
     var info: String?
     var photoUrls = [ImageSize: String]()
-
-    init(jsonTrack: JSON) throws {
-
+    var numInChart: Int?
+    
+    init(jsonTrack: JSON, numInChart: Int? = nil) throws {
+        self.numInChart = numInChart
+        
         name = jsonTrack["name"].stringValue
         playCount = jsonTrack["playcount"].stringValue
         listeners = jsonTrack["listeners"].stringValue
@@ -65,4 +67,35 @@ struct Track {
             }
         }
     }
+}
+
+extension Track: Storable {
+    var mainInfo: String {
+        return name
+    }
+    
+    var topInfo: String? {
+        if let num = numInChart {
+            return "Top " + String(num)
+        }
+        return nil
+    }
+    
+    var bottomInfo: String? {
+        return "by " + artistName
+    }
+    
+    var aboutInfo: String? {
+        return info
+    }
+    
+    var imageURLs: [ImageSize : String]? {
+        return photoUrls
+    }
+    
+    var similarData: [Storable]? {
+        return nil
+    }
+    
+    
 }

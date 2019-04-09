@@ -28,53 +28,7 @@ enum Format: String {
 enum ImageSize: String {
     case small, medium, large, extralarge, mega
 }
-
-struct ArtistsResponse {
-    let artists: [Artist]
-
-    init(jsonArtists: JSON) throws {
-
-        guard let artistArray = jsonArtists["artists"]["artist"].array else {
-            fatalError("Unexpected JSON parameters")
-        }
-
-        self.artists = try artistArray.map(Artist.init(jsonArtist:))
-    }
-
-    init(foundJSONArtists: JSON) throws {
-
-        guard let artistsArray = foundJSONArtists["results"]["artistmatches"]["artist"].array else {
-            fatalError("Unexpected JSON parameters")
-        }
-
-        self.artists = try artistsArray.map(Artist.init(jsonArtist:))
-    }
-
-}
-
-struct TracksResponse {
-    let tracks: [Track]
-
-    init(jsonTracks: JSON) throws {
-
-        guard let tracksArray = jsonTracks["tracks"]["track"].array else {
-            fatalError("Unexpected JSON parameters")
-        }
-
-        self.tracks = try tracksArray.map(Track.init(jsonTrack:))
-    }
-
-    init(foundJSONTracks: JSON) throws {
-
-        guard let tracksArray = foundJSONTracks["results"]["trackmatches"]["track"].array else {
-            fatalError("Unexpected JSON parameters")
-        }
-
-        self.tracks = try tracksArray.map(Track.init(foundJsonTrack:))
-    }
-
-}
-
+//TODO: create auto paging
 class APIService {
 
     // MARK: Properties
@@ -101,7 +55,8 @@ class APIService {
 
     func getTopArtistsClosure() -> ArtistSource {
         var lastPage: Int?
-
+        var topCounter = 0
+        
         return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
 
             if let lastPage = lastPage, page > lastPage {
@@ -118,7 +73,7 @@ class APIService {
             ]
 
             self.httpClient.get(parameters: params, contentType: .json) { data, error in
-
+                var artists: [Artist]
                 guard error == nil else {
                     closure([], error)
                     return
@@ -126,13 +81,18 @@ class APIService {
 
                 if let jsonData = data as? JSON {
                     do {
-                        let artistsResponse = try ArtistsResponse(jsonArtists: jsonData)
-                        if artistsResponse.artists.count == 0 {
+                        guard var artistArray = jsonData["artists"]["artist"].array else {
+                            fatalError("Unexpected JSON parameters")
+                        }
+                        artistArray = self.apiTopArtistsSecondPageBugFix(page, artistArray)
+                        artists = try artistArray.map {try Artist(jsonArtist: $0, numInChart: topCounter.increment())}
+                        
+                        if artists.count == 0 {
                             lastPage = page - 1
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
-                        closure(self.apiTopArtistsSecondPageBugFix(page, artistsResponse.artists), nil)
+                        closure(artists, nil)
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -162,7 +122,7 @@ class APIService {
             ]
 
             self.httpClient.get(parameters: params, contentType: .json) { data, error in
-
+                var artists: [Artist]
                 guard error == nil else {
                     closure([], error)
                     return
@@ -170,13 +130,18 @@ class APIService {
 
                 if let jsonData = data as? JSON {
                     do {
-                        let artistsResponse = try ArtistsResponse(foundJSONArtists: jsonData)
-                        if artistsResponse.artists.count == 0 {
+                        guard let artistsArray = jsonData["results"]["artistmatches"]["artist"].array else {
+                            fatalError("Unexpected JSON parameters")
+                        }
+                        artists = try artistsArray.map {try Artist(jsonArtist: $0)}
+                        
+                        if artists.count == 0 {
                             lastPage = page - 1
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
-                        closure(artistsResponse.artists, nil)
+                        
+                        closure(artists, nil)
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -218,7 +183,8 @@ class APIService {
 
     func getTopTracksClosure() -> TrackSource {
         var lastPage: Int?
-
+        var topCounter = 0
+        
         return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
 
             if let lastPage = lastPage, page > lastPage {
@@ -235,7 +201,7 @@ class APIService {
             ]
 
             self.httpClient.get(parameters: params, contentType: .json) { data, error in
-
+                var tracks: [Track]
                 guard error == nil else {
                     closure([], error)
                     return
@@ -243,13 +209,17 @@ class APIService {
 
                 if let jsonData = data as? JSON {
                     do {
-                        let tracksResponse = try TracksResponse(jsonTracks: jsonData)
-                        if tracksResponse.tracks.count == 0 {
+                        guard let tracksArray = jsonData["tracks"]["track"].array else {
+                            fatalError("Unexpected JSON parameters")
+                        }
+                        tracks = try tracksArray.map {try Track(jsonTrack: $0, numInChart: topCounter.increment())}
+                        
+                        if tracks.count == 0 {
                             lastPage = page - 1
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
-                        closure(tracksResponse.tracks, nil)
+                        closure(tracks, nil)
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -279,7 +249,7 @@ class APIService {
             ]
 
             self.httpClient.get(parameters: params, contentType: .json) { data, error in
-
+                var tracks: [Track]
                 guard error == nil else {
                     closure([], error)
                     return
@@ -287,13 +257,17 @@ class APIService {
 
                 if let jsonData = data as? JSON {
                     do {
-                        let tracksResponse = try TracksResponse(foundJSONTracks: jsonData)
-                        if tracksResponse.tracks.count == 0 {
+                        guard let tracksArray = jsonData["results"]["trackmatches"]["track"].array else {
+                            fatalError("Unexpected JSON parameters")
+                        }
+                        tracks = try tracksArray.map {try Track(foundJsonTrack: $0)}
+                        
+                        if tracks.count == 0 {
                             lastPage = page - 1
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
-                        closure(tracksResponse.tracks, nil)
+                        closure(tracks, nil)
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -336,7 +310,7 @@ class APIService {
 
     // MARK: Private Methods
 
-    private func apiTopArtistsSecondPageBugFix(_ page: Int, _ data: [Artist]) -> [Artist] {
+    private func apiTopArtistsSecondPageBugFix(_ page: Int, _ data: [JSON]) -> [JSON] {
         if page == 2 {
             return Array(data.suffix(itemsPerPage))
         } else {

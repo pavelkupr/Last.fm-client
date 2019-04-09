@@ -58,7 +58,7 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="height" constant="79.5" id="dtL-x0-G2e"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="79.5" id="dtL-x0-G2e"/>
                         </constraints>
                     </stackView>
                 </subviews>
@@ -72,16 +72,14 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="bottomInfoLabel" destination="mCC-Ze-Zmu" id="xKT-4g-n6q"/>
-                <outlet property="heightConstraint" destination="dtL-x0-G2e" id="g78-em-d9F"/>
                 <outlet property="mainInfoLabel" destination="iAc-uV-BaX" id="LvG-k0-3R9"/>
                 <outlet property="photoImageView" destination="6cw-nl-MfL" id="4vJ-O4-acy"/>
-                <outlet property="stackView" destination="WvF-wt-dic" id="e4W-uc-eGQ"/>
                 <outlet property="topInfoLabel" destination="Nr1-07-JhW" id="txK-oz-9sw"/>
             </connections>
             <point key="canvasLocation" x="-36" y="20.239880059970016"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Placeholder" width="305" height="305"/>
+        <image name="Placeholder" width="610" height="610"/>
     </resources>
 </document>

@@ -56,12 +56,9 @@ class ArtistsTableViewController: UITableViewController {
 
             fatalError("Unexpected type of cell")
         }
-        if isTopChart {
-            cell.fillCell(withArtist: artists[indexPath.row], numInChart: indexPath.row + 1)
-        } else {
-            cell.fillCell(withArtist: artists[indexPath.row])
-        }
-
+        
+        cell.fillCell(withStorableData: artists[indexPath.row], isWithImg: true)
+        
         if isStartLoadNextPage(currRow: indexPath.row) {
             getArtistsFromSource(onPage: nextPage)
         }
