@@ -10,7 +10,7 @@ import Foundation
 
 extension String {
 
-    func removeHTMLTags(with replaceStr: String) -> String {
+    func repalceHTMLTags(with replaceStr: String) -> String {
         return self.replacingOccurrences(of: "<[^>]+>\\.? *",
                                           with: replaceStr,
                                           options: .regularExpression,

@@ -64,7 +64,19 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.fillCell(withStorableData: similar[indexPath.row])
         return cell
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else {
+            fatalError("Select unselectable cell")
+        }
+        guard let index = infoView.collectionView.indexPath(for: cell) else {
+            fatalError("Unreacheble index")
+        }
+        
+        cell.imageView.highlightBorder(withColour: cell.tintColor)
+        pushSameController(withStoreableData: similar[index.row])
+    }
+    
     // MARK: Private Methods
 
     private func loadArtistInfo(_ value: Storable) {
@@ -77,7 +89,7 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
             } else if let data = data {
                 if let info = data.info, info != "" {
                     self.infoView.setAboutInfo(withInfo:
-                        info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
+                        info.removeStartingNewlineIfExists().repalceHTMLTags(with: "\n"))
                 }
                 if !data.similar.isEmpty {
                     self.similar = data.similar
@@ -100,11 +112,22 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 } else if let data = data {
                     if let info = data.info, info != "" {
                         self.infoView.setAboutInfo(withInfo:
-                            info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
+                            info.removeStartingNewlineIfExists().repalceHTMLTags(with: "\n"))
                     }
                 }
                 self.infoView.activityIndicator.stopAnimating()
             }
         }
     }
+    
+    private func pushSameController(withStoreableData value: Storable) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: "InfoViewController")
+            as? InfoViewController else {
+                fatalError("Can't cast controller")
+        }
+        viewController.setStoreableData(value, mode: mode)
+        navigationController?.pushViewController(viewController, animated:true)
+    }
+    
 }

@@ -20,14 +20,18 @@ class RoundedImageView: UIImageView {
         createCircle()
     }
 
+    func highlightBorder(withColour colour: UIColor) {
+        animateBorderColor(toColor: colour, duration: 0.4)
+        animateBorderColor(toColor: .gray, duration: 0.4)
+    }
+    
     // MARK: Private methods
 
     private func createCircle() {
 
         layer.cornerRadius = 20
         clipsToBounds = true
-        layer.borderWidth = 3.0
+        layer.borderWidth = 2.0
         layer.borderColor = UIColor.gray.cgColor
     }
-
 }

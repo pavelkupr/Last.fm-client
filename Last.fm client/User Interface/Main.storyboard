@@ -54,7 +54,7 @@
         <!--Info View Controller-->
         <scene sceneID="HqS-8J-SQy">
             <objects>
-                <viewController id="lnw-7n-Z2w" customClass="InfoViewController" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoViewController" id="lnw-7n-Z2w" customClass="InfoViewController" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bBA-sf-9cc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -95,6 +95,7 @@ class InfoView: UIView {
 
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil),
                                 forCellWithReuseIdentifier: "CustomCell")
+    
         headerAboutView.isHidden = true
         aboutView.isHidden = true
         collectionView.isHidden = true

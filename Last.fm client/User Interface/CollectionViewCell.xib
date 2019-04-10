@@ -26,20 +26,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="139" height="155"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="DyA-nE-u7q" customClass="RoundedImageView" customModule="Last_fm_client" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="0.0" width="109" height="109"/>
+                                        <rect key="frame" x="11" y="0.0" width="117" height="117"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="DyA-nE-u7q" secondAttribute="height" multiplier="1:1" id="brh-vY-u8s"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ena-5d-eHb">
-                                        <rect key="frame" x="48.5" y="114" width="42" height="41"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ena-5d-eHb">
+                                        <rect key="frame" x="0.0" y="122" width="139" height="33"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="DyA-nE-u7q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gwr-dV-dY8" secondAttribute="leading" constant="15" id="qXM-ac-FD0"/>
+                                    <constraint firstItem="ena-5d-eHb" firstAttribute="leading" secondItem="gwr-dV-dY8" secondAttribute="leading" id="KuW-R3-0vz"/>
+                                    <constraint firstItem="DyA-nE-u7q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gwr-dV-dY8" secondAttribute="leading" constant="11" id="qXM-ac-FD0"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -69,6 +70,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Placeholder" width="305" height="305"/>
+        <image name="Placeholder" width="610" height="610"/>
     </resources>
 </document>
