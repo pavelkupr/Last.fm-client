@@ -184,7 +184,7 @@ class APIService {
     func getTopTracksClosure() -> TrackSource {
         var lastPage: Int?
         var topCounter = 0
-        
+
         return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
 
             if let lastPage = lastPage, page > lastPage {

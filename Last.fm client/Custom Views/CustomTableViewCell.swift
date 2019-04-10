@@ -27,50 +27,6 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var bottomInfoLabel: UILabel!
     @IBOutlet weak var topInfoLabel: UILabel!
 
-    func fillCell(withRecentInfo recent: String) {
-        setRecentMode()
-        mainInfoLabel.text = recent
-    }
-
-    func fillCell(withTrack track: Track, numInChart: Int? = nil) {
-
-        if let top = numInChart {
-            setTrackMode(withTop: true)
-            topInfoLabel.text = "Top " + String(top)
-        } else {
-            setTrackMode(withTop: false)
-        }
-
-        mainInfoLabel.text = track.name
-        bottomInfoLabel.text = "by " + track.artistName
-
-        if let largeImg = track.photoUrls[imageSize], let url = URL(string: largeImg) {
-            photoImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-
-        } else {
-            photoImageView.image = placeholder
-        }
-    }
-
-    func fillCell(withArtist artist: Artist, numInChart: Int? = nil) {
-
-        if let top = numInChart {
-            setArtistMode(withTop: true)
-            topInfoLabel.text = "Top " + String(top)
-        } else {
-            setArtistMode(withTop: false)
-        }
-
-        mainInfoLabel.text = artist.name
-
-        if let largeImg = artist.photoUrls[imageSize], let url = URL(string: largeImg) {
-            photoImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-
-        } else {
-            photoImageView.image = placeholder
-        }
-    }
-
     func fillCell(withStorableData data: Storable, isWithImg: Bool) {
 
         hideCell()
@@ -110,27 +66,6 @@ class CustomTableViewCell: UITableViewCell {
     private func hideCell() {
         bottomInfoLabel.isHidden = true
         photoImageView.isHidden = true
-        topInfoLabel.isHidden = true
-    }
-
-    private func setArtistMode(withTop top: Bool) {
-        bottomInfoLabel.isHidden = true
-        photoImageView.isHidden = false
-        mainInfoLabel.isHidden = false
-        topInfoLabel.isHidden = !top
-    }
-
-    private func setTrackMode(withTop top: Bool) {
-        bottomInfoLabel.isHidden = false
-        photoImageView.isHidden = false
-        mainInfoLabel.isHidden = false
-        topInfoLabel.isHidden = !top
-    }
-
-    private func setRecentMode() {
-        bottomInfoLabel.isHidden = true
-        photoImageView.isHidden = true
-        mainInfoLabel.isHidden = false
         topInfoLabel.isHidden = true
     }
 }

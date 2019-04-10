@@ -100,7 +100,7 @@ UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerName = ""
         var sectionHeader: HeaderView
-        
+
         if isResentMode {
             headerName = recentModeSectionsInfo[section].key.getStringDefinition()
             sectionHeader = HeaderView(labelShift: sectionLabelShift, nameOfHeader: headerName)
@@ -215,32 +215,20 @@ UITableViewDelegate, UITableViewDataSource {
     // MARK: Private Methods
 
     private func search(_ info: String) {
-        
+
         for index in 0..<searchModeSectionsInfo.count {
-            switch searchModeSectionsInfo[index].key {
-            case .artists:
-                searchModeSectionsInfo[index].value = []
-            case .tracks:
-                searchModeSectionsInfo[index].value = []
-            default:
-                break
-            }
+            searchModeSectionsInfo[index].value = []
         }
-        
+
         searchTracks(byName: info)
         searchArtists(byName: info)
         self.isResentMode = false
         searchBarView.setShowsCancelButton(true, animated: true)
 
         for index in 0..<recentModeSectionsInfo.count {
-            switch recentModeSectionsInfo[index].key {
-            case .resentSearches:
-                if !recentModeSectionsInfo[index].value.contains(where: { $0.mainInfo == info}) {
-                    recentModeSectionsInfo[index].value.append(info)
-                }
-
-            default:
-                break
+            if recentModeSectionsInfo[index].key == .resentSearches &&
+                !recentModeSectionsInfo[index].value.contains(where: {$0.mainInfo == info}) {
+                recentModeSectionsInfo[index].value.append(info)
             }
         }
     }
@@ -255,14 +243,9 @@ UITableViewDelegate, UITableViewDataSource {
                 NSLog("Error: \(err)")
 
             } else {
-                for index in 0..<self.searchModeSectionsInfo.count {
-                    switch self.searchModeSectionsInfo[index].key {
-                    case .artists:
-                        self.searchModeSectionsInfo[index].value = data
-
-                    default:
-                        break
-                    }
+                for index in 0..<self.searchModeSectionsInfo.count
+                    where self.searchModeSectionsInfo[index].key == .artists {
+                    self.searchModeSectionsInfo[index].value = data
                 }
 
                 self.searchTableView.reloadData()
@@ -281,14 +264,9 @@ UITableViewDelegate, UITableViewDataSource {
                 NSLog("Error: \(err)")
 
             } else {
-                for index in 0..<self.searchModeSectionsInfo.count {
-                    switch self.searchModeSectionsInfo[index].key {
-                    case .tracks:
-                        self.searchModeSectionsInfo[index].value = data
-
-                    default:
-                        break
-                    }
+                for index in 0..<self.searchModeSectionsInfo.count
+                    where self.searchModeSectionsInfo[index].key == .tracks {
+                    self.searchModeSectionsInfo[index].value = data
                 }
 
                 self.searchTableView.reloadData()
@@ -311,34 +289,24 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     private func prepareArtistsTableView(_ artistsTVC: ArtistsTableViewController) {
-        for element in searchModeSectionsInfo {
-            switch element.key {
-            case .artists:
-                guard let source = artistsSource else {
-                    fatalError("Source is empty")
-                }
-                artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists",
-                                              withFirstPage: element.value)
-
-            default:
-                break
+        for element in searchModeSectionsInfo where element.key == .artists {
+            guard let source = artistsSource else {
+                fatalError("Source is empty")
             }
+            artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists",
+                                          withFirstPage: element.value)
+
         }
     }
 
     private func prepareTracksTableView(_ tracksTVC: TracksTableViewController) {
-        for element in searchModeSectionsInfo {
-            switch element.key {
-            case .tracks:
-                guard let source = tracksSource else {
-                    fatalError("Source is empty")
-                }
-                tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks",
-                                             withFirstPage: element.value)
-
-            default:
-                break
+        for element in searchModeSectionsInfo where element.key == .tracks {
+            guard let source = tracksSource else {
+                fatalError("Source is empty")
             }
+            tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks",
+                                         withFirstPage: element.value)
         }
+
     }
 }
