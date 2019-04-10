@@ -48,7 +48,7 @@ class InfoView: UIView {
         headerAboutView.isHidden = false
         aboutView.isHidden = false
         layoutIfNeeded()
-        
+
         if aboutView.contentSize.height <= summaryConstraint.constant {
             headerAboutView.moreButton.isHidden = true
         } else {

@@ -34,7 +34,7 @@ UITableViewDelegate, UITableViewDataSource {
     private let searchInfoCount = 3
     private let sectionLabelShift: CGFloat = 20
     private let apiService = APIService()
-
+    private var currSearchRequest: String?
     private var isResentMode = true
     private var searchModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
         [(.tracks, [Track]()), (.artists, [Artist]())]
@@ -156,6 +156,7 @@ UITableViewDelegate, UITableViewDataSource {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBarView.setShowsCancelButton(false, animated: true)
         self.isResentMode = true
+        currSearchRequest = nil
         searchTableView.reloadData()
     }
 
@@ -219,7 +220,7 @@ UITableViewDelegate, UITableViewDataSource {
         for index in 0..<searchModeSectionsInfo.count {
             searchModeSectionsInfo[index].value = []
         }
-
+        currSearchRequest = info
         searchTracks(byName: info)
         searchArtists(byName: info)
         self.isResentMode = false
@@ -237,7 +238,7 @@ UITableViewDelegate, UITableViewDataSource {
         artistsSource = apiService.getSearchArtistsClosure(byName: name)
 
         activityIndicator?.showAndAnimate()
-        artistsSource!(1) { data, error in
+        artistsSource! { data, error in
 
             if let err = error {
                 NSLog("Error: \(err)")
@@ -258,7 +259,7 @@ UITableViewDelegate, UITableViewDataSource {
         tracksSource = apiService.getSearchTracksClosure(byName: name)
 
         activityIndicator?.showAndAnimate()
-        tracksSource!(1) { data, error in
+        tracksSource! { data, error in
 
             if let err = error {
                 NSLog("Error: \(err)")
@@ -290,22 +291,22 @@ UITableViewDelegate, UITableViewDataSource {
 
     private func prepareArtistsTableView(_ artistsTVC: ArtistsTableViewController) {
         for element in searchModeSectionsInfo where element.key == .artists {
-            guard let source = artistsSource else {
-                fatalError("Source is empty")
+            guard let searchRequest = currSearchRequest else {
+                fatalError("Search request is empty")
             }
-            artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists",
-                                          withFirstPage: element.value)
+            let source = apiService.getSearchArtistsClosure(byName: searchRequest, withStartPage: 2)
+            artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists", withFirstPage: element.value)
 
         }
     }
 
     private func prepareTracksTableView(_ tracksTVC: TracksTableViewController) {
         for element in searchModeSectionsInfo where element.key == .tracks {
-            guard let source = tracksSource else {
-                fatalError("Source is empty")
+            guard let searchRequest = currSearchRequest else {
+                fatalError("Search request is empty")
             }
-            tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks",
-                                         withFirstPage: element.value)
+            let source = apiService.getSearchTracksClosure(byName: searchRequest, withStartPage: 2)
+            tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks", withFirstPage: element.value)
         }
 
     }

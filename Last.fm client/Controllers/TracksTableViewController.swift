@@ -14,8 +14,6 @@ class TracksTableViewController: UITableViewController {
 
     private let apiService = APIService()
     private let preLoadCount = 3
-
-    private var nextPage = 1
     private var placeholder: UIImage?
     private var tracks = [Storable]()
     private var customNavName: String?
@@ -38,7 +36,7 @@ class TracksTableViewController: UITableViewController {
         }
 
         if tracks.count == 0 {
-            getTracksFromSource(onPage: nextPage)
+            getNextTracksFromSource()
         }
     }
 
@@ -59,7 +57,7 @@ class TracksTableViewController: UITableViewController {
         cell.fillCell(withStorableData: tracks[indexPath.row], isWithImg: true)
 
         if isStartLoadNextPage(currRow: indexPath.row) {
-            getTracksFromSource(onPage: nextPage)
+            getNextTracksFromSource()
         }
 
         return cell
@@ -108,7 +106,6 @@ class TracksTableViewController: UITableViewController {
         isTopChart = false
         if let page = fisrstPage {
             tracks = page
-            nextPage += 1
         }
     }
 
@@ -126,16 +123,15 @@ class TracksTableViewController: UITableViewController {
         }
     }
 
-    private func getTracksFromSource(onPage page: Int) {
+    private func getNextTracksFromSource() {
         activityIndicator.showAndAnimate()
 
-        dataSource(page) { data, error in
+        dataSource { data, error in
 
             if let err = error {
                 NSLog("Error: \(err)")
 
             } else {
-                self.nextPage += 1
                 let convert: [Storable] = data
                 self.tracks += convert
                 self.tableView.reloadData()

@@ -23,10 +23,10 @@ class CustomCollectionViewCell: UICollectionViewCell {
             return nil
         }
     }()
-    
+
     func fillCell(withStorableData data: Storable) {
         mainInfo.text = data.mainInfo
-        
+
         if let imgs = data.imageURLs, let img = imgs[imageSize], let url = URL(string: img) {
             imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
         } else {

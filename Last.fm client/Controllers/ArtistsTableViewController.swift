@@ -14,8 +14,6 @@ class ArtistsTableViewController: UITableViewController {
 
     private let apiService = APIService()
     private let preLoadCount = 3
-
-    private var nextPage = 1
     private var placeholder: UIImage?
     private var artists = [Storable]()
     private var customNavName: String?
@@ -38,7 +36,7 @@ class ArtistsTableViewController: UITableViewController {
         }
 
         if artists.count == 0 {
-            getArtistsFromSource(onPage: nextPage)
+            getNextArtistsFromSource()
         }
     }
 
@@ -60,7 +58,7 @@ class ArtistsTableViewController: UITableViewController {
         cell.fillCell(withStorableData: artists[indexPath.row], isWithImg: true)
 
         if isStartLoadNextPage(currRow: indexPath.row) {
-            getArtistsFromSource(onPage: nextPage)
+            getNextArtistsFromSource()
         }
 
         return cell
@@ -109,7 +107,6 @@ class ArtistsTableViewController: UITableViewController {
         isTopChart = false
         if let page = fisrstPage {
             artists = page
-            nextPage += 1
         }
     }
 
@@ -127,16 +124,15 @@ class ArtistsTableViewController: UITableViewController {
         }
     }
 
-    private func getArtistsFromSource(onPage page: Int) {
+    private func getNextArtistsFromSource() {
         activityIndicator.showAndAnimate()
 
-        dataSource(page) { data, error in
+        dataSource { data, error in
 
             if let err = error {
                 NSLog("Error: \(err)")
 
             } else {
-                self.nextPage += 1
                 let convert: [Storable] = data
                 self.artists += convert
                 self.tableView.reloadData()

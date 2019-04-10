@@ -9,8 +9,8 @@
 import Foundation
 import SwiftyJSON
 
-typealias ArtistSource = ((_ page: Int, _ closure: @escaping ([Artist], Error?) -> Void ) -> Void)
-typealias TrackSource = ((_ page: Int, _ closure: @escaping ([Track], Error?) -> Void ) -> Void)
+typealias ArtistSource = ((_ closure: @escaping ([Artist], Error?) -> Void ) -> Void)
+typealias TrackSource = ((_ closure: @escaping ([Track], Error?) -> Void ) -> Void)
 
 enum APIMethod: String {
     case topArtists = "chart.gettopartists"
@@ -53,13 +53,14 @@ class APIService {
 
     // MARK: Public Methods
 
-    func getTopArtistsClosure() -> ArtistSource {
-        var lastPage: Int?
+    func getTopArtistsClosure(withStartPage startPage: Int = 1) -> ArtistSource {
+        var isEnd: Bool = false
+        var pageCounter = startPage
         var topCounter = 0
 
-        return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
+        return { (closure: @escaping ([Artist], Error?) -> Void ) -> Void in
 
-            if let lastPage = lastPage, page > lastPage {
+            if isEnd {
                 closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                 return
             }
@@ -68,7 +69,7 @@ class APIService {
                 "method": APIMethod.topArtists.rawValue,
                 "api_key": self.apiKey,
                 "format": Format.json.rawValue,
-                "page": String(page),
+                "page": String(pageCounter),
                 "limit": String(self.itemsPerPage)
             ]
 
@@ -84,15 +85,16 @@ class APIService {
                         guard var artistArray = jsonData["artists"]["artist"].array else {
                             fatalError("Unexpected JSON parameters")
                         }
-                        artistArray = self.apiSecondPageBugFix(page, artistArray)
+                        artistArray = self.apiSecondPageBugFix(pageCounter, artistArray)
                         artists = try artistArray.map {try Artist(jsonArtist: $0, numInChart: topCounter.increment())}
 
                         if artists.count == 0 {
-                            lastPage = page - 1
+                            isEnd = true
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
                         closure(artists, nil)
+                        pageCounter += 1
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -102,12 +104,13 @@ class APIService {
         }
     }
 
-    func getSearchArtistsClosure(byName name: String) -> ArtistSource {
-        var lastPage: Int?
+    func getSearchArtistsClosure(byName name: String, withStartPage startPage: Int = 1) -> ArtistSource {
+        var isEnd: Bool = false
+        var pageCounter = startPage
 
-        return { (page: Int, closure: @escaping ([Artist], Error?) -> Void ) -> Void in
+        return { (closure: @escaping ([Artist], Error?) -> Void ) -> Void in
 
-            if let lastPage = lastPage, page > lastPage {
+            if isEnd {
                 closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                 return
             }
@@ -117,7 +120,7 @@ class APIService {
                 "api_key": self.apiKey,
                 "format": Format.json.rawValue,
                 "artist": name,
-                "page": String(page),
+                "page": String(pageCounter),
                 "limit": String(self.itemsPerPage)
             ]
 
@@ -136,12 +139,12 @@ class APIService {
                         artists = try artistsArray.map {try Artist(jsonArtist: $0)}
 
                         if artists.count == 0 {
-                            lastPage = page - 1
+                            isEnd = true
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
-
                         closure(artists, nil)
+                        pageCounter += 1
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -181,13 +184,14 @@ class APIService {
 
     }
 
-    func getTopTracksClosure() -> TrackSource {
-        var lastPage: Int?
+    func getTopTracksClosure(withStartPage startPage: Int = 1) -> TrackSource {
+        var isEnd: Bool = false
+        var pageCounter = startPage
         var topCounter = 0
 
-        return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
+        return { (closure: @escaping ([Track], Error?) -> Void ) -> Void in
 
-            if let lastPage = lastPage, page > lastPage {
+            if isEnd {
                 closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                 return
             }
@@ -196,7 +200,7 @@ class APIService {
                 "method": APIMethod.topTracks.rawValue,
                 "api_key": self.apiKey,
                 "format": Format.json.rawValue,
-                "page": String(page),
+                "page": String(pageCounter),
                 "limit": String(self.itemsPerPage)
             ]
 
@@ -215,11 +219,12 @@ class APIService {
                         tracks = try tracksArray.map {try Track(jsonTrack: $0, numInChart: topCounter.increment())}
 
                         if tracks.count == 0 {
-                            lastPage = page - 1
+                            isEnd = true
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
                         closure(tracks, nil)
+                        pageCounter += 1
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -229,12 +234,13 @@ class APIService {
         }
     }
 
-    func getSearchTracksClosure(byName name: String) -> TrackSource {
-        var lastPage: Int?
+    func getSearchTracksClosure(byName name: String, withStartPage startPage: Int = 1) -> TrackSource {
+        var isEnd: Bool = false
+        var pageCounter = startPage
 
-        return { (page: Int, closure: @escaping ([Track], Error?) -> Void ) -> Void in
+        return { (closure: @escaping ([Track], Error?) -> Void ) -> Void in
 
-            if let lastPage = lastPage, page > lastPage {
+            if isEnd {
                 closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                 return
             }
@@ -244,7 +250,7 @@ class APIService {
                 "api_key": self.apiKey,
                 "format": Format.json.rawValue,
                 "track": name,
-                "page": String(page),
+                "page": String(pageCounter),
                 "limit": String(self.itemsPerPage)
             ]
 
@@ -260,15 +266,16 @@ class APIService {
                         guard var tracksArray = jsonData["results"]["trackmatches"]["track"].array else {
                             fatalError("Unexpected JSON parameters")
                         }
-                        tracksArray = self.apiSecondPageBugFix(page, tracksArray)
+                        tracksArray = self.apiSecondPageBugFix(pageCounter, tracksArray)
                         tracks = try tracksArray.map {try Track(foundJsonTrack: $0)}
 
                         if tracks.count == 0 {
-                            lastPage = page - 1
+                            isEnd = true
                             closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                             return
                         }
                         closure(tracks, nil)
+                        pageCounter += 1
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
