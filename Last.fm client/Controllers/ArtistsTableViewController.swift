@@ -105,7 +105,7 @@ class ArtistsTableViewController: UITableViewController {
         customNavName = name
         dataSource = source
         isTopChart = false
-        
+
         if let data = loadedData {
             artists = data
         }

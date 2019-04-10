@@ -9,7 +9,7 @@
 import UIKit
 
 class InfoView: UIView {
-
+    // TODO: create custom views to delete this
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var imageView: RoundedImageView!
     @IBOutlet weak var mainLabel: UILabel!
@@ -20,7 +20,11 @@ class InfoView: UIView {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var summaryConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerSimilarView: HeaderView!
+    @IBOutlet weak var albumImageView: RoundedImageView!
+    @IBOutlet weak var albumHeader: HeaderView!
+    @IBOutlet weak var albumName: UILabel!
 
+    private let albumImageSize = ImageSize.large
     private let imageSize = ImageSize.extralarge
     private lazy var placeholder: UIImage? = {
         if let placeholder = UIImage(named: "Placeholder") {
@@ -59,6 +63,21 @@ class InfoView: UIView {
         }
     }
 
+    func setAlbum(withAlbum album: Album) {
+        albumHeader.label.text = "Album"
+        albumHeader.moreButton.isHidden = true
+        albumName.text = album.name
+        if let img = album.photoUrls[albumImageSize], let url = URL(string: img) {
+            albumImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+        } else {
+            albumImageView.image = placeholder
+        }
+
+        albumHeader.isHidden = false
+        albumImageView.isHidden = false
+        albumName.isHidden = false
+    }
+
     func fillView(withStorableData data: Storable) {
 
         mainLabel.text = data.mainInfo
@@ -95,13 +114,16 @@ class InfoView: UIView {
 
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil),
                                 forCellWithReuseIdentifier: "CustomCell")
-    
+
         headerAboutView.isHidden = true
         aboutView.isHidden = true
         collectionView.isHidden = true
         headerSimilarView.isHidden = true
         imageView.isHidden = true
         bottomLabel.isHidden = true
+        albumHeader.isHidden = true
+        albumImageView.isHidden = true
+        albumName.isHidden = true
         summaryConstraint.isActive = false
     }
 

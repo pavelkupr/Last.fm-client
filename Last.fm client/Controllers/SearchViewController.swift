@@ -30,14 +30,14 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     // MARK: Properties
-    
+
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var searchBarView: CustomSearchBar!
-    
+
     private let searchInfoCount = 3
     private let sectionLabelShift: CGFloat = 20
     private let apiService = APIService()
-    
+
     private var currSearchRequest: String?
     private var isResentMode = true
     private var searchModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
@@ -110,7 +110,7 @@ UITableViewDelegate, UITableViewDataSource {
             headerName = searchModeSectionsInfo[section].key.getStringDefinition()
             sectionHeader = HeaderView(labelShift: sectionLabelShift, nameOfHeader: headerName)
             sectionHeader.isHidden = searchModeSectionsInfo[section].value.isEmpty
-            
+
             if searchModeSectionsInfo[section].value.count > searchInfoCount {
                 switch searchModeSectionsInfo[section].key {
                 case .artists:
@@ -225,7 +225,7 @@ UITableViewDelegate, UITableViewDataSource {
         currSearchRequest = info
         searchTracks(byName: info)
         searchArtists(byName: info)
-        
+
         self.isResentMode = false
         searchBarView.setShowsCancelButton(true, animated: true)
 

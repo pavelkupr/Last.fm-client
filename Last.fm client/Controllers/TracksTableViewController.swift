@@ -104,7 +104,7 @@ class TracksTableViewController: UITableViewController {
         customNavName = name
         dataSource = source
         isTopChart = false
-        
+
         if let data = loadedData {
             tracks = data
         }

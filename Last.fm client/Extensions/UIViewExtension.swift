@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     func animateBorderColor(toColor: UIColor, duration: Double) {
-        let animation:CABasicAnimation = CABasicAnimation(keyPath: "borderColor")
+        let animation: CABasicAnimation = CABasicAnimation(keyPath: "borderColor")
         animation.fromValue = layer.borderColor
         animation.toValue = toColor.cgColor
         animation.duration = duration

@@ -24,7 +24,7 @@ class RoundedImageView: UIImageView {
         animateBorderColor(toColor: colour, duration: 0.4)
         animateBorderColor(toColor: .gray, duration: 0.4)
     }
-    
+
     // MARK: Private methods
 
     private func createCircle() {

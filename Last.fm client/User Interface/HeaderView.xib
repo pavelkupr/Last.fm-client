@@ -27,15 +27,15 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Pd-x7-agQ">
-                            <rect key="frame" x="0.0" y="0.0" width="295" height="49"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xE3-ao-QFg">
-                            <rect key="frame" x="295" y="0.0" width="80" height="49"/>
+                            <rect key="frame" x="320" y="0.0" width="55" height="49"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="80" id="CdO-kH-JCc"/>
+                                <constraint firstAttribute="width" constant="55" id="CdO-kH-JCc"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="More"/>
