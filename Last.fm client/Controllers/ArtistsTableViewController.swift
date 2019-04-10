@@ -35,7 +35,7 @@ class ArtistsTableViewController: UITableViewController {
             navigationItem.title = "Top Artists"
         }
 
-        if artists.count == 0 {
+        if artists.isEmpty {
             getNextArtistsFromSource()
         }
     }
@@ -101,12 +101,13 @@ class ArtistsTableViewController: UITableViewController {
     }
 
     func setCustomStartInfo(withSource source: @escaping ArtistSource, withName name: String,
-                            withFirstPage fisrstPage: [Storable]?) {
+                            withLoadedData loadedData: [Storable]?) {
         customNavName = name
         dataSource = source
         isTopChart = false
-        if let page = fisrstPage {
-            artists = page
+        
+        if let data = loadedData {
+            artists = data
         }
     }
 

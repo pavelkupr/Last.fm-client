@@ -79,8 +79,10 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     self.infoView.setAboutInfo(withInfo:
                         info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
                 }
-                self.similar = data.similar
-                self.infoView.showSimilar()
+                if !data.similar.isEmpty {
+                    self.similar = data.similar
+                    self.infoView.showSimilar()
+                }
             }
             self.infoView.activityIndicator.stopAnimating()
         }

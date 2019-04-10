@@ -30,10 +30,14 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     // MARK: Properties
-
+    
+    @IBOutlet weak var searchTableView: UITableView!
+    @IBOutlet weak var searchBarView: CustomSearchBar!
+    
     private let searchInfoCount = 3
     private let sectionLabelShift: CGFloat = 20
     private let apiService = APIService()
+    
     private var currSearchRequest: String?
     private var isResentMode = true
     private var searchModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
@@ -42,10 +46,7 @@ UITableViewDelegate, UITableViewDataSource {
         [(.resentSearches, [String]())]
     private var tracksSource: TrackSource?
     private var artistsSource: ArtistSource?
-
     private var activityIndicator: TableViewActivityIndicator?
-    @IBOutlet weak var searchTableView: UITableView!
-    @IBOutlet weak var searchBarView: CustomSearchBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -295,7 +296,7 @@ UITableViewDelegate, UITableViewDataSource {
                 fatalError("Search request is empty")
             }
             let source = apiService.getSearchArtistsClosure(byName: searchRequest, withStartPage: 2)
-            artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists", withFirstPage: element.value)
+            artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists", withLoadedData: element.value)
 
         }
     }
@@ -306,7 +307,7 @@ UITableViewDelegate, UITableViewDataSource {
                 fatalError("Search request is empty")
             }
             let source = apiService.getSearchTracksClosure(byName: searchRequest, withStartPage: 2)
-            tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks", withFirstPage: element.value)
+            tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks", withLoadedData: element.value)
         }
 
     }

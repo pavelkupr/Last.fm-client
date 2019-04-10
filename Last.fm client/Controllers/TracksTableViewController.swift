@@ -35,7 +35,7 @@ class TracksTableViewController: UITableViewController {
             navigationItem.title = "Top Tracks"
         }
 
-        if tracks.count == 0 {
+        if tracks.isEmpty {
             getNextTracksFromSource()
         }
     }
@@ -100,12 +100,13 @@ class TracksTableViewController: UITableViewController {
     }
 
     func setCustomStartInfo(withSource source: @escaping TrackSource, withName name: String,
-                            withFirstPage fisrstPage: [Storable]?) {
+                            withLoadedData loadedData: [Storable]?) {
         customNavName = name
         dataSource = source
         isTopChart = false
-        if let page = fisrstPage {
-            tracks = page
+        
+        if let data = loadedData {
+            tracks = data
         }
     }
 
