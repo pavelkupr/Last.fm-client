@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 
 enum DataRepresentationMode {
-    case artist, track
+    case artist, track, none
 }
 
 class InfoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -18,10 +18,9 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // MARK: Properties
 
     private let apiService = APIService()
-    private var mode = DataRepresentationMode.artist
+    private var mode = DataRepresentationMode.none
     private var data: Storable?
-    private var placeholder: UIImage?
-    private var similar = [Artist]()
+    private var similar = [Storable]()
 
     @IBOutlet weak var infoView: InfoView!
 
@@ -30,17 +29,17 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         infoView.collectionView.delegate = self
         infoView.collectionView.dataSource = self
 
-        if let placeholder = UIImage(named: "Placeholder") {
-            self.placeholder = placeholder
-        } else {
-            NSLog("Can't find placeholder")
-        }
-        switch mode {
-        case .artist:
-            loadArtistInfo()
-        case .track:
-            loadTrackInfo()
+        if let value = data {
+            infoView.fillView(withStorableData: value)
 
+            switch mode {
+            case .artist:
+                loadArtistInfo(value)
+            case .track:
+                loadTrackInfo(value)
+            default:
+                break
+            }
         }
     }
 
@@ -48,6 +47,8 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.mode = mode
         self.data = data
     }
+
+    // MARK: CollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return similar.count
@@ -60,27 +61,36 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
             fatalError("Unexpected type")
         }
 
-        cell.fillCell(withArtist: similar[indexPath.row])
+        cell.fillCell(withStorableData: similar[indexPath.row])
         return cell
     }
 
     // MARK: Private Methods
 
-    private func loadArtistInfo() {
+    private func loadArtistInfo(_ value: Storable) {
+        infoView.activityIndicator.startAnimating()
+        apiService.getArtistInfo(byName: value.mainInfo) { data, error in
 
-        if let dataVal = data {
-            infoView.bottomLabel.isHidden = true
-            infoView.mainLabel.text = dataVal.mainInfo
+            if let err = error {
+                NSLog("Error: \(err)")
 
-            if let imgs = dataVal.imageURLs, let img = imgs[.extralarge], let url = URL(string: img) {
-                infoView.imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-
-            } else {
-                infoView.imageView.image = placeholder
+            } else if let data = data {
+                if let info = data.info, info != "" {
+                    self.infoView.setAboutInfo(withInfo:
+                        info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
+                }
+                self.similar = data.similar
+                self.infoView.showSimilar()
             }
+            self.infoView.activityIndicator.stopAnimating()
+        }
+    }
 
+    private func loadTrackInfo(_ value: Storable) {
+        if let bottomData = value.bottomInfo {
             infoView.activityIndicator.startAnimating()
-            apiService.getArtistInfo(byName: dataVal.mainInfo) { data, error in
+            apiService.getTrackInfo(byTrackName: value.mainInfo, byArtistName:
+            bottomData) { data, error in
 
                 if let err = error {
                     NSLog("Error: \(err)")
@@ -90,45 +100,8 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         self.infoView.setAboutInfo(withInfo:
                             info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
                     }
-                    self.similar = data.similar
-                    self.infoView.showSimilar()
                 }
                 self.infoView.activityIndicator.stopAnimating()
-            }
-        }
-
-    }
-
-    private func loadTrackInfo() {
-
-        if let dataVal = data {
-            infoView.bottomLabel.isHidden = false
-            infoView.mainLabel.text = dataVal.mainInfo
-
-            if let imgs = dataVal.imageURLs, let img = imgs[.extralarge], let url = URL(string: img) {
-                infoView.imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-
-            } else {
-                infoView.imageView.image = placeholder
-            }
-
-            if let bottomData = dataVal.bottomInfo {
-                infoView.bottomLabel.text = "by " + bottomData
-                infoView.activityIndicator.startAnimating()
-                apiService.getTrackInfo(byTrackName: dataVal.mainInfo, byArtistName:
-                bottomData) { data, error in
-
-                    if let err = error {
-                        NSLog("Error: \(err)")
-
-                    } else if let data = data {
-                        if let info = data.info, info != "" {
-                            self.infoView.setAboutInfo(withInfo:
-                                info.removeStartingNewlineIfExists().removeHTMLTags(with: "\n"))
-                        }
-                    }
-                    self.infoView.activityIndicator.stopAnimating()
-                }
             }
         }
     }

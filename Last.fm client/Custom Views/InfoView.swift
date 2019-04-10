@@ -21,6 +21,17 @@ class InfoView: UIView {
     @IBOutlet var summaryConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerSimilarView: HeaderView!
 
+    private let imageSize = ImageSize.extralarge
+    private lazy var placeholder: UIImage? = {
+        if let placeholder = UIImage(named: "Placeholder") {
+            return placeholder
+
+        } else {
+            NSLog("Can't find placeholder")
+            return nil
+        }
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
@@ -37,6 +48,7 @@ class InfoView: UIView {
         headerAboutView.isHidden = false
         aboutView.isHidden = false
         layoutIfNeeded()
+        
         if aboutView.contentSize.height <= summaryConstraint.constant {
             headerAboutView.moreButton.isHidden = true
         } else {
@@ -45,6 +57,24 @@ class InfoView: UIView {
             headerAboutView.moreButton.addTarget(self, action: #selector(self.changeInfoMode(_:)),
                                                  for: .touchUpInside)
         }
+    }
+
+    func fillView(withStorableData data: Storable) {
+
+        mainLabel.text = data.mainInfo
+
+        if let bottom = data.bottomInfo {
+            bottomLabel.isHidden = false
+            bottomLabel.text = "by "+bottom
+        }
+
+        imageView.isHidden = false
+        if let imgs = data.imageURLs, let img = imgs[imageSize], let url = URL(string: img) {
+            imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+        } else {
+            imageView.image = placeholder
+        }
+
     }
 
     func showSimilar() {
@@ -69,6 +99,8 @@ class InfoView: UIView {
         aboutView.isHidden = true
         collectionView.isHidden = true
         headerSimilarView.isHidden = true
+        imageView.isHidden = true
+        bottomLabel.isHidden = true
         summaryConstraint.isActive = false
     }
 

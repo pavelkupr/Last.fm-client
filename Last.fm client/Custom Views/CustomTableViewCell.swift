@@ -11,6 +11,11 @@ import SDWebImage
 
 class CustomTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var photoImageView: RoundedImageView!
+    @IBOutlet weak var mainInfoLabel: UILabel!
+    @IBOutlet weak var bottomInfoLabel: UILabel!
+    @IBOutlet weak var topInfoLabel: UILabel!
+
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {
         if let placeholder = UIImage(named: "Placeholder") {
@@ -21,11 +26,6 @@ class CustomTableViewCell: UITableViewCell {
             return nil
         }
     }()
-
-    @IBOutlet weak var photoImageView: RoundedImageView!
-    @IBOutlet weak var mainInfoLabel: UILabel!
-    @IBOutlet weak var bottomInfoLabel: UILabel!
-    @IBOutlet weak var topInfoLabel: UILabel!
 
     func fillCell(withStorableData data: Storable, isWithImg: Bool) {
 

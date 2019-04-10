@@ -10,6 +10,9 @@ import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet var imageView: RoundedImageView!
+    @IBOutlet var mainInfo: UILabel!
+
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {
         if let placeholder = UIImage(named: "Placeholder") {
@@ -20,17 +23,12 @@ class CustomCollectionViewCell: UICollectionViewCell {
             return nil
         }
     }()
-
-    @IBOutlet var imageView: RoundedImageView!
-    @IBOutlet var mainInfo: UILabel!
-
-    func fillCell(withArtist artist: Artist) {
-
-        mainInfo.text = artist.name
-
-        if let largeImg = artist.photoUrls[imageSize], let url = URL(string: largeImg) {
+    
+    func fillCell(withStorableData data: Storable) {
+        mainInfo.text = data.mainInfo
+        
+        if let imgs = data.imageURLs, let img = imgs[imageSize], let url = URL(string: img) {
             imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
-
         } else {
             imageView.image = placeholder
         }
