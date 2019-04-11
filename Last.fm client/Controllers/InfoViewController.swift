@@ -15,21 +15,21 @@ enum DataRepresentationMode {
 class InfoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     // MARK: Properties
-
+    
+    @IBOutlet weak var infoView: InfoView!
+    
     private let apiService = APIService()
     private var mode = DataRepresentationMode.none
     private var data: Storable?
     private var similar = [Storable]()
 
-    @IBOutlet weak var infoView: InfoView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        infoView.collectionView.delegate = self
-        infoView.collectionView.dataSource = self
+        infoView.similarView.collectionView.delegate = self
+        infoView.similarView.collectionView.dataSource = self
 
         if let value = data {
-            infoView.fillView(withStorableData: value)
+            infoView.updateMainInfoSection(withStorableData: value)
 
             switch mode {
             case .artist:
@@ -68,7 +68,7 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else {
             fatalError("Select unselectable cell")
         }
-        guard let index = infoView.collectionView.indexPath(for: cell) else {
+        guard let index = collectionView.indexPath(for: cell) else {
             fatalError("Unreacheble index")
         }
 
@@ -87,12 +87,12 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
             } else if let data = data {
                 if let info = data.info, info != "" {
-                    self.infoView.setAboutInfo(withInfo:
+                    self.infoView.updateAboutSection(withInfo:
                         info.removeStartingNewlineIfExists().repalceHTMLTags(with: "\n"))
                 }
                 if !data.similar.isEmpty {
                     self.similar = data.similar
-                    self.infoView.showSimilar()
+                    self.infoView.updateSimilarSection()
                 }
             }
             self.infoView.activityIndicator.stopAnimating()
@@ -110,11 +110,11 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
                 } else if let data = data {
                     if let info = data.info, info != "" {
-                        self.infoView.setAboutInfo(withInfo:
+                        self.infoView.updateAboutSection(withInfo:
                             info.removeStartingNewlineIfExists().repalceHTMLTags(with: "\n"))
                     }
                     if let album = data.album {
-                        self.infoView.setAlbum(withAlbum: album)
+                        self.infoView.updateAlbumSection(withAlbum: album)
                     }
                 }
                 self.infoView.activityIndicator.stopAnimating()

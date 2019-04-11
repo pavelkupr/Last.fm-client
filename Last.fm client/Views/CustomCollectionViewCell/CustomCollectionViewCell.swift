@@ -9,7 +9,9 @@
 import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
-
+    
+    // MARK: Properties
+    
     @IBOutlet var imageView: RoundedImageView!
     @IBOutlet var mainInfo: UILabel!
 

@@ -39,7 +39,7 @@ class HeaderView: UIView {
     private func initView() {
         Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)
         addSubview(contentView)
-        contentView.frame = self.bounds
+        addFitConstraints(view: contentView)
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
 

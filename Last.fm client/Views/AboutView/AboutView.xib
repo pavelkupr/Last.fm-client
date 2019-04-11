@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutView" customModule="Last_fm_client" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="prC-TK-Rhz" id="KEY-MM-C83"/>
+                <outlet property="headerView" destination="gND-3t-Vh5" id="hAm-Jp-i0k"/>
+                <outlet property="infoTextView" destination="nYi-5L-5pc" id="VAz-aI-LE4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" id="prC-TK-Rhz">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="196.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gND-3t-Vh5" customClass="HeaderView" customModule="Last_fm_client" customModuleProvider="target">
+                    <rect key="frame" x="25" y="0.0" width="325" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="gHO-YD-sR4"/>
+                    </constraints>
+                </view>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYi-5L-5pc">
+                    <rect key="frame" x="20" y="30" width="335" height="166.5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="gND-3t-Vh5" firstAttribute="leading" secondItem="prC-TK-Rhz" secondAttribute="leading" constant="25" id="ns2-0M-XPK"/>
+                <constraint firstItem="nYi-5L-5pc" firstAttribute="leading" secondItem="prC-TK-Rhz" secondAttribute="leading" constant="20" id="obb-YB-D6I"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="o90-KQ-TEb"/>
+        </stackView>
+    </objects>
+</document>

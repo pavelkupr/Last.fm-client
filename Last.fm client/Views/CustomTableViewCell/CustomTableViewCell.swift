@@ -10,7 +10,9 @@ import UIKit
 import SDWebImage
 
 class CustomTableViewCell: UITableViewCell {
-
+    
+    // MARK: Properties
+    
     @IBOutlet weak var photoImageView: RoundedImageView!
     @IBOutlet weak var mainInfoLabel: UILabel!
     @IBOutlet weak var bottomInfoLabel: UILabel!
@@ -54,7 +56,6 @@ class CustomTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -63,7 +64,9 @@ class CustomTableViewCell: UITableViewCell {
             photoImageView.highlightBorder(withColour: tintColor)
         }
     }
-
+    
+    // MARK: Private methods
+    
     private func hideCell() {
         bottomInfoLabel.isHidden = true
         photoImageView.isHidden = true

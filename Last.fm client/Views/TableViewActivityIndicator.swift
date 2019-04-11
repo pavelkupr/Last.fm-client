@@ -9,10 +9,11 @@
 import UIKit
 
 class TableViewActivityIndicator: UIView {
-
+    
+    // MARK: Properties
+    
     private var activityIndicator: UIActivityIndicatorView?
     var isLoading = false
-
     override var frame: CGRect {
         didSet {
              activityIndicator?.center = CGPoint(x: bounds.width/2, y: bounds.height/2)
