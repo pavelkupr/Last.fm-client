@@ -17,6 +17,7 @@ class AlbumView: UIView {
     @IBOutlet weak var imageView: RoundedImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
+    private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {
         if let placeholder = UIImage(named: "Placeholder") {
@@ -42,7 +43,7 @@ class AlbumView: UIView {
         headerView.label.text = "Album"
         nameLabel.text = album.name
         if let img = album.photoUrls[imageSize], let url = URL(string: img) {
-            imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+            imageLoader.downloadImage(from: url, to: imageView, placeholder: placeholder)
         } else {
             imageView.image = placeholder
         }

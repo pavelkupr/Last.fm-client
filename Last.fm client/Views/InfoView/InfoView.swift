@@ -23,6 +23,7 @@ class InfoView: UIView {
     @IBOutlet var summaryConstraint: NSLayoutConstraint!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.extralarge
     private lazy var placeholder: UIImage? = {
         if let placeholder = UIImage(named: "Placeholder") {
@@ -54,7 +55,7 @@ class InfoView: UIView {
         }
 
         if let imgs = data.imageURLs, let img = imgs[imageSize], let url = URL(string: img) {
-            imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+            imageLoader.downloadImage(from: url, to: imageView, placeholder: placeholder)
         } else {
             imageView.image = placeholder
         }

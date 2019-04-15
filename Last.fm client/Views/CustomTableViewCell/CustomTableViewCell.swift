@@ -7,17 +7,16 @@
 //
 
 import UIKit
-import SDWebImage
 
 class CustomTableViewCell: UITableViewCell {
     
     // MARK: Properties
-    
     @IBOutlet weak var photoImageView: RoundedImageView!
     @IBOutlet weak var mainInfoLabel: UILabel!
     @IBOutlet weak var bottomInfoLabel: UILabel!
     @IBOutlet weak var topInfoLabel: UILabel!
-
+    
+    private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {
         if let placeholder = UIImage(named: "Placeholder") {
@@ -47,7 +46,7 @@ class CustomTableViewCell: UITableViewCell {
         if isWithImg {
             photoImageView.isHidden = false
             if let imgs = data.imageURLs, let img = imgs[imageSize], let url = URL(string: img) {
-                photoImageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+                imageLoader.downloadImage(from: url, to: photoImageView, placeholder: placeholder)
             } else {
                 photoImageView.image = placeholder
             }

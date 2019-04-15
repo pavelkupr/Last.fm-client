@@ -14,7 +14,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var imageView: RoundedImageView!
     @IBOutlet var mainInfo: UILabel!
-
+    
+    private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {
         if let placeholder = UIImage(named: "Placeholder") {
@@ -30,7 +31,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         mainInfo.text = data.mainInfo
 
         if let imgs = data.imageURLs, let img = imgs[imageSize], let url = URL(string: img) {
-            imageView.sd_setImage(with: url, placeholderImage: placeholder, options: [], completed: nil)
+            imageLoader.downloadImage(from: url, to: imageView, placeholder: placeholder)
         } else {
             imageView.image = placeholder
         }
