@@ -12,16 +12,17 @@ class ImageLoader {
     
     // MARK: Properties
     
-    static var imageCash: [URL:UIImage] = [:]
+    static var imageCache: [URL:UIImage] = [:]
     static var imageViewURLs: [UIImageView:URL] = [:]
     private let urlSession = URLSession(configuration: .ephemeral)
+    private let cache = CacheManager()
     
     func downloadImage(from url: URL, to imageView: UIImageView, placeholder: UIImage? = nil) {
         ImageLoader.imageViewURLs[imageView] = url
         
-        if ImageLoader.imageCash[url] != nil {
-            imageView.image = ImageLoader.imageCash[url]
-            
+        if ImageLoader.imageCache[url] != nil {
+            imageView.image = ImageLoader.imageCache[url]
+
         } else {
             imageView.image = placeholder
             
@@ -32,7 +33,7 @@ class ImageLoader {
                 } else if let data = data {
                     DispatchQueue.main.async() {
                         let image = UIImage(data: data)
-                        ImageLoader.imageCash[url] = image
+                        ImageLoader.imageCache[url] = image
                         if ImageLoader.imageViewURLs[imageView] == url {
                             imageView.image = image
                         }
@@ -47,4 +48,5 @@ class ImageLoader {
     private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         urlSession.dataTask(with: url, completionHandler: completion).resume()
     }
+    
 }

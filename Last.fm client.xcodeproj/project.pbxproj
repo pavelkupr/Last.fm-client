@@ -29,6 +29,14 @@
 		3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */; };
 		3F6FC431225621650051CE06 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC430225621650051CE06 /* StringExtension.swift */; };
 		3F7FFF012264A5D2005AF46F /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF002264A5D2005AF46F /* ImageLoader.swift */; };
+		3F7FFF062264C931005AF46F /* Cachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF052264C931005AF46F /* Cachable.swift */; };
+		3F7FFF082264C956005AF46F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF072264C956005AF46F /* Cache.swift */; };
+		3F7FFF0A2264C9EF005AF46F /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF092264C9EF005AF46F /* DiskCache.swift */; };
+		3F7FFF0C2264CA2A005AF46F /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF0B2264CA2A005AF46F /* MemoryCache.swift */; };
+		3F7FFF0E2264CA76005AF46F /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF0D2264CA76005AF46F /* CacheManager.swift */; };
+		3F7FFF102264D054005AF46F /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF0F2264D054005AF46F /* UIImageExtension.swift */; };
+		3F7FFF122264D856005AF46F /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF112264D856005AF46F /* URLExtension.swift */; };
+		3F7FFF142264DAC6005AF46F /* CachableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF132264DAC6005AF46F /* CachableContainer.swift */; };
 		3F9E4AF6225CB26300514E37 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9E4AF5225CB26300514E37 /* Storable.swift */; };
 		3FA0DAAE225E0B3900E6E5F3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */; };
 		3FA0DAB0225E22C900E6E5F3 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAF225E22C900E6E5F3 /* Album.swift */; };
@@ -71,6 +79,14 @@
 		3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewActivityIndicator.swift; sourceTree = "<group>"; };
 		3F6FC430225621650051CE06 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		3F7FFF002264A5D2005AF46F /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		3F7FFF052264C931005AF46F /* Cachable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cachable.swift; sourceTree = "<group>"; };
+		3F7FFF072264C956005AF46F /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		3F7FFF092264C9EF005AF46F /* DiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
+		3F7FFF0B2264CA2A005AF46F /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
+		3F7FFF0D2264CA76005AF46F /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		3F7FFF0F2264D054005AF46F /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		3F7FFF112264D856005AF46F /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		3F7FFF132264DAC6005AF46F /* CachableContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachableContainer.swift; sourceTree = "<group>"; };
 		3F9E4AF5225CB26300514E37 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		3FA0DAAF225E22C900E6E5F3 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
@@ -117,6 +133,8 @@
 				3F04FFFC2254BB9500C48292 /* IntExtension.swift */,
 				3F6FC430225621650051CE06 /* StringExtension.swift */,
 				3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */,
+				3F7FFF0F2264D054005AF46F /* UIImageExtension.swift */,
+				3F7FFF112264D856005AF46F /* URLExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -142,6 +160,7 @@
 		3F43A8B9224904B4002E676C /* Last.fm client */ = {
 			isa = PBXGroup;
 			children = (
+				3F7FFF042264C8FF005AF46F /* CacheManager */,
 				3FECB265224BC95A00D60B75 /* Support Files */,
 				3F04FFF92254BB1000C48292 /* Extensions */,
 				3F43A8CC224917D8002E676C /* Networking */,
@@ -235,6 +254,19 @@
 				3F2AC975225B9A0300492D42 /* CustomCollectionViewCell.swift */,
 			);
 			path = CustomCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		3F7FFF042264C8FF005AF46F /* CacheManager */ = {
+			isa = PBXGroup;
+			children = (
+				3F7FFF052264C931005AF46F /* Cachable.swift */,
+				3F7FFF072264C956005AF46F /* Cache.swift */,
+				3F7FFF092264C9EF005AF46F /* DiskCache.swift */,
+				3F7FFF0B2264CA2A005AF46F /* MemoryCache.swift */,
+				3F7FFF0D2264CA76005AF46F /* CacheManager.swift */,
+				3F7FFF132264DAC6005AF46F /* CachableContainer.swift */,
+			);
+			path = CacheManager;
 			sourceTree = "<group>";
 		};
 		3FECB264224BC92E00D60B75 /* Controllers */ = {
@@ -426,18 +458,26 @@
 				3F6FC298225F300200133E26 /* AlbumView.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */,
 				3F43A8BD224904B4002E676C /* ArtistsTableViewController.swift in Sources */,
+				3F7FFF142264DAC6005AF46F /* CachableContainer.swift in Sources */,
 				E9E6E93822499D77003BFD02 /* RoundedImageView.swift in Sources */,
 				3F04FFFD2254BB9500C48292 /* IntExtension.swift in Sources */,
 				E9233B5C225C73CF00F34CA0 /* CustomTableViewCell.swift in Sources */,
 				E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */,
 				3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */,
+				3F7FFF122264D856005AF46F /* URLExtension.swift in Sources */,
+				3F7FFF0E2264CA76005AF46F /* CacheManager.swift in Sources */,
+				3F7FFF0A2264C9EF005AF46F /* DiskCache.swift in Sources */,
 				3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */,
 				3F7FFF012264A5D2005AF46F /* ImageLoader.swift in Sources */,
+				3F7FFF102264D054005AF46F /* UIImageExtension.swift in Sources */,
 				3F6FC431225621650051CE06 /* StringExtension.swift in Sources */,
+				3F7FFF082264C956005AF46F /* Cache.swift in Sources */,
 				3F2AC972225B826E00492D42 /* InfoView.swift in Sources */,
+				3F7FFF062264C931005AF46F /* Cachable.swift in Sources */,
 				3FA0DAB4225E324600E6E5F3 /* AboutView.swift in Sources */,
 				3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */,
 				3F43A8D322491B81002E676C /* Artist.swift in Sources */,
+				3F7FFF0C2264CA2A005AF46F /* MemoryCache.swift in Sources */,
 				3F6FC294225F2C3500133E26 /* SimilarView.swift in Sources */,
 				E9D337B72251002E00DA9363 /* HeaderView.swift in Sources */,
 				3F43A8CE2249184A002E676C /* HTTPClient.swift in Sources */,
