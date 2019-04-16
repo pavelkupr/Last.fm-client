@@ -12,16 +12,20 @@ class ImageLoader {
     
     // MARK: Properties
     
-    static var imageCache: [URL:UIImage] = [:]
-    static var imageViewURLs: [UIImageView:URL] = [:]
+    static var imageViewURLs: [UIImageView:String] = [:]
     private let urlSession = URLSession(configuration: .ephemeral)
-    private let cache = CacheManager()
+    private let cache = ImageCacheManager()
     
     func downloadImage(from url: URL, to imageView: UIImageView, placeholder: UIImage? = nil) {
-        ImageLoader.imageViewURLs[imageView] = url
+        guard let urlHash = url.createMD5() else {
+            fatalError("Cant create hash")
+        }
+        ImageLoader.imageViewURLs[imageView] = urlHash
         
-        if ImageLoader.imageCache[url] != nil {
-            imageView.image = ImageLoader.imageCache[url]
+        if cache.isOnCache(urlHash) {
+            cache.retrieve(key: urlHash) { image in
+                    imageView.image = image
+            }
 
         } else {
             imageView.image = placeholder
@@ -30,11 +34,10 @@ class ImageLoader {
                 if error != nil {
                     NSLog("Error: \(String(describing: error))")
                     
-                } else if let data = data {
+                } else if let data = data, let image = UIImage(data: data)  {
                     DispatchQueue.main.async() {
-                        let image = UIImage(data: data)
-                        ImageLoader.imageCache[url] = image
-                        if ImageLoader.imageViewURLs[imageView] == url {
+                        self.cache.store(key: urlHash, object: image)
+                        if ImageLoader.imageViewURLs[imageView] == urlHash {
                             imageView.image = image
                         }
                     }

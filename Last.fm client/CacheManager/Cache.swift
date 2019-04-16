@@ -9,9 +9,11 @@
 import Foundation
 
 protocol Cache {
+    associatedtype DataType
     
-    func store<T: Cachable>(key: String, object: T, completion: (() -> Void)?)
+    func store(key: String, object: DataType)
     
-    func retrieve<T: Cachable>(key: String, completion: @escaping (_ object: T?) -> Void)
+    func retrieve(key: String, completion: @escaping (_ object: DataType?) -> Void)
     
+    func isOnCache(_ key: String) -> Bool
 }

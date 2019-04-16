@@ -10,16 +10,18 @@ import Foundation
 
 class DiskCache: Cache {
     
+    typealias DataType = Data
+    
     let path: String = {
         let dstPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
         return (dstPath as NSString).appendingPathComponent("DiskCache")
     }()
     
     private let fileManager = FileManager()
-    private let ioQueue: DispatchQueue = DispatchQueue(label: "DiskCacheIOQueue")
+    private let writeQueue: DispatchQueue = DispatchQueue(label: "DiskCacheQueue")
     
-    func store<T : Cachable>(key: String, object: T, completion: (() -> Void)? = nil) {
-        ioQueue.async {
+    func store(key: String, object: DataType) {
+        writeQueue.async {
             
             if !self.fileManager.fileExists(atPath: self.path) {
                 do {
@@ -31,20 +33,19 @@ class DiskCache: Cache {
             
             let cacheFilePath = (self.path as NSString).appendingPathComponent(key)
             
-            self.fileManager.createFile(atPath: cacheFilePath, contents: object.encode(), attributes: nil)
+            self.fileManager.createFile(atPath: cacheFilePath, contents: object, attributes: nil)
             
         }
-        
-        completion?()
     }
     
-    func retrieve<T : Cachable>(key: String, completion: @escaping (T?) -> Void) {
+    func retrieve(key: String, completion: @escaping (DataType?) -> Void) {
         let filePath = (path as NSString).appendingPathComponent(key)
-        if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
-            completion(T.decode(data))
-        } else {
-            completion(nil)
-        }
+        let data = try? Data(contentsOf: URL(fileURLWithPath: filePath))
+        completion(data)
     }
     
+    func isOnCache(_ key: String) -> Bool {
+        let filePath = (path as NSString).appendingPathComponent(key)
+        return fileManager.fileExists(atPath: filePath)
+    }
 }
