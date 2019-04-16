@@ -14,18 +14,15 @@ class TracksTableViewController: UITableViewController {
 
     private let apiService = APIService()
     private let preLoadCount = 3
-    private var placeholder: UIImage?
+    
     private var tracks = [Storable]()
     private var customNavName: String?
-    private var isTopChart = true
-    private var activityIndicator: TableViewActivityIndicator!
-
+    private var activityIndicator = TableViewActivityIndicator()
     private lazy var dataSource = apiService.getTopTracksClosure()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        activityIndicator = TableViewActivityIndicator()
         tableView.tableFooterView = activityIndicator
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "TrackCell")
@@ -103,7 +100,6 @@ class TracksTableViewController: UITableViewController {
                             withLoadedData loadedData: [Storable]?) {
         customNavName = name
         dataSource = source
-        isTopChart = false
 
         if let data = loadedData {
             tracks = data
