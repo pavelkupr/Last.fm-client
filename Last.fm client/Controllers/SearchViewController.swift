@@ -38,15 +38,16 @@ UITableViewDelegate, UITableViewDataSource {
     private let sectionLabelShift: CGFloat = 20
     private let apiService = APIService()
 
-    private var currSearchRequest: String?
+    private var activityIndicator = TableViewActivityIndicator()
     private var isResentMode = true
     private var searchModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
         [(.tracks, [Track]()), (.artists, [Artist]())]
     private var recentModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
         [(.resentSearches, [String]())]
+    
+    private var currSearchRequest: String?
     private var tracksSource: TrackSource?
     private var artistsSource: ArtistSource?
-    private var activityIndicator: TableViewActivityIndicator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +58,6 @@ UITableViewDelegate, UITableViewDataSource {
         searchBarView.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
-        activityIndicator = TableViewActivityIndicator()
         searchTableView.tableFooterView = activityIndicator
     }
 
@@ -240,7 +240,7 @@ UITableViewDelegate, UITableViewDataSource {
     private func searchArtists(byName name: String) {
         artistsSource = apiService.getSearchArtistsClosure(byName: name)
 
-        activityIndicator?.showAndAnimate()
+        activityIndicator.showAndAnimate()
         artistsSource! { data, error in
 
             if let err = error {
@@ -253,7 +253,7 @@ UITableViewDelegate, UITableViewDataSource {
                 }
 
                 self.searchTableView.reloadData()
-                self.activityIndicator?.hideAndStop()
+                self.activityIndicator.hideAndStop()
             }
         }
     }
@@ -261,7 +261,7 @@ UITableViewDelegate, UITableViewDataSource {
     private func searchTracks(byName name: String) {
         tracksSource = apiService.getSearchTracksClosure(byName: name)
 
-        activityIndicator?.showAndAnimate()
+        activityIndicator.showAndAnimate()
         tracksSource! { data, error in
 
             if let err = error {
@@ -274,7 +274,7 @@ UITableViewDelegate, UITableViewDataSource {
                 }
 
                 self.searchTableView.reloadData()
-                self.activityIndicator?.hideAndStop()
+                self.activityIndicator.hideAndStop()
             }
         }
     }
