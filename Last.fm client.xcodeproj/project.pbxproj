@@ -28,6 +28,7 @@
 		3F6FC298225F300200133E26 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC297225F300200133E26 /* AlbumView.swift */; };
 		3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */; };
 		3F6FC431225621650051CE06 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6FC430225621650051CE06 /* StringExtension.swift */; };
+		3F76104B22660CF3007D1792 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76104A22660CF3007D1792 /* CacheManager.swift */; };
 		3F7FFF012264A5D2005AF46F /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF002264A5D2005AF46F /* ImageLoader.swift */; };
 		3F7FFF082264C956005AF46F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF072264C956005AF46F /* Cache.swift */; };
 		3F7FFF0A2264C9EF005AF46F /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF092264C9EF005AF46F /* DiskCache.swift */; };
@@ -75,6 +76,7 @@
 		3F6FC297225F300200133E26 /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
 		3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewActivityIndicator.swift; sourceTree = "<group>"; };
 		3F6FC430225621650051CE06 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		3F76104A22660CF3007D1792 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		3F7FFF002264A5D2005AF46F /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		3F7FFF072264C956005AF46F /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		3F7FFF092264C9EF005AF46F /* DiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				3F7FFF072264C956005AF46F /* Cache.swift */,
 				3F7FFF092264C9EF005AF46F /* DiskCache.swift */,
 				3F7FFF0B2264CA2A005AF46F /* MemoryCache.swift */,
+				3F76104A22660CF3007D1792 /* CacheManager.swift */,
 				3F7FFF0D2264CA76005AF46F /* ImageCacheManager.swift */,
 			);
 			path = CacheManager;
@@ -471,6 +474,7 @@
 				3F43A8CE2249184A002E676C /* HTTPClient.swift in Sources */,
 				3F2AC96A225B63F900492D42 /* CustomSearchBar.swift in Sources */,
 				3FA0DAAE225E0B3900E6E5F3 /* UIViewExtension.swift in Sources */,
+				3F76104B22660CF3007D1792 /* CacheManager.swift in Sources */,
 				3FA0DAB0225E22C900E6E5F3 /* Album.swift in Sources */,
 				3F04FFFB2254BB4700C48292 /* CALayerExtension.swift in Sources */,
 				3F2AC976225B9A0300492D42 /* CustomCollectionViewCell.swift in Sources */,
