@@ -14,7 +14,7 @@ class ImageLoader {
     
     static var imageViewURLs: [UIImageView:String] = [:]
     private let urlSession = URLSession(configuration: .ephemeral)
-    private let cache = ImageCacheManager()
+    private let imageCache = ImageCacheManager()
     
     func downloadImage(from url: URL, to imageView: UIImageView, placeholder: UIImage? = nil) {
         guard let urlHash = url.createMD5() else {
@@ -22,8 +22,8 @@ class ImageLoader {
         }
         ImageLoader.imageViewURLs[imageView] = urlHash
         
-        if cache.isOnCache(urlHash) {
-            cache.retrieve(key: urlHash) { image in
+        if imageCache.isOnCache(urlHash) {
+            imageCache.retrieve(key: urlHash) { image in
                     imageView.image = image
             }
 
@@ -36,7 +36,7 @@ class ImageLoader {
                     
                 } else if let data = data, let image = UIImage(data: data)  {
                     DispatchQueue.main.async() {
-                        self.cache.store(key: urlHash, object: image)
+                        self.imageCache.store(key: urlHash, object: image)
                         if ImageLoader.imageViewURLs[imageView] == urlHash {
                             imageView.image = image
                         }

@@ -153,8 +153,8 @@
 		3F43A8B9224904B4002E676C /* Last.fm client */ = {
 			isa = PBXGroup;
 			children = (
-				3F7FFF042264C8FF005AF46F /* CacheManager */,
 				3FECB265224BC95A00D60B75 /* Support Files */,
+				3F7FFF042264C8FF005AF46F /* CacheManager */,
 				3F04FFF92254BB1000C48292 /* Extensions */,
 				3F43A8CC224917D8002E676C /* Networking */,
 				3F43A8D122491B66002E676C /* Models */,

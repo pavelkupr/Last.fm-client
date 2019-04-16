@@ -13,13 +13,14 @@ class MemoryCache: Cache {
     typealias DataType = AnyObject
     private static let cache = NSCache<AnyObject, AnyObject>()
     private static let capacity = 50
+    private static let clearCapacity = 20
     private static var keyQueue = [String]()
     
     func store(key: String, object: DataType) {
         MemoryCache.keyQueue.append(key)
         MemoryCache.cache.setObject(object as AnyObject, forKey: key as AnyObject)
         if MemoryCache.keyQueue.count > MemoryCache.capacity {
-            deleteFirstKey()
+            clearCash()
         }
     }
     
@@ -33,7 +34,9 @@ class MemoryCache: Cache {
         return MemoryCache.cache.object(forKey: key as AnyObject) != nil
     }
     
-    private func deleteFirstKey() {
-        MemoryCache.cache.removeObject(forKey: MemoryCache.keyQueue.remove(at: 0) as AnyObject)
+    private func clearCash() {
+        for _ in 0..<MemoryCache.clearCapacity {
+            MemoryCache.cache.removeObject(forKey: MemoryCache.keyQueue.remove(at: 0) as AnyObject)
+        }
     }
 }
