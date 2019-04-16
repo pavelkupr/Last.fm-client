@@ -11,8 +11,8 @@ import UIKit
 class ImageCacheManager: CacheManager {
     
     typealias DataType = UIImage
-    let memoryCache = MemoryCache()
-    let diskCache = DiskCache()
+    static let memoryCache = MemoryCache(capacity: 50, clearCapacity: 20)
+    static let diskCache = DiskCache()
     
     func decode(_ data: Data) -> DataType {
         guard let image = UIImage(data: data) else {

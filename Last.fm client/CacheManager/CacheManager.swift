@@ -10,8 +10,8 @@ import Foundation
 
 protocol CacheManager: Cache {
     
-    var memoryCache: MemoryCache { get }
-    var diskCache: DiskCache { get }
+    static var memoryCache: MemoryCache { get }
+    static var diskCache: DiskCache { get }
     
     func decode(_ data: Data) -> DataType
     
@@ -22,22 +22,22 @@ protocol CacheManager: Cache {
 extension CacheManager {
     
     func store(key: String, object: DataType) {
-        memoryCache.store(key: key, object: object as MemoryCache.DataType)
+        Self.memoryCache.store(key: key, object: object as MemoryCache.DataType)
         let data = self.encode(object)
-        self.diskCache.store(key: key, object: data)
+        Self.diskCache.store(key: key, object: data)
     }
     
     func retrieve(key: String, completion: @escaping (DataType?) -> Void) {
-        memoryCache.retrieve(key: key) { data in
+        Self.memoryCache.retrieve(key: key) { data in
             if let image = data as? DataType {
                 completion(image)
                 return
             }
             
-            self.diskCache.retrieve(key: key, completion: { data in
+            Self.diskCache.retrieve(key: key, completion: { data in
                 if let data = data {
                     let image = self.decode(data)
-                    self.memoryCache.store(key: key, object: image as MemoryCache.DataType)
+                    Self.memoryCache.store(key: key, object: image as MemoryCache.DataType)
                     completion(image)
                 } else {
                     completion(nil)
@@ -48,6 +48,6 @@ extension CacheManager {
     }
     
     func isOnCache(_ key: String) -> Bool {
-        return diskCache.isOnCache(key)
+        return Self.diskCache.isOnCache(key)
     }
 }

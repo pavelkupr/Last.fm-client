@@ -11,32 +11,37 @@ import Foundation
 class MemoryCache: Cache {
     
     typealias DataType = AnyObject
-    private static let cache = NSCache<AnyObject, AnyObject>()
-    private static let capacity = 50
-    private static let clearCapacity = 20
-    private static var keyQueue = [String]()
+    private let capacity: Int
+    private let clearCapacity: Int
+    private let cache = NSCache<AnyObject, AnyObject>()
+    private var keyQueue = [String]()
+    
+    init(capacity: Int, clearCapacity: Int) {
+        self.capacity = capacity
+        self.clearCapacity = clearCapacity
+    }
     
     func store(key: String, object: DataType) {
-        MemoryCache.keyQueue.append(key)
-        MemoryCache.cache.setObject(object as AnyObject, forKey: key as AnyObject)
-        if MemoryCache.keyQueue.count > MemoryCache.capacity {
+        keyQueue.append(key)
+        cache.setObject(object as AnyObject, forKey: key as AnyObject)
+        if keyQueue.count > capacity {
             clearCash()
         }
     }
     
     func retrieve(key: String, completion: @escaping (DataType?) -> Void) {
-        let data = MemoryCache.cache.object(forKey: key as AnyObject)
+        let data = cache.object(forKey: key as AnyObject)
         completion(data)
         
     }
     
     func isOnCache(_ key: String) -> Bool {
-        return MemoryCache.cache.object(forKey: key as AnyObject) != nil
+        return cache.object(forKey: key as AnyObject) != nil
     }
     
     private func clearCash() {
-        for _ in 0..<MemoryCache.clearCapacity {
-            MemoryCache.cache.removeObject(forKey: MemoryCache.keyQueue.remove(at: 0) as AnyObject)
+        for _ in 0..<clearCapacity {
+            cache.removeObject(forKey: keyQueue.remove(at: 0) as AnyObject)
         }
     }
 }
