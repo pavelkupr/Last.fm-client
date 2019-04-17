@@ -18,16 +18,36 @@ class TableViewControllerForStorableData: UITableViewController {
     private let preLoadCount = 3
     
     private var storableData = [Storable]()
-    private var representationMode: DataRepresentationMode
+    private var representationMode = DataRepresentationMode.none
     private var activityIndicator = TableViewActivityIndicator()
-    private var navName: String
-    private var dataSource: StorabeSource
+    private var navName: String?
+    private var dataSource: StorabeSource?
     
-    init(representationMode: DataRepresentationMode, navName: String, dataSource: @escaping StorabeSource, data: [Storable]? = nil) {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        guard representationMode != .none else {
-            fatalError("This type of mode is not supported")
+        tableView.tableFooterView = activityIndicator
+        tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "CustomCell")
+
+        navigationItem.title = navName
+        
+        if storableData.isEmpty {
+            getNextTracksFromSource()
         }
+    }
+    
+    static func getTVCForStorableData() -> TableViewControllerForStorableData{
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let tvc = storyboard.instantiateViewController(withIdentifier: "TVCForStorableData")
+            as? TableViewControllerForStorableData else {
+                fatalError("Can't cast controller")
+        }
+        return tvc
+    }
+    
+    func setData(representationMode: DataRepresentationMode, navName: String, dataSource: @escaping StorabeSource, data: [Storable]? = nil) {
         
         self.representationMode = representationMode
         self.navName = navName
@@ -37,25 +57,6 @@ class TableViewControllerForStorableData: UITableViewController {
             self.storableData = data
         }
         
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("This type of init is not supported")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.tableFooterView = activityIndicator
-        tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: "CustomCell")
-        
-        navigationItem.title = navName
-        
-        if storableData.isEmpty {
-            getNextTracksFromSource()
-        }
     }
     
     // MARK: Table view data source
@@ -102,28 +103,26 @@ class TableViewControllerForStorableData: UITableViewController {
     }
     
     private func getNextTracksFromSource() {
-        activityIndicator.showAndAnimate()
-        
-        dataSource { data, error in
+        if let source = dataSource {
+            activityIndicator.showAndAnimate()
             
-            if let err = error {
-                NSLog("Error: \(err)")
+            source { data, error in
                 
-            } else {
-                let convert: [Storable] = data
-                self.storableData += convert
-                self.tableView.reloadData()
+                if let err = error {
+                    NSLog("Error: \(err)")
+                    
+                } else {
+                    let convert: [Storable] = data
+                    self.storableData += convert
+                    self.tableView.reloadData()
+                }
+                self.activityIndicator.hideAndStop()
             }
-            self.activityIndicator.hideAndStop()
         }
     }
     
     private func pushInfoViewController(withStoreableData value: Storable) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: "InfoViewController")
-            as? InfoViewController else {
-                fatalError("Can't cast controller")
-        }
+        let viewController = InfoViewController.getInfoViewController()
         viewController.setStoreableData(value, mode: representationMode)
         navigationController?.pushViewController(viewController, animated: true)
     }

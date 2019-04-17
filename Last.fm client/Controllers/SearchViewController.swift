@@ -163,16 +163,17 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     // MARK: Actions
-
+    
     @objc func moreArtists(_ sender: UIButton) {
         
         for element in searchModeSectionsInfo where element.key == .artists {
             guard let searchRequest = currSearchRequest else {
                 fatalError("Search request is empty")
             }
+            let tvc = TableViewControllerForStorableData.getTVCForStorableData()
             let source = apiService.getSearchArtistsClosure(byName: searchRequest, withStartPage: 2)
-            let tvc = TableViewControllerForStorableData(representationMode: .artist, navName: "More Artists", dataSource: source,
-                                                         data: element.value)
+            tvc.setData(representationMode: .artist, navName: "More Artists", dataSource: source,
+                            data: element.value)
             navigationController?.pushViewController(tvc, animated: true)
         }
     }
@@ -183,9 +184,10 @@ UITableViewDelegate, UITableViewDataSource {
             guard let searchRequest = currSearchRequest else {
                 fatalError("Search request is empty")
             }
+            let tvc = TableViewControllerForStorableData.getTVCForStorableData()
             let source = apiService.getSearchTracksClosure(byName: searchRequest, withStartPage: 2)
-            let tvc = TableViewControllerForStorableData(representationMode: .track, navName: "More Tracks", dataSource: source,
-                                                         data: element.value)
+            tvc.setData(representationMode: .track, navName: "More Tracks", dataSource: source,
+                        data: element.value)
             navigationController?.pushViewController(tvc, animated: true)
         }
     }
@@ -255,11 +257,7 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     private func pushInfoViewWithData(atIndex index: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: "InfoViewController")
-            as? InfoViewController else {
-                fatalError("Can't cast controller")
-        }
+        let viewController = InfoViewController.getInfoViewController()
         
         switch searchModeSectionsInfo[index.section].key {
         case .artists:
@@ -272,5 +270,4 @@ UITableViewDelegate, UITableViewDataSource {
         
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
 }

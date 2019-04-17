@@ -55,6 +55,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9Y-Q9-2Vr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="541" y="824"/>
+        </scene>
+        <!--Table View Controller For Storable Data-->
+        <scene sceneID="tqy-eh-CdN">
+            <objects>
+                <tableViewController storyboardIdentifier="TVCForStorableData" id="mbb-z3-pwH" customClass="TableViewControllerForStorableData" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7sC-i1-1cW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="mbb-z3-pwH" id="4Th-d6-121"/>
+                            <outlet property="delegate" destination="mbb-z3-pwH" id="FGl-Ws-M0n"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LG7-qb-AOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="-426" y="824"/>
         </scene>
         <!--Search-->
