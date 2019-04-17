@@ -15,6 +15,7 @@ class CustomTabBarController: UITabBarController {
         let apiService = APIService()
         let tvc1 = TableViewControllerForStorableData.getTVCForStorableData()
         let tvc2 = TableViewControllerForStorableData.getTVCForStorableData()
+        let searchController = SearchViewController.getSearchController()
         tvc1.setData(representationMode: .artist, navName: "Top Atrists",
                      dataSource: apiService.getTopArtistsClosure())
         tvc2.setData(representationMode: .track, navName: "Top Tracks",
@@ -22,9 +23,11 @@ class CustomTabBarController: UITabBarController {
         
         let item1 = UINavigationController(rootViewController: tvc1)
         let item2 = UINavigationController(rootViewController: tvc2)
+        let item3 = UINavigationController(rootViewController: searchController)
         item1.tabBarItem = UITabBarItem(title: "Top Artists", image: nil, selectedImage: nil)
         item2.tabBarItem = UITabBarItem(title: "Top Tracks", image: nil, selectedImage: nil)
-        self.viewControllers?.insert(contentsOf: [item1,item2], at: 0)
+        item3.tabBarItem = UITabBarItem(title: "Search", image: nil, selectedImage: nil)
+        viewControllers = [item1, item2, item3]
     }
     
 }

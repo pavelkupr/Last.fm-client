@@ -60,7 +60,16 @@ UITableViewDelegate, UITableViewDataSource {
         searchTableView.dataSource = self
         searchTableView.tableFooterView = activityIndicator
     }
-
+    
+    static func getSearchController() -> SearchViewController{
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "SearchController")
+            as? SearchViewController else {
+                fatalError("Can't cast controller")
+        }
+        return vc
+    }
+    
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {

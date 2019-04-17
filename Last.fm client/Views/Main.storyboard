@@ -19,13 +19,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
-                    <connections>
-                        <segue destination="0UO-qc-u1l" kind="relationship" relationship="viewControllers" id="Dhw-Zv-kqJ"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgK-t4-R4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1403" y="1529"/>
+            <point key="canvasLocation" x="-426" y="1529"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="HqS-8J-SQy">
@@ -78,13 +75,13 @@
         <!--Search-->
         <scene sceneID="jSm-1a-6Ec">
             <objects>
-                <viewController id="3ha-xm-hlv" customClass="SearchViewController" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchController" id="3ha-xm-hlv" customClass="SearchViewController" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L7G-bw-nuj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wpc-W0-S40">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eGd-dA-kBI" customClass="CustomSearchBar" customModule="Last_fm_client" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -94,7 +91,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="O86-uJ-wc7">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="675"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="768"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -127,25 +124,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lih-bi-vav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="542" y="1529"/>
-        </scene>
-        <!--Search-->
-        <scene sceneID="P2p-rt-bVm">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0UO-qc-u1l" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" id="WXH-gD-KZf"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dkv-RM-1y1">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="3ha-xm-hlv" kind="relationship" relationship="rootViewController" id="4v9-sa-imK"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4dT-Yj-nv6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-425" y="1529"/>
         </scene>
     </scenes>
 </document>
