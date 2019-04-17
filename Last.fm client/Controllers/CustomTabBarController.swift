@@ -19,10 +19,8 @@ class CustomTabBarController: UITabBarController {
                                                       dataSource: apiService.getTopTracksClosure())
         let item1 = UINavigationController(rootViewController: tvc1)
         let item2 = UINavigationController(rootViewController: tvc2)
-        let icon1 = UITabBarItem(title: "Top Artists", image: nil, selectedImage: nil)
-        let icon2 = UITabBarItem(title: "Top Tracks", image: nil, selectedImage: nil)
-        item1.tabBarItem = icon1
-        item2.tabBarItem = icon2
+        item1.tabBarItem = UITabBarItem(title: "Top Artists", image: nil, selectedImage: nil)
+        item2.tabBarItem = UITabBarItem(title: "Top Tracks", image: nil, selectedImage: nil)
         self.viewControllers?.insert(contentsOf: [item1,item2], at: 0)
     }
 
