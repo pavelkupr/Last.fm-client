@@ -136,7 +136,7 @@ UITableViewDelegate, UITableViewDataSource {
             searchBarView.text = ""
             search(recentModeSectionsInfo[indexPath.section].value[indexPath.row].mainInfo)
         } else {
-            performSegue(withIdentifier: "ShowInfo", sender: tableView.cellForRow(at: indexPath))
+            pushInfoViewWithData(atIndex: indexPath)
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -162,57 +162,32 @@ UITableViewDelegate, UITableViewDataSource {
         searchTableView.reloadData()
     }
 
-    // MARK: Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        super.prepare(for: segue, sender: sender)
-
-        switch segue.identifier ?? "" {
-
-        case "ShowInfo":
-            guard let infoVC = segue.destination as? InfoViewController else {
-                fatalError("Unexpected destination")
-            }
-
-            guard let cell = sender as? CustomTableViewCell else {
-                fatalError("Unexpected sender")
-            }
-
-            guard let artistId = searchTableView.indexPath(for: cell) else {
-                fatalError("Cell: \(cell) is not in the tableView")
-            }
-
-            prepareInfoView(infoVC, index: artistId)
-
-        case "MoreArtists":
-            guard let artistsTVC = segue.destination as? ArtistsTableViewController else {
-                fatalError("Unexpected destination")
-            }
-            prepareArtistsTableView(artistsTVC)
-
-        case "MoreTracks":
-            guard let tracksTVC = segue.destination as? TracksTableViewController else {
-                fatalError("Unexpected destination")
-            }
-            prepareTracksTableView(tracksTVC)
-
-        default:
-            fatalError("Unexpected segue")
-
-        }
-    }
-
     // MARK: Actions
 
     @objc func moreArtists(_ sender: UIButton) {
-
-        performSegue(withIdentifier: "MoreArtists", sender: self)
+        
+        for element in searchModeSectionsInfo where element.key == .artists {
+            guard let searchRequest = currSearchRequest else {
+                fatalError("Search request is empty")
+            }
+            let source = apiService.getSearchArtistsClosure(byName: searchRequest, withStartPage: 2)
+            let tvc = TableViewControllerForStorableData(representationMode: .artist, navName: "More Artists", dataSource: source,
+                                                         data: element.value)
+            navigationController?.pushViewController(tvc, animated: true)
+        }
     }
 
     @objc func moreTracks(_ sender: UIButton) {
-
-        performSegue(withIdentifier: "MoreTracks", sender: self)
+        
+        for element in searchModeSectionsInfo where element.key == .tracks {
+            guard let searchRequest = currSearchRequest else {
+                fatalError("Search request is empty")
+            }
+            let source = apiService.getSearchTracksClosure(byName: searchRequest, withStartPage: 2)
+            let tvc = TableViewControllerForStorableData(representationMode: .track, navName: "More Tracks", dataSource: source,
+                                                         data: element.value)
+            navigationController?.pushViewController(tvc, animated: true)
+        }
     }
 
     // MARK: Private Methods
@@ -279,38 +254,23 @@ UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    private func prepareInfoView(_ infoVC: InfoViewController, index: IndexPath) {
-
-            switch searchModeSectionsInfo[index.section].key {
-            case .artists:
-                infoVC.setStoreableData(searchModeSectionsInfo[index.section].value[index.row], mode: .artist)
-            case .tracks:
-                infoVC.setStoreableData(searchModeSectionsInfo[index.section].value[index.row], mode: .track)
-            default:
-                break
-            }
-
-    }
-
-    private func prepareArtistsTableView(_ artistsTVC: ArtistsTableViewController) {
-        for element in searchModeSectionsInfo where element.key == .artists {
-            guard let searchRequest = currSearchRequest else {
-                fatalError("Search request is empty")
-            }
-            let source = apiService.getSearchArtistsClosure(byName: searchRequest, withStartPage: 2)
-            artistsTVC.setCustomStartInfo(withSource: source, withName: "More Artists", withLoadedData: element.value)
-
+    private func pushInfoViewWithData(atIndex index: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: "InfoViewController")
+            as? InfoViewController else {
+                fatalError("Can't cast controller")
         }
-    }
-
-    private func prepareTracksTableView(_ tracksTVC: TracksTableViewController) {
-        for element in searchModeSectionsInfo where element.key == .tracks {
-            guard let searchRequest = currSearchRequest else {
-                fatalError("Search request is empty")
-            }
-            let source = apiService.getSearchTracksClosure(byName: searchRequest, withStartPage: 2)
-            tracksTVC.setCustomStartInfo(withSource: source, withName: "More Tracks", withLoadedData: element.value)
+        
+        switch searchModeSectionsInfo[index.section].key {
+        case .artists:
+            viewController.setStoreableData(searchModeSectionsInfo[index.section].value[index.row], mode: .artist)
+        case .tracks:
+            viewController.setStoreableData(searchModeSectionsInfo[index.section].value[index.row], mode: .track)
+        default:
+            break
         }
-
+        
+        navigationController?.pushViewController(viewController, animated: true)
     }
+    
 }

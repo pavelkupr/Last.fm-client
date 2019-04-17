@@ -10,46 +10,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Custom Tab Bar Controller-->
         <scene sceneID="xxj-Rv-teU">
             <objects>
-                <tabBarController id="dmb-fb-XI1" sceneMemberID="viewController">
+                <tabBarController id="dmb-fb-XI1" customClass="CustomTabBarController" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Rlc-Sd-k6n">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="GFp-9g-6Lh" kind="relationship" relationship="viewControllers" id="zx0-Mp-N9B"/>
-                        <segue destination="9lw-7U-iSJ" kind="relationship" relationship="viewControllers" id="Ly7-nj-Plz"/>
                         <segue destination="0UO-qc-u1l" kind="relationship" relationship="viewControllers" id="Dhw-Zv-kqJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgK-t4-R4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1799" y="1529"/>
-        </scene>
-        <!--Top Artists-->
-        <scene sceneID="CAk-2C-UWP">
-            <objects>
-                <tableViewController id="4d7-gk-rro" customClass="ArtistsTableViewController" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bch-0A-etj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="4d7-gk-rro" id="9NO-Ph-KP7"/>
-                            <outlet property="delegate" destination="4d7-gk-rro" id="eEA-gN-B09"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Top Artists" id="qw2-xV-SG2"/>
-                    <connections>
-                        <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowInfo" id="WXZ-Lh-Yx1"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IVw-gP-wBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1541" y="123"/>
+            <point key="canvasLocation" x="-1403" y="1529"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="HqS-8J-SQy">
@@ -60,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-id-dWv" customClass="InfoView" customModule="Last_fm_client" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -79,67 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9Y-Q9-2Vr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3059" y="848"/>
-        </scene>
-        <!--Top Tracks-->
-        <scene sceneID="TM0-gL-PQe">
-            <objects>
-                <tableViewController id="izM-TV-ban" customClass="TracksTableViewController" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="AgZ-Vk-KaB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="izM-TV-ban" id="TvK-wO-kDA"/>
-                            <outlet property="delegate" destination="izM-TV-ban" id="wLr-MT-JzZ"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Top Tracks" id="VH6-Yg-1P8"/>
-                    <connections>
-                        <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowInfo" id="jjP-nb-mlm"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="q4g-dz-adj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1541" y="820"/>
-        </scene>
-        <!--Top Artists-->
-        <scene sceneID="ik4-Bl-Iu7">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GFp-9g-6Lh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Top Artists" id="sbt-C3-rIf"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vJV-4N-ZCY">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="4d7-gk-rro" kind="relationship" relationship="rootViewController" id="hGc-E3-5sM"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ssZ-Mn-Rno" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-530.43478260869574" y="123.21428571428571"/>
-        </scene>
-        <!--Top Tracks-->
-        <scene sceneID="4t8-UV-Xna">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9lw-7U-iSJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Top Tracks" id="Uvk-aT-GEb"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0pt-nu-EhZ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="izM-TV-ban" kind="relationship" relationship="rootViewController" id="YyO-zh-G0d"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FfJ-GH-2Jy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-530.43478260869574" y="819.64285714285711"/>
+            <point key="canvasLocation" x="-426" y="824"/>
         </scene>
         <!--Search-->
         <scene sceneID="jSm-1a-6Ec">
@@ -188,14 +104,11 @@
                     <connections>
                         <outlet property="searchBarView" destination="eGd-dA-kBI" id="GdW-u6-06R"/>
                         <outlet property="searchTableView" destination="O86-uJ-wc7" id="dWf-qe-7uC"/>
-                        <segue destination="izM-TV-ban" kind="show" identifier="MoreTracks" id="y9T-hz-dBt"/>
-                        <segue destination="4d7-gk-rro" kind="show" identifier="MoreArtists" id="UJu-cN-fWx"/>
-                        <segue destination="lnw-7n-Z2w" kind="show" identifier="ShowInfo" id="Cch-1l-sUC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lih-bi-vav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="503" y="1529"/>
+            <point key="canvasLocation" x="542" y="1529"/>
         </scene>
         <!--Search-->
         <scene sceneID="P2p-rt-bVm">
@@ -214,12 +127,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4dT-Yj-nv6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-530" y="1529"/>
+            <point key="canvasLocation" x="-425" y="1529"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="y9T-hz-dBt"/>
-        <segue reference="jjP-nb-mlm"/>
-        <segue reference="UJu-cN-fWx"/>
-    </inferredMetricsTieBreakers>
 </document>

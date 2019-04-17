@@ -16,7 +16,6 @@
 		3F2AC97A225BB1B100492D42 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AC978225BB1B100492D42 /* CollectionViewCell.xib */; };
 		3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */; };
 		3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8BA224904B4002E676C /* AppDelegate.swift */; };
-		3F43A8BD224904B4002E676C /* ArtistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */; };
 		3F43A8C2224904B4002E676C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F43A8C1224904B4002E676C /* Assets.xcassets */; };
 		3F43A8C5224904B4002E676C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F43A8C3224904B4002E676C /* LaunchScreen.storyboard */; };
 		3F43A8CE2249184A002E676C /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F43A8CD2249184A002E676C /* HTTPClient.swift */; };
@@ -35,11 +34,12 @@
 		3F7FFF0C2264CA2A005AF46F /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF0B2264CA2A005AF46F /* MemoryCache.swift */; };
 		3F7FFF0E2264CA76005AF46F /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF0D2264CA76005AF46F /* ImageCacheManager.swift */; };
 		3F7FFF122264D856005AF46F /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF112264D856005AF46F /* URLExtension.swift */; };
+		3F80ACA62267394600C615DE /* TableViewControllerForStorableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80ACA52267394600C615DE /* TableViewControllerForStorableData.swift */; };
+		3F80ACAC2267426C00C615DE /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */; };
 		3F9E4AF6225CB26300514E37 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9E4AF5225CB26300514E37 /* Storable.swift */; };
 		3FA0DAAE225E0B3900E6E5F3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */; };
 		3FA0DAB0225E22C900E6E5F3 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAF225E22C900E6E5F3 /* Album.swift */; };
 		3FA0DAB4225E324600E6E5F3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAB3225E324600E6E5F3 /* AboutView.swift */; };
-		3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */; };
 		3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9E49F224A554900AE3541 /* Main.storyboard */; };
 		3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */; };
 		CBE8C1B587F881F92710561C /* Pods_Last_fm_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */; };
@@ -63,7 +63,6 @@
 		3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3F43A8B7224904B4002E676C /* Last.fm client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last.fm client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F43A8BA224904B4002E676C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsTableViewController.swift; sourceTree = "<group>"; };
 		3F43A8C1224904B4002E676C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F43A8C4224904B4002E676C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F43A8C6224904B4002E676C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,11 +82,12 @@
 		3F7FFF0B2264CA2A005AF46F /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 		3F7FFF0D2264CA76005AF46F /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		3F7FFF112264D856005AF46F /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		3F80ACA52267394600C615DE /* TableViewControllerForStorableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewControllerForStorableData.swift; sourceTree = "<group>"; };
+		3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		3F9E4AF5225CB26300514E37 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		3FA0DAAF225E22C900E6E5F3 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		3FA0DAB3225E324600E6E5F3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		3FD9E49F224A554900AE3541 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		69E294A2364B171FBAC5BB88 /* Pods-Last.fm client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Last.fm client.release.xcconfig"; path = "Target Support Files/Pods-Last.fm client/Pods-Last.fm client.release.xcconfig"; sourceTree = "<group>"; };
@@ -266,10 +266,10 @@
 		3FECB264224BC92E00D60B75 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3F43A8BC224904B4002E676C /* ArtistsTableViewController.swift */,
-				3FD9E499224A35DD00AE3541 /* TracksTableViewController.swift */,
+				3F80ACA52267394600C615DE /* TableViewControllerForStorableData.swift */,
 				3F2EB07F224CA28800AEE3DE /* SearchViewController.swift */,
 				3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */,
+				3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -448,16 +448,15 @@
 			files = (
 				E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */,
 				3F9E4AF6225CB26300514E37 /* Storable.swift in Sources */,
-				3FD9E49A224A35DD00AE3541 /* TracksTableViewController.swift in Sources */,
 				3F6FC298225F300200133E26 /* AlbumView.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */,
-				3F43A8BD224904B4002E676C /* ArtistsTableViewController.swift in Sources */,
 				E9E6E93822499D77003BFD02 /* RoundedImageView.swift in Sources */,
 				3F04FFFD2254BB9500C48292 /* IntExtension.swift in Sources */,
 				E9233B5C225C73CF00F34CA0 /* CustomTableViewCell.swift in Sources */,
 				E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */,
 				3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */,
 				3F7FFF122264D856005AF46F /* URLExtension.swift in Sources */,
+				3F80ACAC2267426C00C615DE /* CustomTabBarController.swift in Sources */,
 				3F7FFF0E2264CA76005AF46F /* ImageCacheManager.swift in Sources */,
 				3F7FFF0A2264C9EF005AF46F /* DiskCache.swift in Sources */,
 				3F2EB080224CA28800AEE3DE /* SearchViewController.swift in Sources */,
@@ -476,6 +475,7 @@
 				3FA0DAAE225E0B3900E6E5F3 /* UIViewExtension.swift in Sources */,
 				3F76104B22660CF3007D1792 /* CacheManager.swift in Sources */,
 				3FA0DAB0225E22C900E6E5F3 /* Album.swift in Sources */,
+				3F80ACA62267394600C615DE /* TableViewControllerForStorableData.swift in Sources */,
 				3F04FFFB2254BB4700C48292 /* CALayerExtension.swift in Sources */,
 				3F2AC976225B9A0300492D42 /* CustomCollectionViewCell.swift in Sources */,
 			);
