@@ -37,6 +37,9 @@
 		3F80ACA62267394600C615DE /* ViewControllerForStorableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80ACA52267394600C615DE /* ViewControllerForStorableData.swift */; };
 		3F80ACAC2267426C00C615DE /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */; };
 		3F8B217A2268745000FC8382 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8B21792268745000FC8382 /* RatingControl.swift */; };
+		3F8B219C22688EC600FC8382 /* DataModels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F8B219A22688EC600FC8382 /* DataModels.xcdatamodeld */; };
+		3F8B219E22688FAA00FC8382 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8B219D22688FAA00FC8382 /* CoreDataService.swift */; };
+		3F8B21A022688FD000FC8382 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8B219F22688FD000FC8382 /* CoreDataManager.swift */; };
 		3F9E4AF6225CB26300514E37 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9E4AF5225CB26300514E37 /* Storable.swift */; };
 		3FA0DAAE225E0B3900E6E5F3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */; };
 		3FA0DAB0225E22C900E6E5F3 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAF225E22C900E6E5F3 /* Album.swift */; };
@@ -86,6 +89,9 @@
 		3F80ACA52267394600C615DE /* ViewControllerForStorableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerForStorableData.swift; sourceTree = "<group>"; };
 		3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		3F8B21792268745000FC8382 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
+		3F8B219B22688EC600FC8382 /* DataModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModels.xcdatamodel; sourceTree = "<group>"; };
+		3F8B219D22688FAA00FC8382 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		3F8B219F22688FD000FC8382 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		3F9E4AF5225CB26300514E37 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		3FA0DAAF225E22C900E6E5F3 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
@@ -120,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				E9E6E92A224979B5003BFD02 /* APIService.swift */,
+				3F8B219D22688FAA00FC8382 /* CoreDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -157,6 +164,7 @@
 		3F43A8B9224904B4002E676C /* Last.fm client */ = {
 			isa = PBXGroup;
 			children = (
+				3F8B219922688E9D00FC8382 /* Core Data */,
 				3FECB265224BC95A00D60B75 /* Support Files */,
 				3F7FFF042264C8FF005AF46F /* CacheManager */,
 				3F04FFF92254BB1000C48292 /* Extensions */,
@@ -263,6 +271,15 @@
 				3F7FFF0D2264CA76005AF46F /* ImageCacheManager.swift */,
 			);
 			path = CacheManager;
+			sourceTree = "<group>";
+		};
+		3F8B219922688E9D00FC8382 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				3F8B219A22688EC600FC8382 /* DataModels.xcdatamodeld */,
+				3F8B219F22688FD000FC8382 /* CoreDataManager.swift */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 		3FECB264224BC92E00D60B75 /* Controllers */ = {
@@ -455,7 +472,9 @@
 				3F6FC298225F300200133E26 /* AlbumView.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */,
 				E9E6E93822499D77003BFD02 /* RoundedImageView.swift in Sources */,
+				3F8B21A022688FD000FC8382 /* CoreDataManager.swift in Sources */,
 				3F04FFFD2254BB9500C48292 /* IntExtension.swift in Sources */,
+				3F8B219E22688FAA00FC8382 /* CoreDataService.swift in Sources */,
 				E9233B5C225C73CF00F34CA0 /* CustomTableViewCell.swift in Sources */,
 				E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */,
 				3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */,
@@ -474,6 +493,7 @@
 				3F7FFF0C2264CA2A005AF46F /* MemoryCache.swift in Sources */,
 				3F6FC294225F2C3500133E26 /* SimilarView.swift in Sources */,
 				E9D337B72251002E00DA9363 /* HeaderView.swift in Sources */,
+				3F8B219C22688EC600FC8382 /* DataModels.xcdatamodeld in Sources */,
 				3F43A8CE2249184A002E676C /* HTTPClient.swift in Sources */,
 				3F2AC96A225B63F900492D42 /* CustomSearchBar.swift in Sources */,
 				3FA0DAAE225E0B3900E6E5F3 /* UIViewExtension.swift in Sources */,
@@ -675,6 +695,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3F8B219A22688EC600FC8382 /* DataModels.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3F8B219B22688EC600FC8382 /* DataModels.xcdatamodel */,
+			);
+			currentVersion = 3F8B219B22688EC600FC8382 /* DataModels.xcdatamodel */;
+			path = DataModels.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3F43A8AF224904B4002E676C /* Project object */;
 }

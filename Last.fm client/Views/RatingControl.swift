@@ -23,13 +23,14 @@ import UIKit
         }
     }
     
-    var rating = 0 {
+    var rating: Int16 = 0 {
         didSet {
             updateButtonSelectionStates()
         }
     }
     
     private var ratingButtons = [UIButton]()
+    var delegate: RatingControlDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,13 +82,14 @@ import UIKit
             fatalError("The button, \(button), is not in the ratingButtons array: \(ratingButtons)")
         }
         
-        let selectedRating = index + 1
+        let selectedRating = Int16(index + 1)
         
         if selectedRating == rating {
             rating = 0
         } else {
             rating = selectedRating
         }
+        delegate?.ratingDidChange(newRating: rating)
     }
     
     private func updateButtonSelectionStates() {
@@ -95,4 +97,8 @@ import UIKit
             button.isSelected = index < rating
         }
     }
+}
+
+protocol RatingControlDelegate {
+    func ratingDidChange(newRating: Int16)
 }

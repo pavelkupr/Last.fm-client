@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
+class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
     
     // MARK: Properties
     @IBOutlet weak var photoImageView: RoundedImageView!
@@ -17,6 +17,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var topInfoLabel: UILabel!
     @IBOutlet weak var ratingControl: RatingControl!
     
+    private let dataService = CoreDataService()
     private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {
@@ -52,16 +53,42 @@ class CustomTableViewCell: UITableViewCell {
                 photoImageView.image = placeholder
             }
         }
+        
+        //TODO: Replace by more optimized code
+        
+        let rating: Int16?
+        
+        if bottomInfoLabel.isHidden {
+            rating=dataService.getRating(artist: mainInfoLabel.text!, track: nil)
+        } else {
+            rating=dataService.getRating(artist: bottomInfoLabel.text!, track:  mainInfoLabel.text!)
+        }
+        
+        if let rating = rating {
+            ratingControl.rating = rating
+        } else {
+            ratingControl.rating = 0
+        }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        ratingControl.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if animated {
             photoImageView.highlightBorder(withColour: tintColor)
+        }
+    }
+    
+    // MARK: RatingControlDelegate
+    func ratingDidChange(newRating: Int16) {
+        if bottomInfoLabel.isHidden {
+            dataService.addRating(withArtist: mainInfoLabel.text!, withTrack: nil, withRating: newRating)
+        } else {
+            dataService.addRating(withArtist: bottomInfoLabel.text!, withTrack:  mainInfoLabel.text!, withRating: newRating)
         }
     }
     
