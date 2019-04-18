@@ -42,13 +42,13 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    static func getInfoViewController() -> InfoViewController {
+    static func getInstanceFromStoryboard() -> InfoViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: "InfoViewController")
+        guard let controller = storyboard.instantiateViewController(withIdentifier: "InfoViewController")
             as? InfoViewController else {
                 fatalError("Can't cast controller")
         }
-        return viewController
+        return controller
     }
     
     func setStoreableData(_ data: Storable, mode: DataRepresentationMode) {
@@ -132,7 +132,7 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
 
     private func pushSameController(withStoreableData value: Storable) {
-        let viewController = InfoViewController.getInfoViewController()
+        let viewController = InfoViewController.getInstanceFromStoryboard()
         viewController.setStoreableData(value, mode: mode)
         navigationController?.pushViewController(viewController, animated: true)
     }

@@ -54,21 +54,33 @@
             </objects>
             <point key="canvasLocation" x="541" y="824"/>
         </scene>
-        <!--Table View Controller For Storable Data-->
-        <scene sceneID="tqy-eh-CdN">
+        <!--View Controller For Storable Data-->
+        <scene sceneID="0XV-MA-mJF">
             <objects>
-                <tableViewController storyboardIdentifier="TVCForStorableData" id="mbb-z3-pwH" customClass="TableViewControllerForStorableData" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7sC-i1-1cW">
+                <viewController storyboardIdentifier="VCForStorableData" id="rNu-M0-poD" customClass="ViewControllerForStorableData" customModule="Last_fm_client" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xXd-gU-YD9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3eS-sA-faB">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="mbb-z3-pwH" id="4Th-d6-121"/>
-                            <outlet property="delegate" destination="mbb-z3-pwH" id="FGl-Ws-M0n"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LG7-qb-AOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstItem="3Wy-W9-0D2" firstAttribute="trailing" secondItem="3eS-sA-faB" secondAttribute="trailing" id="2Py-Qi-Vxc"/>
+                            <constraint firstItem="3eS-sA-faB" firstAttribute="leading" secondItem="3Wy-W9-0D2" secondAttribute="leading" id="Lkc-W3-Fd5"/>
+                            <constraint firstItem="3eS-sA-faB" firstAttribute="top" secondItem="3Wy-W9-0D2" secondAttribute="top" id="Max-0C-o0w"/>
+                            <constraint firstItem="3Wy-W9-0D2" firstAttribute="bottom" secondItem="3eS-sA-faB" secondAttribute="bottom" id="TrO-Di-6Yo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3Wy-W9-0D2"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="3eS-sA-faB" id="iw0-Um-AuE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e3f-4q-ayo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-426" y="824"/>
         </scene>

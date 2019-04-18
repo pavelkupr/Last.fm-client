@@ -12,17 +12,18 @@ class CustomTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let apiService = APIService()
-        let tvc1 = TableViewControllerForStorableData.getTVCForStorableData()
-        let tvc2 = TableViewControllerForStorableData.getTVCForStorableData()
-        let searchController = SearchViewController.getSearchController()
-        tvc1.setData(representationMode: .artist, navName: "Top Atrists",
-                     dataSource: apiService.getTopArtistsClosure())
-        tvc2.setData(representationMode: .track, navName: "Top Tracks",
-                     dataSource: apiService.getTopTracksClosure())
         
-        let item1 = UINavigationController(rootViewController: tvc1)
-        let item2 = UINavigationController(rootViewController: tvc2)
+        let apiService = APIService()
+        let controller1 = ViewControllerForStorableData.getInstanceFromStoryboard()
+        let controller2 = ViewControllerForStorableData.getInstanceFromStoryboard()
+        let searchController = SearchViewController.getInstanceFromStoryboard()
+        controller1.setData(representationMode: .artist, navName: "Top Atrists",
+                            dataSource: apiService.getTopArtistsClosure())
+        controller2.setData(representationMode: .track, navName: "Top Tracks",
+                            dataSource: apiService.getTopTracksClosure())
+        
+        let item1 = UINavigationController(rootViewController: controller1)
+        let item2 = UINavigationController(rootViewController: controller2)
         let item3 = UINavigationController(rootViewController: searchController)
         item1.tabBarItem = UITabBarItem(title: "Top Artists", image: nil, selectedImage: nil)
         item2.tabBarItem = UITabBarItem(title: "Top Tracks", image: nil, selectedImage: nil)

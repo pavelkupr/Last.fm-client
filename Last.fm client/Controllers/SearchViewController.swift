@@ -61,13 +61,13 @@ UITableViewDelegate, UITableViewDataSource {
         searchTableView.tableFooterView = activityIndicator
     }
     
-    static func getSearchController() -> SearchViewController{
+    static func getInstanceFromStoryboard() -> SearchViewController{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "SearchController")
+        guard let controller = storyboard.instantiateViewController(withIdentifier: "SearchController")
             as? SearchViewController else {
                 fatalError("Can't cast controller")
         }
-        return vc
+        return controller
     }
     
     // MARK: - Table view data source
@@ -179,7 +179,7 @@ UITableViewDelegate, UITableViewDataSource {
             guard let searchRequest = currSearchRequest else {
                 fatalError("Search request is empty")
             }
-            let tvc = TableViewControllerForStorableData.getTVCForStorableData()
+            let tvc = ViewControllerForStorableData.getInstanceFromStoryboard()
             let source = apiService.getSearchArtistsClosure(byName: searchRequest, withStartPage: 2)
             tvc.setData(representationMode: .artist, navName: "More Artists", dataSource: source,
                             data: element.value)
@@ -193,7 +193,7 @@ UITableViewDelegate, UITableViewDataSource {
             guard let searchRequest = currSearchRequest else {
                 fatalError("Search request is empty")
             }
-            let tvc = TableViewControllerForStorableData.getTVCForStorableData()
+            let tvc = ViewControllerForStorableData.getInstanceFromStoryboard()
             let source = apiService.getSearchTracksClosure(byName: searchRequest, withStartPage: 2)
             tvc.setData(representationMode: .track, navName: "More Tracks", dataSource: source,
                         data: element.value)
@@ -266,7 +266,7 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     private func pushInfoViewWithData(atIndex index: IndexPath) {
-        let viewController = InfoViewController.getInfoViewController()
+        let viewController = InfoViewController.getInstanceFromStoryboard()
         
         switch searchModeSectionsInfo[index.section].key {
         case .artists:

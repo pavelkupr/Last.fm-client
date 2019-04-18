@@ -10,9 +10,12 @@ import UIKit
 
 typealias StorabeSource = ((_ closure: @escaping ([Storable], Error?) -> Void ) -> Void)
 
-class TableViewControllerForStorableData: UITableViewController {
+class ViewControllerForStorableData: UIViewController, UITableViewDelegate,
+UITableViewDataSource {
     
     // MARK: Properties
+    
+    @IBOutlet weak var tableView: UITableView!
     
     private let apiService = APIService()
     private let preLoadCount = 3
@@ -27,6 +30,8 @@ class TableViewControllerForStorableData: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.tableFooterView = activityIndicator
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "CustomCell")
@@ -38,13 +43,13 @@ class TableViewControllerForStorableData: UITableViewController {
         }
     }
     
-    static func getTVCForStorableData() -> TableViewControllerForStorableData{
+    static func getInstanceFromStoryboard() -> ViewControllerForStorableData{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let tvc = storyboard.instantiateViewController(withIdentifier: "TVCForStorableData")
-            as? TableViewControllerForStorableData else {
+        guard let controller = storyboard.instantiateViewController(withIdentifier: "VCForStorableData")
+            as? ViewControllerForStorableData else {
                 fatalError("Can't cast controller")
         }
-        return tvc
+        return controller
     }
     
     func setData(representationMode: DataRepresentationMode, navName: String, dataSource: @escaping StorabeSource, data: [Storable]? = nil) {
@@ -61,12 +66,12 @@ class TableViewControllerForStorableData: UITableViewController {
     
     // MARK: Table view data source
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return storableData.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as?
             CustomTableViewCell else {
@@ -84,8 +89,9 @@ class TableViewControllerForStorableData: UITableViewController {
     
     // MARK: TableViewDelegate
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         pushInfoViewController(withStoreableData: storableData[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Private Methods
@@ -122,7 +128,7 @@ class TableViewControllerForStorableData: UITableViewController {
     }
     
     private func pushInfoViewController(withStoreableData value: Storable) {
-        let viewController = InfoViewController.getInfoViewController()
+        let viewController = InfoViewController.getInstanceFromStoryboard()
         viewController.setStoreableData(value, mode: representationMode)
         navigationController?.pushViewController(viewController, animated: true)
     }
