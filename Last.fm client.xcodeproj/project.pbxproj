@@ -36,6 +36,7 @@
 		3F7FFF122264D856005AF46F /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF112264D856005AF46F /* URLExtension.swift */; };
 		3F80ACA62267394600C615DE /* ViewControllerForStorableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80ACA52267394600C615DE /* ViewControllerForStorableData.swift */; };
 		3F80ACAC2267426C00C615DE /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */; };
+		3F8B217A2268745000FC8382 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8B21792268745000FC8382 /* RatingControl.swift */; };
 		3F9E4AF6225CB26300514E37 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9E4AF5225CB26300514E37 /* Storable.swift */; };
 		3FA0DAAE225E0B3900E6E5F3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */; };
 		3FA0DAB0225E22C900E6E5F3 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAF225E22C900E6E5F3 /* Album.swift */; };
@@ -84,6 +85,7 @@
 		3F7FFF112264D856005AF46F /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
 		3F80ACA52267394600C615DE /* ViewControllerForStorableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerForStorableData.swift; sourceTree = "<group>"; };
 		3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		3F8B21792268745000FC8382 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		3F9E4AF5225CB26300514E37 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		3FA0DAAF225E22C900E6E5F3 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				E9E6E93722499D77003BFD02 /* RoundedImageView.swift */,
 				3F2AC969225B63F900492D42 /* CustomSearchBar.swift */,
 				3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */,
+				3F8B21792268745000FC8382 /* RatingControl.swift */,
 				3F6FC2A1225F368A00133E26 /* CustomCollectionViewCell */,
 				3F6FC2A0225F367100133E26 /* CustomTableViewCell */,
 				3F6FC29F225F365200133E26 /* HeaderView */,
@@ -447,6 +450,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */,
+				3F8B217A2268745000FC8382 /* RatingControl.swift in Sources */,
 				3F9E4AF6225CB26300514E37 /* Storable.swift in Sources */,
 				3F6FC298225F300200133E26 /* AlbumView.swift in Sources */,
 				3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */,

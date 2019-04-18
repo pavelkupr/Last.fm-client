@@ -15,6 +15,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var mainInfoLabel: UILabel!
     @IBOutlet weak var bottomInfoLabel: UILabel!
     @IBOutlet weak var topInfoLabel: UILabel!
+    @IBOutlet weak var ratingControl: RatingControl!
     
     private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
