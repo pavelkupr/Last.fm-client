@@ -58,6 +58,7 @@ struct Artist {
 }
 
 extension Artist: Storable {
+    
     var mainInfo: String {
         return name
     }
@@ -73,12 +74,36 @@ extension Artist: Storable {
         return nil
     }
 
-    var aboutInfo: String? {
-        return info
-    }
-
     var imageURLs: [ImageSize: String]? {
         return photoUrls
     }
-
+    
+    var rating: Int16? {
+        get{
+            let dataService = CoreDataService()
+            return dataService.getRating(artist: name, track: nil) ?? 0
+        }
+        set{
+            if let value = newValue {
+                let dataService = CoreDataService()
+                dataService.addRating(withArtist: name, withTrack: nil, withRating: value)
+            }
+        }
+    }
+    
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
+        let apiService = APIService()
+        var additional = AdditionalInfo()
+        apiService.getArtistInfo(byName: name) { data, error in
+            
+            if let err = error {
+                NSLog("Error: \(err)")
+                
+            } else if let data = data {
+                additional.aboutInfo = data.info == "" ? nil : data.info
+                additional.similar = data.similar.isEmpty ? nil : data.similar
+                closure(additional)
+            }
+        }
+    }
 }

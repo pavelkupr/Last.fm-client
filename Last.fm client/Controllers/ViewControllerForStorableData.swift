@@ -21,7 +21,6 @@ UITableViewDataSource {
     private let preLoadCount = 3
     
     private var storableData = [Storable]()
-    private var representationMode = DataRepresentationMode.none
     private var activityIndicator = TableViewActivityIndicator()
     private var navName: String?
     private var dataSource: StorabeSource?
@@ -43,6 +42,11 @@ UITableViewDataSource {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+    
     static func getInstanceFromStoryboard() -> ViewControllerForStorableData{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyboard.instantiateViewController(withIdentifier: "VCForStorableData")
@@ -52,9 +56,8 @@ UITableViewDataSource {
         return controller
     }
     
-    func setData(representationMode: DataRepresentationMode, navName: String, dataSource: @escaping StorabeSource, data: [Storable]? = nil) {
+    func setData(navName: String, dataSource: @escaping StorabeSource, data: [Storable]? = nil) {
         
-        self.representationMode = representationMode
         self.navName = navName
         self.dataSource = dataSource
         
@@ -129,7 +132,7 @@ UITableViewDataSource {
     
     private func pushInfoViewController(withStoreableData value: Storable) {
         let viewController = InfoViewController.getInstanceFromStoryboard()
-        viewController.setStoreableData(value, mode: representationMode)
+        viewController.setStoreableData(value)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

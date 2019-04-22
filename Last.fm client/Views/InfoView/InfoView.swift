@@ -72,7 +72,7 @@ class InfoView: UIView {
         aboutView.isHidden = false
     }
     
-    func updateAlbumSection(withAlbum album: Album) {
+    func updateAlbumSection(withAlbum album: Storable) {
         albumView.setAlbum(album)
         albumView.isHidden = false
     }

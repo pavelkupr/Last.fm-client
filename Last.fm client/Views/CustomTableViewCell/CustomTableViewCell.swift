@@ -17,7 +17,7 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
     @IBOutlet weak var topInfoLabel: UILabel!
     @IBOutlet weak var ratingControl: RatingControl!
     
-    private let dataService = CoreDataService()
+    private var data: Storable?
     private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {
@@ -31,8 +31,8 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
     }()
 
     func fillCell(withStorableData data: Storable, isWithImg: Bool) {
-
         hideCell()
+        self.data = data
         mainInfoLabel.text = data.mainInfo
 
         if let top = data.topInfo {
@@ -54,21 +54,11 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
             }
         }
         
-        //TODO: Replace by more optimized code
-        
-        let rating: Int16?
-        
-        if bottomInfoLabel.isHidden {
-            rating=dataService.getRating(artist: mainInfoLabel.text!, track: nil)
-        } else {
-            rating=dataService.getRating(artist: bottomInfoLabel.text!, track:  mainInfoLabel.text!)
-        }
-        
-        if let rating = rating {
+        if let rating = data.rating {
+            ratingControl.isHidden = false
             ratingControl.rating = rating
-        } else {
-            ratingControl.rating = 0
         }
+        
     }
 
     override func awakeFromNib() {
@@ -84,12 +74,9 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
     }
     
     // MARK: RatingControlDelegate
+    
     func ratingDidChange(newRating: Int16) {
-        if bottomInfoLabel.isHidden {
-            dataService.addRating(withArtist: mainInfoLabel.text!, withTrack: nil, withRating: newRating)
-        } else {
-            dataService.addRating(withArtist: bottomInfoLabel.text!, withTrack:  mainInfoLabel.text!, withRating: newRating)
-        }
+        data?.rating = newRating
     }
     
     // MARK: Private methods
@@ -98,5 +85,6 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
         bottomInfoLabel.isHidden = true
         photoImageView.isHidden = true
         topInfoLabel.isHidden = true
+        ratingControl.isHidden = true
     }
 }

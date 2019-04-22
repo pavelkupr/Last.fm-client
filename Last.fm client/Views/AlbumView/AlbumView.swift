@@ -39,10 +39,10 @@ class AlbumView: UIView {
         initView()
     }
     
-    func setAlbum(_ album: Album) {
+    func setAlbum(_ album: Storable) {
         headerView.label.text = "Album"
-        nameLabel.text = album.name
-        if let img = album.photoUrls[imageSize], let url = URL(string: img) {
+        nameLabel.text = album.mainInfo
+        if let imgs = album.imageURLs, let img = imgs[imageSize], let url = URL(string: img) {
             imageLoader.downloadImage(from: url, to: imageView, placeholder: placeholder)
         } else {
             imageView.image = placeholder

@@ -8,10 +8,6 @@
 
 import UIKit
 
-enum DataRepresentationMode {
-    case artist, track, none
-}
-
 class InfoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     // MARK: Properties
@@ -19,7 +15,6 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var infoView: InfoView!
     
     private let apiService = APIService()
-    private var mode = DataRepresentationMode.none
     private var data: Storable?
     private var similar = [Storable]()
 
@@ -30,15 +25,7 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
         if let value = data {
             infoView.updateMainInfoSection(withStorableData: value)
-
-            switch mode {
-            case .artist:
-                loadArtistInfo(value)
-            case .track:
-                loadTrackInfo(value)
-            default:
-                break
-            }
+            loadAdditionalInfo(value)
         }
     }
     
@@ -51,8 +38,7 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return controller
     }
     
-    func setStoreableData(_ data: Storable, mode: DataRepresentationMode) {
-        self.mode = mode
+    func setStoreableData(_ data: Storable) {
         self.data = data
     }
 
@@ -87,53 +73,28 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     // MARK: Private Methods
 
-    private func loadArtistInfo(_ value: Storable) {
+    private func loadAdditionalInfo(_ value: Storable) {
         infoView.activityIndicator.startAnimating()
-        apiService.getArtistInfo(byName: value.mainInfo) { data, error in
-
-            if let err = error {
-                NSLog("Error: \(err)")
-
-            } else if let data = data {
-                if let info = data.info, info != "" {
-                    self.infoView.updateAboutSection(withInfo:
-                        info.removeStartingNewlineIfExists().repalceHTMLTags(with: "\n"))
-                }
-                if !data.similar.isEmpty {
-                    self.similar = data.similar
-                    self.infoView.updateSimilarSection()
-                }
+        value.getAddidtionalInfo { info in
+            if let about = info.aboutInfo {
+                self.infoView.updateAboutSection(withInfo:
+                    about.removeStartingNewlineIfExists().repalceHTMLTags(with: "\n"))
+            }
+            if let similar = info.similar {
+                self.similar = similar
+                self.infoView.updateSimilarSection()
+            }
+            if let parent = info.parent {
+                self.infoView.updateAlbumSection(withAlbum: parent)
             }
             self.infoView.activityIndicator.stopAnimating()
         }
+        
     }
-
-    private func loadTrackInfo(_ value: Storable) {
-        if let bottomData = value.bottomInfo {
-            infoView.activityIndicator.startAnimating()
-            apiService.getTrackInfo(byTrackName: value.mainInfo, byArtistName:
-            bottomData) { data, error in
-
-                if let err = error {
-                    NSLog("Error: \(err)")
-
-                } else if let data = data {
-                    if let info = data.info, info != "" {
-                        self.infoView.updateAboutSection(withInfo:
-                            info.removeStartingNewlineIfExists().repalceHTMLTags(with: "\n"))
-                    }
-                    if let album = data.album {
-                        self.infoView.updateAlbumSection(withAlbum: album)
-                    }
-                }
-                self.infoView.activityIndicator.stopAnimating()
-            }
-        }
-    }
-
+    
     private func pushSameController(withStoreableData value: Storable) {
         let viewController = InfoViewController.getInstanceFromStoryboard()
-        viewController.setStoreableData(value, mode: mode)
+        viewController.setStoreableData(value)
         navigationController?.pushViewController(viewController, animated: true)
     }
 

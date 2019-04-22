@@ -32,6 +32,7 @@ extension String {
 }
 
 extension String: Storable {
+    
     var mainInfo: String {
         return self
     }
@@ -44,12 +45,19 @@ extension String: Storable {
         return nil
     }
 
-    var aboutInfo: String? {
-        return nil
-    }
-
     var imageURLs: [ImageSize: String]? {
         return nil
     }
-
+    
+    var rating: Int16? {
+        get{
+            return nil
+        }
+        set{}
+    }
+    
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
+        let additional = AdditionalInfo()
+        closure(additional)
+    }
 }

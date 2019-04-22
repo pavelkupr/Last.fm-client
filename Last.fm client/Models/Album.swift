@@ -28,3 +28,34 @@ struct Album {
         }
     }
 }
+
+extension Album: Storable {
+    
+    var mainInfo: String {
+        return name
+    }
+    
+    var topInfo: String? {
+        return nil
+    }
+    
+    var bottomInfo: String? {
+        return artistName
+    }
+    
+    var imageURLs: [ImageSize: String]? {
+        return photoUrls
+    }
+    
+    var rating: Int16? {
+        get{
+            return nil
+        }
+        set{}
+    }
+    
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
+        let additional = AdditionalInfo()
+        closure(additional)
+    }
+}

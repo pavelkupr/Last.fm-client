@@ -9,9 +9,18 @@
 import Foundation
 
 protocol Storable {
+    
     var mainInfo: String { get }
     var topInfo: String? { get }
     var bottomInfo: String? { get }
-    var aboutInfo: String? { get }
     var imageURLs: [ImageSize: String]? { get }
+    var rating: Int16? { get set }
+    
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ())
+}
+
+struct AdditionalInfo {
+    var aboutInfo: String?
+    var similar: [Storable]?
+    var parent: Storable?
 }

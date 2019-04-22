@@ -61,6 +61,11 @@ UITableViewDelegate, UITableViewDataSource {
         searchTableView.tableFooterView = activityIndicator
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchTableView.reloadData()
+    }
+    
     static func getInstanceFromStoryboard() -> SearchViewController{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyboard.instantiateViewController(withIdentifier: "SearchController")
@@ -181,7 +186,7 @@ UITableViewDelegate, UITableViewDataSource {
             }
             let tvc = ViewControllerForStorableData.getInstanceFromStoryboard()
             let source = apiService.getSearchArtistsClosure(byName: searchRequest, withStartPage: 2)
-            tvc.setData(representationMode: .artist, navName: "More Artists", dataSource: source,
+            tvc.setData(navName: "More Artists", dataSource: source,
                             data: element.value)
             navigationController?.pushViewController(tvc, animated: true)
         }
@@ -195,7 +200,7 @@ UITableViewDelegate, UITableViewDataSource {
             }
             let tvc = ViewControllerForStorableData.getInstanceFromStoryboard()
             let source = apiService.getSearchTracksClosure(byName: searchRequest, withStartPage: 2)
-            tvc.setData(representationMode: .track, navName: "More Tracks", dataSource: source,
+            tvc.setData(navName: "More Tracks", dataSource: source,
                         data: element.value)
             navigationController?.pushViewController(tvc, animated: true)
         }
@@ -266,17 +271,9 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     private func pushInfoViewWithData(atIndex index: IndexPath) {
+        
         let viewController = InfoViewController.getInstanceFromStoryboard()
-        
-        switch searchModeSectionsInfo[index.section].key {
-        case .artists:
-            viewController.setStoreableData(searchModeSectionsInfo[index.section].value[index.row], mode: .artist)
-        case .tracks:
-            viewController.setStoreableData(searchModeSectionsInfo[index.section].value[index.row], mode: .track)
-        default:
-            break
-        }
-        
+        viewController.setStoreableData(searchModeSectionsInfo[index.section].value[index.row])
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

@@ -74,6 +74,7 @@ struct Track {
 }
 
 extension Track: Storable {
+    
     var mainInfo: String {
         return name
     }
@@ -89,12 +90,37 @@ extension Track: Storable {
         return artistName
     }
 
-    var aboutInfo: String? {
-        return info
-    }
-
     var imageURLs: [ImageSize: String]? {
         return photoUrls
     }
-
+    
+    var rating: Int16? {
+        get{
+            let dataService = CoreDataService()
+            return dataService.getRating(artist: artistName, track: name) ?? 0
+        }
+        set{
+            if let value = newValue {
+                let dataService = CoreDataService()
+                dataService.addRating(withArtist: artistName, withTrack: name, withRating: value)
+            }
+        }
+    }
+    
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
+        let apiService = APIService()
+        var additional = AdditionalInfo()
+        apiService.getTrackInfo(byTrackName: name, byArtistName:
+        artistName) { data, error in
+            
+            if let err = error {
+                NSLog("Error: \(err)")
+                
+            } else if let data = data {
+                additional.aboutInfo = data.info == "" ? nil : data.info
+                additional.parent = data.album
+            }
+            closure(additional)
+        }
+    }
 }

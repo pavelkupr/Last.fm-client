@@ -17,9 +17,9 @@ class CustomTabBarController: UITabBarController {
         let controller1 = ViewControllerForStorableData.getInstanceFromStoryboard()
         let controller2 = ViewControllerForStorableData.getInstanceFromStoryboard()
         let searchController = SearchViewController.getInstanceFromStoryboard()
-        controller1.setData(representationMode: .artist, navName: "Top Atrists",
+        controller1.setData(navName: "Top Atrists",
                             dataSource: apiService.getTopArtistsClosure())
-        controller2.setData(representationMode: .track, navName: "Top Tracks",
+        controller2.setData(navName: "Top Tracks",
                             dataSource: apiService.getTopTracksClosure())
         
         let item1 = UINavigationController(rootViewController: controller1)
