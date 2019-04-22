@@ -18,6 +18,7 @@
                 <outlet property="contentView" destination="iN0-l3-epB" id="Knr-M3-gc0"/>
                 <outlet property="imageView" destination="fec-rn-jGw" id="V80-RX-9Wk"/>
                 <outlet property="mainLabel" destination="FIB-eC-CZr" id="3i8-SA-jbE"/>
+                <outlet property="ratingControl" destination="BXh-sa-6eh" id="BTi-mM-8da"/>
                 <outlet property="similarView" destination="qWO-4Z-xFb" id="fjS-SK-4Tb"/>
                 <outlet property="summaryConstraint" destination="t3E-nU-dxg" id="Zfj-mZ-DIQ"/>
             </connections>
@@ -31,10 +32,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="zIp-Wk-pH3">
-                            <rect key="frame" x="0.0" y="20" width="375" height="403.5"/>
+                            <rect key="frame" x="0.0" y="20" width="375" height="455.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="b2w-oy-CJZ">
-                                    <rect key="frame" x="40" y="0.0" width="295" height="367.5"/>
+                                    <rect key="frame" x="40" y="0.0" width="295" height="419.5"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fec-rn-jGw" customClass="RoundedImageView" customModule="Last_fm_client" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="295" height="295"/>
@@ -54,31 +55,34 @@
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXh-sa-6eh" customClass="RatingControl" customModule="Last_fm_client" customModuleProvider="target">
+                                            <rect key="frame" x="37.5" y="375.5" width="220" height="44"/>
+                                        </stackView>
                                     </subviews>
                                 </stackView>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XER-Ho-rlh" customClass="AboutView" customModule="Last_fm_client" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="375.5" width="375" height="196.5"/>
+                                    <rect key="frame" x="0.0" y="427.5" width="375" height="196.5"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="196.5" id="t3E-nU-dxg"/>
                                     </constraints>
                                 </view>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qWO-4Z-xFb" customClass="SimilarView" customModule="Last_fm_client" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="375.5" width="375" height="198"/>
+                                    <rect key="frame" x="0.0" y="427.5" width="375" height="198"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="198" id="CQV-FX-OIY"/>
                                     </constraints>
                                 </view>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ESj-dn-lIZ" customClass="AlbumView" customModule="Last_fm_client" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="375.5" width="375" height="138"/>
+                                    <rect key="frame" x="0.0" y="427.5" width="375" height="138"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="138" id="xmv-WM-sZN"/>
                                     </constraints>
                                 </view>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fVh-49-bYb">
-                                    <rect key="frame" x="177.5" y="383.5" width="20" height="20"/>
+                                    <rect key="frame" x="177.5" y="435.5" width="20" height="20"/>
                                 </activityIndicatorView>
                             </subviews>
                             <constraints>

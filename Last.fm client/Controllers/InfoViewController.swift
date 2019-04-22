@@ -8,7 +8,8 @@
 
 import UIKit
 
-class InfoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class InfoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,
+RatingControlDelegate {
 
     // MARK: Properties
     
@@ -22,10 +23,18 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         infoView.similarView.collectionView.delegate = self
         infoView.similarView.collectionView.dataSource = self
-
+        infoView.ratingControl.delegate = self
+        
+        if let value = data {
+            loadAdditionalInfo(value)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         if let value = data {
             infoView.updateMainInfoSection(withStorableData: value)
-            loadAdditionalInfo(value)
         }
     }
     
@@ -41,7 +50,13 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func setStoreableData(_ data: Storable) {
         self.data = data
     }
-
+    
+    // MARK: RatingControlDelegate
+    
+    func ratingDidChange(newRating: Int16) {
+        data?.rating = newRating
+    }
+    
     // MARK: CollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

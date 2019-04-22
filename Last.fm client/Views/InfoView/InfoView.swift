@@ -16,6 +16,7 @@ class InfoView: UIView {
     @IBOutlet weak var imageView: RoundedImageView!
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
+    @IBOutlet weak var ratingControl: RatingControl!
     
     @IBOutlet weak var aboutView: AboutView!
     @IBOutlet weak var similarView: SimilarView!
@@ -46,7 +47,7 @@ class InfoView: UIView {
     }
     
     func updateMainInfoSection(withStorableData data: Storable) {
-
+        
         mainLabel.text = data.mainInfo
 
         if let bottom = data.bottomInfo {
@@ -59,7 +60,12 @@ class InfoView: UIView {
         } else {
             imageView.image = placeholder
         }
-
+        
+        if let rating = data.rating {
+            ratingControl.isHidden = false
+            ratingControl.rating = rating
+        }
+        
     }
     
     func updateAboutSection(withInfo info: String) {
