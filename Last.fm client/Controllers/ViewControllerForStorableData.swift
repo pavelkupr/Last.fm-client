@@ -170,12 +170,15 @@ UITableViewDataSource, CustomBarDelegate {
             
             if let err = error {
                 NSLog("Error: \(err)")
-                
+                if (err as NSError).code != 400 {
+                    self.activityIndicator.hideAndStop()
+                }
+            
             } else {
                 self.sections[currItem]?.appendStorableData(data)
                 self.tableView.reloadData()
+                self.activityIndicator.hideAndStop()
             }
-            self.activityIndicator.hideAndStop()
         }
         
     }

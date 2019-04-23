@@ -54,16 +54,21 @@ class APIService {
     // MARK: Public Methods
 
     func getTopArtistsClosure(withStartPage startPage: Int = 1) -> ArtistSource {
-        var isEnd: Bool = false
+        var isEnd = false
+        var isWorking = false
         var pageCounter = startPage
         var topCounter = 0
 
         return { (closure: @escaping ([Artist], Error?) -> Void ) -> Void in
-
-            if isEnd {
+            guard !isEnd else {
                 closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                 return
             }
+            guard !isWorking else {
+                closure([], NSError(domain: "Can't perform many requests", code: 400, userInfo: nil))
+                return
+            }
+            isWorking = true
 
             let params = [
                 "method": APIMethod.topArtists.rawValue,
@@ -95,6 +100,7 @@ class APIService {
                         }
                         closure(artists, nil)
                         pageCounter += 1
+                        isWorking = false
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -105,16 +111,22 @@ class APIService {
     }
 
     func getSearchArtistsClosure(byName name: String, withStartPage startPage: Int = 1) -> ArtistSource {
-        var isEnd: Bool = false
+        var isEnd = false
+        var isWorking = false
         var pageCounter = startPage
 
         return { (closure: @escaping ([Artist], Error?) -> Void ) -> Void in
 
-            if isEnd {
+            guard !isEnd else {
                 closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                 return
             }
-
+            guard !isWorking else {
+                closure([], NSError(domain: "Can't perform many requests", code: 400, userInfo: nil))
+                return
+            }
+            isWorking = true
+            
             let params = [
                 "method": APIMethod.searchArtists.rawValue,
                 "api_key": self.apiKey,
@@ -145,6 +157,7 @@ class APIService {
                         }
                         closure(artists, nil)
                         pageCounter += 1
+                        isWorking = false
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -185,17 +198,23 @@ class APIService {
     }
 
     func getTopTracksClosure(withStartPage startPage: Int = 1) -> TrackSource {
-        var isEnd: Bool = false
+        var isEnd = false
         var pageCounter = startPage
+        var isWorking = false
         var topCounter = 0
 
         return { (closure: @escaping ([Track], Error?) -> Void ) -> Void in
 
-            if isEnd {
+            guard !isEnd else {
                 closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                 return
             }
-
+            guard !isWorking else {
+                closure([], NSError(domain: "Can't perform many requests", code: 400, userInfo: nil))
+                return
+            }
+            isWorking = true
+            
             let params = [
                 "method": APIMethod.topTracks.rawValue,
                 "api_key": self.apiKey,
@@ -225,6 +244,7 @@ class APIService {
                         }
                         closure(tracks, nil)
                         pageCounter += 1
+                        isWorking = false
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
@@ -235,16 +255,22 @@ class APIService {
     }
 
     func getSearchTracksClosure(byName name: String, withStartPage startPage: Int = 1) -> TrackSource {
-        var isEnd: Bool = false
+        var isEnd = false
+        var isWorking = false
         var pageCounter = startPage
 
         return { (closure: @escaping ([Track], Error?) -> Void ) -> Void in
 
-            if isEnd {
+            guard !isEnd else {
                 closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
                 return
             }
-
+            guard !isWorking else {
+                closure([], NSError(domain: "Can't perform many requests", code: 400, userInfo: nil))
+                return
+            }
+            isWorking = true
+            
             let params = [
                 "method": APIMethod.searchTracks.rawValue,
                 "api_key": self.apiKey,
@@ -276,6 +302,7 @@ class APIService {
                         }
                         closure(tracks, nil)
                         pageCounter += 1
+                        isWorking = false
 
                     } catch let parseError as NSError {
                         print( "JSONSerialization error: \(parseError.localizedDescription)\n")
