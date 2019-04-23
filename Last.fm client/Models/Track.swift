@@ -107,6 +107,12 @@ extension Track: Storable {
         }
     }
     
+    var isFavorite: Bool? {
+        get{
+            return nil
+        }
+    }
+    
     func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
         let apiService = APIService()
         var additional = AdditionalInfo()
@@ -122,5 +128,12 @@ extension Track: Storable {
             }
             closure(additional)
         }
+    }
+    
+    func addToFavorite() {
+        return
+    }
+    func removeFromFavorite() {
+        return
     }
 }

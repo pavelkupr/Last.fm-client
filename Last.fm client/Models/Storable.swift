@@ -15,8 +15,11 @@ protocol Storable {
     var bottomInfo: String? { get }
     var imageURLs: [ImageSize: String]? { get }
     var rating: Int16? { get set }
+    var isFavorite: Bool? { get }
     
     func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ())
+    func addToFavorite()
+    func removeFromFavorite()
 }
 
 struct AdditionalInfo {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F04427A226F1F2300FAFF32 /* CustomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F044279226F1F2300FAFF32 /* CustomBar.swift */; };
+		3F04427C226F69FA00FAFF32 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F04427B226F69FA00FAFF32 /* FavoriteButton.swift */; };
 		3F04FFFB2254BB4700C48292 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F04FFFA2254BB4700C48292 /* CALayerExtension.swift */; };
 		3F04FFFD2254BB9500C48292 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F04FFFC2254BB9500C48292 /* IntExtension.swift */; };
 		3F2AC96A225B63F900492D42 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AC969225B63F900492D42 /* CustomSearchBar.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		3F044279226F1F2300FAFF32 /* CustomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBar.swift; sourceTree = "<group>"; };
+		3F04427B226F69FA00FAFF32 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
 		3F04FFFA2254BB4700C48292 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		3F04FFFC2254BB9500C48292 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		3F2AC969225B63F900492D42 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 			children = (
 				3FD9E49F224A554900AE3541 /* Main.storyboard */,
 				3F044279226F1F2300FAFF32 /* CustomBar.swift */,
+				3F04427B226F69FA00FAFF32 /* FavoriteButton.swift */,
 				E9E6E93722499D77003BFD02 /* RoundedImageView.swift */,
 				3F2AC969225B63F900492D42 /* CustomSearchBar.swift */,
 				3F6FC42E2255DB260051CE06 /* TableViewActivityIndicator.swift */,
@@ -470,6 +473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9E6E92B224979B5003BFD02 /* APIService.swift in Sources */,
+				3F04427C226F69FA00FAFF32 /* FavoriteButton.swift in Sources */,
 				3F8B217A2268745000FC8382 /* RatingControl.swift in Sources */,
 				3F9E4AF6225CB26300514E37 /* Storable.swift in Sources */,
 				3F6FC298225F300200133E26 /* AlbumView.swift in Sources */,

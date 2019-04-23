@@ -17,6 +17,7 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
     @IBOutlet weak var topInfoLabel: UILabel!
     @IBOutlet weak var ratingControl: RatingControl!
     
+    @IBOutlet weak var likeButton: FavoriteButton!
     private var data: Storable?
     private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
@@ -58,12 +59,16 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
             ratingControl.isHidden = false
             ratingControl.rating = rating
         }
-        
+        if let isFavorite = data.isFavorite {
+            likeButton.isHidden = false
+            likeButton.button.isSelected = isFavorite
+        }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         ratingControl.delegate = self
+        likeButton.button.addTarget(self, action: #selector(buttonTapped(button:)), for: .touchUpInside)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -86,5 +91,15 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
         photoImageView.isHidden = true
         topInfoLabel.isHidden = true
         ratingControl.isHidden = true
+        likeButton.isHidden = true
+    }
+    
+    @objc private func buttonTapped(button: UIButton) {
+        button.isSelected = !button.isSelected
+        if button.isSelected {
+            data?.addToFavorite()
+        } else {
+            data?.removeFromFavorite()
+        }
     }
 }

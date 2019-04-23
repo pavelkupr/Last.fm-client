@@ -56,8 +56,21 @@ extension String: Storable {
         set{}
     }
     
+    var isFavorite: Bool? {
+        get{
+            return nil
+        }
+    }
+    
     func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
         let additional = AdditionalInfo()
         closure(additional)
+    }
+    
+    func addToFavorite() {
+        return
+    }
+    func removeFromFavorite() {
+        return
     }
 }

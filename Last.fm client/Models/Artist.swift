@@ -52,9 +52,13 @@ struct Artist {
                 similar.append(try Artist(jsonArtist: artistInfo))
             }
         }
-
     }
 
+    init(name: String, photoUrls: [ImageSize: String]) {
+        self.name = name
+        self.photoUrls = photoUrls
+    }
+    
 }
 
 extension Artist: Storable {
@@ -91,6 +95,13 @@ extension Artist: Storable {
         }
     }
     
+    var isFavorite: Bool? {
+        get {
+            let dataService = CoreDataService()
+            return dataService.isInFavoriteArtist(name: self.name)
+        }
+    }
+    
     func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
         let apiService = APIService()
         var additional = AdditionalInfo()
@@ -105,5 +116,15 @@ extension Artist: Storable {
                 closure(additional)
             }
         }
+    }
+    
+    func addToFavorite() {
+        let dataService = CoreDataService()
+        dataService.addFavoriteArtist(withArtist: self)
+    }
+    
+    func removeFromFavorite() {
+        let dataService = CoreDataService()
+        dataService.removeFavoriteArtist(withArtist: self)
     }
 }

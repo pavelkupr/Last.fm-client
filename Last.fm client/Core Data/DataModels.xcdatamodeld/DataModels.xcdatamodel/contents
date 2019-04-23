@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18E220a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FavoriteArtist" representedClassName="FavoriteArtist" syncable="YES" codeGenerationType="class">
+        <attribute name="extralargeImg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="largeImg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mediumImg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="megaImg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="smallImg" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Rating" representedClassName="Rating" syncable="YES" codeGenerationType="class">
         <attribute name="artist" attributeType="String" syncable="YES"/>
         <attribute name="rating" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -7,5 +15,6 @@
     </entity>
     <elements>
         <element name="Rating" positionX="-18" positionY="27" width="128" height="90"/>
+        <element name="FavoriteArtist" positionX="-18" positionY="54" width="128" height="135"/>
     </elements>
 </model>
