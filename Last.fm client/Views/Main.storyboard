@@ -65,22 +65,25 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9pr-q6-GJL">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ph7-aM-S9H">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <items>
-                                            <tabBarItem systemItem="more" id="Czr-24-Xaw"/>
-                                            <tabBarItem systemItem="more" id="dih-qm-pOI"/>
-                                        </items>
-                                    </tabBar>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XLF-jh-9s3" customClass="CustomBar" customModule="Last_fm_client" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="wCV-yj-kxM"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
+                                                <color key="value" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3eS-sA-faB">
-                                        <rect key="frame" x="0.0" y="49" width="414" height="769"/>
+                                        <rect key="frame" x="0.0" y="40" width="414" height="778"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="ph7-aM-S9H" firstAttribute="leading" secondItem="9pr-q6-GJL" secondAttribute="leading" id="Gsv-mb-Jbr"/>
                                     <constraint firstItem="3eS-sA-faB" firstAttribute="leading" secondItem="9pr-q6-GJL" secondAttribute="leading" id="Npo-uj-Rpl"/>
+                                    <constraint firstItem="XLF-jh-9s3" firstAttribute="leading" secondItem="9pr-q6-GJL" secondAttribute="leading" id="bMy-ju-UKp"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -94,7 +97,7 @@
                         <viewLayoutGuide key="safeArea" id="3Wy-W9-0D2"/>
                     </view>
                     <connections>
-                        <outlet property="tabBar" destination="ph7-aM-S9H" id="xwV-8H-3oE"/>
+                        <outlet property="customBar" destination="XLF-jh-9s3" id="wF6-1l-brp"/>
                         <outlet property="tableView" destination="3eS-sA-faB" id="iw0-Um-AuE"/>
                     </connections>
                 </viewController>
@@ -118,6 +121,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="eQF-n3-4Fs"/>
                                         </constraints>
+                                        <color key="barTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="O86-uJ-wc7">

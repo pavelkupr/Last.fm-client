@@ -21,22 +21,22 @@ struct TableViewInfo {
 }
 
 class ViewControllerForStorableData: UIViewController, UITableViewDelegate,
-UITableViewDataSource, UITabBarDelegate {
+UITableViewDataSource, CustomBarDelegate {
     
     // MARK: Properties
     
-    @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var customBar: CustomBar!
     
     private let apiService = APIService()
     private let preLoadCount = 3
     
-    private var items = [UITabBarItem]()
-    private var tableViewsInfo = [UITabBarItem:TableViewInfo]()
+    private var sections = [UIButton:TableViewInfo]()
+    private var tableViewsInfo = [TableViewInfo]()
     private var activityIndicator = TableViewActivityIndicator()
     private var currData: [Storable] {
         get {
-            guard let selected = tabBar.selectedItem, let info = tableViewsInfo[selected] else {
+            guard let selected = customBar.getSelected(), let info = sections[selected] else {
                 return []
             }
             
@@ -47,19 +47,29 @@ UITableViewDataSource, UITabBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBar.delegate = self
+        customBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = activityIndicator
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "CustomCell")
-        tabBar.items = items
-        tabBar.selectedItem = items[0]
-        if items.count > 1 {
-            tabBar.isHidden = false
+        
+        var items = [UIButton]()
+        
+        for info in tableViewsInfo {
+            let button = UIButton()
+            button.setTitle(info.navName, for: .normal)
+            sections[button] = info
+            items.append(button)
         }
         
-        if let selected = tabBar.selectedItem, let info = tableViewsInfo[selected] {
+        customBar.setButtons(withItems: items)
+        
+        if customBar.itemsCount <= 1 {
+            customBar.isHidden = true
+        }
+        
+        if let selected = customBar.getSelected(), let info = sections[selected] {
             navigationItem.title = info.navName
         }
         
@@ -87,19 +97,16 @@ UITableViewDataSource, UITabBarDelegate {
             fatalError("Empty array!")
         }
         
-        for info in viewsInfo {
-            let item = UITabBarItem(title: info.navName, image: nil, selectedImage: nil)
-            items.append(item)
-            tableViewsInfo[item] = info
-        }
+        tableViewsInfo = viewsInfo
     }
     
-    // MARK: TabBar Delegate
+    // MARK: CustomBar Delegate
     
-    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if let selected = tabBar.selectedItem, let info = tableViewsInfo[selected] {
+    func customBarSelectedDidChange(button: UIButton) {
+        if let info = sections[button] {
             navigationItem.title = info.navName
         }
+        
         tableView.reloadData()
         if currData.isEmpty {
             getNextTracksFromSource()
@@ -154,7 +161,7 @@ UITableViewDataSource, UITabBarDelegate {
     }
     
     private func getNextTracksFromSource() {
-        guard let currItem = tabBar.selectedItem, let info = tableViewsInfo[currItem] else {
+        guard let currItem = customBar.getSelected(), let info = sections[currItem] else {
             fatalError()
         }
         
@@ -165,7 +172,7 @@ UITableViewDataSource, UITabBarDelegate {
                 NSLog("Error: \(err)")
                 
             } else {
-                self.tableViewsInfo[currItem]?.appendStorableData(data)
+                self.sections[currItem]?.appendStorableData(data)
                 self.tableView.reloadData()
             }
             self.activityIndicator.hideAndStop()
