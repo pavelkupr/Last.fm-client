@@ -62,21 +62,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3eS-sA-faB">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9pr-q6-GJL">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
+                                <subviews>
+                                    <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ph7-aM-S9H">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <items>
+                                            <tabBarItem systemItem="more" id="Czr-24-Xaw"/>
+                                            <tabBarItem systemItem="more" id="dih-qm-pOI"/>
+                                        </items>
+                                    </tabBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3eS-sA-faB">
+                                        <rect key="frame" x="0.0" y="49" width="414" height="769"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ph7-aM-S9H" firstAttribute="leading" secondItem="9pr-q6-GJL" secondAttribute="leading" id="Gsv-mb-Jbr"/>
+                                    <constraint firstItem="3eS-sA-faB" firstAttribute="leading" secondItem="9pr-q6-GJL" secondAttribute="leading" id="Npo-uj-Rpl"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="3Wy-W9-0D2" firstAttribute="trailing" secondItem="3eS-sA-faB" secondAttribute="trailing" id="2Py-Qi-Vxc"/>
-                            <constraint firstItem="3eS-sA-faB" firstAttribute="leading" secondItem="3Wy-W9-0D2" secondAttribute="leading" id="Lkc-W3-Fd5"/>
-                            <constraint firstItem="3eS-sA-faB" firstAttribute="top" secondItem="3Wy-W9-0D2" secondAttribute="top" id="Max-0C-o0w"/>
-                            <constraint firstItem="3Wy-W9-0D2" firstAttribute="bottom" secondItem="3eS-sA-faB" secondAttribute="bottom" id="TrO-Di-6Yo"/>
+                            <constraint firstItem="9pr-q6-GJL" firstAttribute="leading" secondItem="3Wy-W9-0D2" secondAttribute="leading" id="UDm-n0-Esf"/>
+                            <constraint firstItem="3Wy-W9-0D2" firstAttribute="bottom" secondItem="9pr-q6-GJL" secondAttribute="bottom" id="bQ6-oj-qsm"/>
+                            <constraint firstItem="9pr-q6-GJL" firstAttribute="trailing" secondItem="3Wy-W9-0D2" secondAttribute="trailing" id="mvb-MB-E9J"/>
+                            <constraint firstItem="9pr-q6-GJL" firstAttribute="top" secondItem="3Wy-W9-0D2" secondAttribute="top" id="q0s-ZB-Xls"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3Wy-W9-0D2"/>
                     </view>
                     <connections>
+                        <outlet property="tabBar" destination="ph7-aM-S9H" id="xwV-8H-3oE"/>
                         <outlet property="tableView" destination="3eS-sA-faB" id="iw0-Um-AuE"/>
                     </connections>
                 </viewController>

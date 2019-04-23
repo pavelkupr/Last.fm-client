@@ -186,8 +186,7 @@ UITableViewDelegate, UITableViewDataSource {
             }
             let tvc = ViewControllerForStorableData.getInstanceFromStoryboard()
             let source = apiService.getSearchArtistsClosure(byName: searchRequest, withStartPage: 2)
-            tvc.setData(navName: "More Artists", dataSource: source,
-                            data: element.value)
+            tvc.setData(viewsInfo: [TableViewInfo(data: element.value, navName: "More Artists", dataSource: source)])
             navigationController?.pushViewController(tvc, animated: true)
         }
     }
@@ -200,8 +199,7 @@ UITableViewDelegate, UITableViewDataSource {
             }
             let tvc = ViewControllerForStorableData.getInstanceFromStoryboard()
             let source = apiService.getSearchTracksClosure(byName: searchRequest, withStartPage: 2)
-            tvc.setData(navName: "More Tracks", dataSource: source,
-                        data: element.value)
+            tvc.setData(viewsInfo: [TableViewInfo(data: element.value, navName: "More Tracks", dataSource: source)])
             navigationController?.pushViewController(tvc, animated: true)
         }
     }

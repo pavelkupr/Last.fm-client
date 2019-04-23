@@ -15,20 +15,14 @@ class CustomTabBarController: UITabBarController {
         
         let apiService = APIService()
         let controller1 = ViewControllerForStorableData.getInstanceFromStoryboard()
-        let controller2 = ViewControllerForStorableData.getInstanceFromStoryboard()
         let searchController = SearchViewController.getInstanceFromStoryboard()
-        controller1.setData(navName: "Top Atrists",
-                            dataSource: apiService.getTopArtistsClosure())
-        controller2.setData(navName: "Top Tracks",
-                            dataSource: apiService.getTopTracksClosure())
-        
+        controller1.setData(viewsInfo: [TableViewInfo(data: [], navName: "Top Artists", dataSource: apiService.getTopArtistsClosure()),
+                                        TableViewInfo(data: [], navName: "Top Tracks", dataSource: apiService.getTopTracksClosure())])
         let item1 = UINavigationController(rootViewController: controller1)
-        let item2 = UINavigationController(rootViewController: controller2)
-        let item3 = UINavigationController(rootViewController: searchController)
-        item1.tabBarItem = UITabBarItem(title: "Top Artists", image: nil, selectedImage: nil)
-        item2.tabBarItem = UITabBarItem(title: "Top Tracks", image: nil, selectedImage: nil)
-        item3.tabBarItem = UITabBarItem(title: "Search", image: nil, selectedImage: nil)
-        viewControllers = [item1, item2, item3]
+        let item2 = UINavigationController(rootViewController: searchController)
+        item1.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+        item2.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        viewControllers = [item1, item2]
     }
     
 }

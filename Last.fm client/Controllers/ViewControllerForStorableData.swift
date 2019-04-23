@@ -10,34 +10,60 @@ import UIKit
 
 typealias StorabeSource = ((_ closure: @escaping ([Storable], Error?) -> Void ) -> Void)
 
+struct TableViewInfo {
+    var data: [Storable]
+    var navName: String
+    var dataSource: StorabeSource
+    
+    mutating func appendStorableData(_ data: [Storable]){
+        self.data += data
+    }
+}
+
 class ViewControllerForStorableData: UIViewController, UITableViewDelegate,
-UITableViewDataSource {
+UITableViewDataSource, UITabBarDelegate {
     
     // MARK: Properties
     
+    @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var tableView: UITableView!
     
     private let apiService = APIService()
     private let preLoadCount = 3
     
-    private var storableData = [Storable]()
+    private var items = [UITabBarItem]()
+    private var tableViewsInfo = [UITabBarItem:TableViewInfo]()
     private var activityIndicator = TableViewActivityIndicator()
-    private var navName: String?
-    private var dataSource: StorabeSource?
-    
+    private var currData: [Storable] {
+        get {
+            guard let selected = tabBar.selectedItem, let info = tableViewsInfo[selected] else {
+                return []
+            }
+            
+            return info.data
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = activityIndicator
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "CustomCell")
-
-        navigationItem.title = navName
+        tabBar.items = items
+        tabBar.selectedItem = items[0]
+        if items.count > 1 {
+            tabBar.isHidden = false
+        }
         
-        if storableData.isEmpty {
+        if let selected = tabBar.selectedItem, let info = tableViewsInfo[selected] {
+            navigationItem.title = info.navName
+        }
+        
+        if currData.isEmpty {
             getNextTracksFromSource()
         }
     }
@@ -56,22 +82,38 @@ UITableViewDataSource {
         return controller
     }
     
-    func setData(navName: String, dataSource: @escaping StorabeSource, data: [Storable]? = nil) {
-        
-        self.navName = navName
-        self.dataSource = dataSource
-        
-        if let data = data {
-            self.storableData = data
+    func setData(viewsInfo: [TableViewInfo]) {
+        guard viewsInfo.count != 0 else {
+            fatalError("Empty array!")
         }
         
+        for info in viewsInfo {
+            let item = UITabBarItem(title: info.navName, image: nil, selectedImage: nil)
+            items.append(item)
+            tableViewsInfo[item] = info
+        }
+    }
+    
+    // MARK: TabBar Delegate
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if let selected = tabBar.selectedItem, let info = tableViewsInfo[selected] {
+            navigationItem.title = info.navName
+        }
+        tableView.reloadData()
+        if currData.isEmpty {
+            getNextTracksFromSource()
+        }
+        else {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
     }
     
     // MARK: Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return storableData.count
+        return currData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -81,7 +123,7 @@ UITableViewDataSource {
                 fatalError("Unexpected type of cell")
         }
         
-        cell.fillCell(withStorableData: storableData[indexPath.row], isWithImg: true)
+        cell.fillCell(withStorableData: currData[indexPath.row], isWithImg: true)
         
         if isStartLoadNextPage(currRow: indexPath.row) {
             getNextTracksFromSource()
@@ -93,7 +135,7 @@ UITableViewDataSource {
     // MARK: TableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pushInfoViewController(withStoreableData: storableData[indexPath.row])
+        pushInfoViewController(withStoreableData: currData[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -105,29 +147,30 @@ UITableViewDataSource {
         }
         
         if apiService.itemsPerPage > preLoadCount {
-            return currRow + 1 == storableData.count - preLoadCount
+            return currRow + 1 == currData.count - preLoadCount
         } else {
-            return currRow + 1 == storableData.count
+            return currRow + 1 == currData.count
         }
     }
     
     private func getNextTracksFromSource() {
-        if let source = dataSource {
-            activityIndicator.showAndAnimate()
-            
-            source { data, error in
-                
-                if let err = error {
-                    NSLog("Error: \(err)")
-                    
-                } else {
-                    let convert: [Storable] = data
-                    self.storableData += convert
-                    self.tableView.reloadData()
-                }
-                self.activityIndicator.hideAndStop()
-            }
+        guard let currItem = tabBar.selectedItem, let info = tableViewsInfo[currItem] else {
+            fatalError()
         }
+        
+        activityIndicator.showAndAnimate()
+        info.dataSource { data, error in
+            
+            if let err = error {
+                NSLog("Error: \(err)")
+                
+            } else {
+                self.tableViewsInfo[currItem]?.appendStorableData(data)
+                self.tableView.reloadData()
+            }
+            self.activityIndicator.hideAndStop()
+        }
+        
     }
     
     private func pushInfoViewController(withStoreableData value: Storable) {
@@ -135,4 +178,5 @@ UITableViewDataSource {
         viewController.setStoreableData(value)
         navigationController?.pushViewController(viewController, animated: true)
     }
+
 }
