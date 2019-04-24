@@ -14,6 +14,7 @@ RatingControlDelegate {
     // MARK: Properties
     
     @IBOutlet weak var infoView: InfoView!
+    @IBOutlet weak var favoriteButton: FavoriteButton!
     
     private let apiService = APIService()
     private var data: Storable?
@@ -24,6 +25,7 @@ RatingControlDelegate {
         infoView.similarView.collectionView.delegate = self
         infoView.similarView.collectionView.dataSource = self
         infoView.ratingControl.delegate = self
+        favoriteButton.button.addTarget(self, action: #selector(buttonTapped(button:)), for: .touchUpInside)
         
         if let value = data {
             loadAdditionalInfo(value)
@@ -35,6 +37,13 @@ RatingControlDelegate {
         
         if let value = data {
             infoView.updateMainInfoSection(withStorableData: value)
+            
+            if let isFavorite = value.isFavorite {
+                favoriteButton.isHidden = false
+                favoriteButton.button.isSelected = isFavorite
+            } else {
+                favoriteButton.isHidden = true
+            }
         }
     }
     
@@ -105,6 +114,15 @@ RatingControlDelegate {
             self.infoView.activityIndicator.stopAnimating()
         }
         
+    }
+    
+    @objc private func buttonTapped(button: UIButton) {
+        button.isSelected = !button.isSelected
+        if button.isSelected {
+            data?.addToFavorite()
+        } else {
+            data?.removeFromFavorite()
+        }
     }
     
     private func pushSameController(withStoreableData value: Storable) {

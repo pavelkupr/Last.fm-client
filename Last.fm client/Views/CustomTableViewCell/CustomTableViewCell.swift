@@ -59,6 +59,7 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
             ratingControl.isHidden = false
             ratingControl.rating = rating
         }
+        
         if let isFavorite = data.isFavorite {
             likeButton.isHidden = false
             likeButton.button.isSelected = isFavorite

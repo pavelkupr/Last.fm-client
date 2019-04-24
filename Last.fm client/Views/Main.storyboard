@@ -33,20 +33,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-id-dWv" customClass="InfoView" customModule="Last_fm_client" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fBH-pr-89Z" firstAttribute="bottom" secondItem="ZfG-id-dWv" secondAttribute="bottom" id="2yS-W5-PdO"/>
+                            <constraint firstAttribute="bottom" secondItem="ZfG-id-dWv" secondAttribute="bottom" id="2yS-W5-PdO"/>
                             <constraint firstItem="fBH-pr-89Z" firstAttribute="trailing" secondItem="ZfG-id-dWv" secondAttribute="trailing" id="MXy-hX-mq7"/>
                             <constraint firstItem="ZfG-id-dWv" firstAttribute="leading" secondItem="fBH-pr-89Z" secondAttribute="leading" id="fpq-69-hBe"/>
                             <constraint firstItem="ZfG-id-dWv" firstAttribute="top" secondItem="fBH-pr-89Z" secondAttribute="top" id="jvx-Lq-oCq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fBH-pr-89Z"/>
                     </view>
+                    <navigationItem key="navigationItem" id="qha-dZ-LKc">
+                        <barButtonItem key="rightBarButtonItem" id="8VE-by-pCR">
+                            <view key="customView" contentMode="scaleToFill" id="D5h-6R-taZ" customClass="FavoriteButton" customModule="Last_fm_client" customModuleProvider="target">
+                                <rect key="frame" x="359" y="4.5" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="btnSize">
+                                        <real key="value" value="35"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
+                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="favoriteButton" destination="D5h-6R-taZ" id="nui-Be-llN"/>
                         <outlet property="infoView" destination="ZfG-id-dWv" id="6VA-kG-DHq"/>
                     </connections>
                 </viewController>
@@ -63,7 +82,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9pr-q6-GJL">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XLF-jh-9s3" customClass="CustomBar" customModule="Last_fm_client" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
@@ -77,7 +96,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3eS-sA-faB">
-                                        <rect key="frame" x="0.0" y="40" width="414" height="778"/>
+                                        <rect key="frame" x="0.0" y="40" width="414" height="812"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -90,7 +109,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9pr-q6-GJL" firstAttribute="leading" secondItem="xXd-gU-YD9" secondAttribute="leading" id="UDm-n0-Esf"/>
-                            <constraint firstItem="3Wy-W9-0D2" firstAttribute="bottom" secondItem="9pr-q6-GJL" secondAttribute="bottom" id="bQ6-oj-qsm"/>
+                            <constraint firstAttribute="bottom" secondItem="9pr-q6-GJL" secondAttribute="bottom" id="bQ6-oj-qsm"/>
                             <constraint firstItem="9pr-q6-GJL" firstAttribute="trailing" secondItem="xXd-gU-YD9" secondAttribute="trailing" id="mvb-MB-E9J"/>
                             <constraint firstItem="9pr-q6-GJL" firstAttribute="top" secondItem="3Wy-W9-0D2" secondAttribute="top" id="q0s-ZB-Xls"/>
                         </constraints>
@@ -114,7 +133,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wpc-W0-S40">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="eGd-dA-kBI" customClass="CustomSearchBar" customModule="Last_fm_client" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -125,7 +144,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="O86-uJ-wc7">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="768"/>
+                                        <rect key="frame" x="0.0" y="50" width="414" height="802"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -142,7 +161,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="wpc-W0-S40" firstAttribute="bottom" secondItem="OJX-BH-cID" secondAttribute="bottom" id="33I-T4-bDG"/>
+                            <constraint firstItem="wpc-W0-S40" firstAttribute="bottom" secondItem="L7G-bw-nuj" secondAttribute="bottom" id="33I-T4-bDG"/>
                             <constraint firstItem="wpc-W0-S40" firstAttribute="top" secondItem="OJX-BH-cID" secondAttribute="top" id="kA2-nS-40a"/>
                             <constraint firstItem="wpc-W0-S40" firstAttribute="trailing" secondItem="L7G-bw-nuj" secondAttribute="trailing" id="kOe-QS-trq"/>
                             <constraint firstItem="wpc-W0-S40" firstAttribute="leading" secondItem="L7G-bw-nuj" secondAttribute="leading" id="qSx-Y1-o9n"/>

@@ -12,8 +12,8 @@ struct Track {
 
     var name: String
     var artistName: String
-    var playCount: String
-    var listeners: String
+    var playCount: String?
+    var listeners: String?
     var info: String?
     var photoUrls = [ImageSize: String]()
     var album: Album?
@@ -23,8 +23,6 @@ struct Track {
         self.numInChart = numInChart
 
         name = jsonTrack["name"].stringValue
-        playCount = jsonTrack["playcount"].stringValue
-        listeners = jsonTrack["listeners"].stringValue
         artistName = jsonTrack["artist"]["name"].stringValue
 
         if let imagesInfo = jsonTrack["image"].array {
@@ -59,8 +57,6 @@ struct Track {
     init(foundJsonTrack: JSON) throws {
 
         name = foundJsonTrack["name"].stringValue
-        playCount = foundJsonTrack["playcount"].stringValue
-        listeners = foundJsonTrack["listeners"].stringValue
         artistName = foundJsonTrack["artist"].stringValue
 
         if let imagesInfo = foundJsonTrack["image"].array {
@@ -70,6 +66,12 @@ struct Track {
                 }
             }
         }
+    }
+    
+    init(name: String, artist: String, photoUrls: [ImageSize: String]) {
+        self.name = name
+        self.artistName = artist
+        self.photoUrls = photoUrls
     }
 }
 
@@ -109,7 +111,8 @@ extension Track: Storable {
     
     var isFavorite: Bool? {
         get{
-            return nil
+            let dataService = CoreDataService()
+            return dataService.isInFavoriteTrack(name: self.name, artist: self.artistName)
         }
     }
     
@@ -131,9 +134,11 @@ extension Track: Storable {
     }
     
     func addToFavorite() {
-        return
+        let dataService = CoreDataService()
+        dataService.addFavoriteTrack(withTrack: self)
     }
     func removeFromFavorite() {
-        return
+        let dataService = CoreDataService()
+        dataService.removeFavoriteTrack(withTrack: self)
     }
 }
