@@ -56,8 +56,8 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="pPe-ll-Klq">
-                                <rect key="frame" x="219" y="0.0" width="116" height="61"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="pPe-ll-Klq">
+                                <rect key="frame" x="219" y="0.0" width="116" height="76"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="NC6-8C-K0o" customClass="RatingControl" customModule="Last_fm_client" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="116" height="20"/>
@@ -71,12 +71,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mue-s9-zzF" customClass="FavoriteButton" customModule="Last_fm_client" customModuleProvider="target">
-                                        <rect key="frame" x="40.5" y="26" width="35" height="35"/>
+                                        <rect key="frame" x="86" y="46" width="30" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="mue-s9-zzF" secondAttribute="height" multiplier="1:1" id="C94-Et-9DC"/>
-                                            <constraint firstAttribute="width" constant="35" id="h6y-EO-9xP"/>
-                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="btnSize">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
+                                                <color key="value" red="0.8187720070422535" green="0.16948173415492956" blue="0.524262764084507" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <constraints>

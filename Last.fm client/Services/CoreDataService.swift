@@ -73,13 +73,9 @@ class CoreDataService {
     }
     
     func getFavoriteArtistsClosure() -> ArtistSource {
-        var isEnd = false
         
         return { (closure: @escaping ([Artist], Error?) -> Void ) -> Void in
-            guard !isEnd else {
-                closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
-                return
-            }
+            
             guard let data = self.dataManager.loadData(withEntityName: "FavoriteArtist") as? [FavoriteArtist] else {
                 fatalError("Can't cast data")
             }
@@ -95,7 +91,6 @@ class CoreDataService {
                 artists.append(Artist(name: name, photoUrls: urls))
             }
             closure(artists, nil)
-            isEnd = true
         }
     }
     

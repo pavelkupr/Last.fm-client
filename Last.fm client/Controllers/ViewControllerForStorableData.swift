@@ -18,6 +18,9 @@ struct TableViewInfo {
     mutating func appendStorableData(_ data: [Storable]){
         self.data += data
     }
+    mutating func rewriteStorableData(_ data: [Storable]){
+        self.data = data
+    }
 }
 
 class ViewControllerForStorableData: UIViewController, UITableViewDelegate,
@@ -30,6 +33,7 @@ UITableViewDataSource, CustomBarDelegate {
     
     private let apiService = APIService()
     private let preLoadCount = 3
+    var isPagingOn = true
     
     private var sections = [UIButton:TableViewInfo]()
     private var tableViewsInfo = [TableViewInfo]()
@@ -74,13 +78,17 @@ UITableViewDataSource, CustomBarDelegate {
         }
         
         if currData.isEmpty {
-            getNextTracksFromSource()
+            getDataFromSource()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()
+        if isPagingOn {
+            tableView.reloadData()
+        } else {
+            getDataFromSource()
+        }
     }
     
     static func getInstanceFromStoryboard() -> ViewControllerForStorableData{
@@ -109,7 +117,7 @@ UITableViewDataSource, CustomBarDelegate {
         
         tableView.reloadData()
         if currData.isEmpty {
-            getNextTracksFromSource()
+            getDataFromSource()
         }
         else {
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
@@ -133,7 +141,7 @@ UITableViewDataSource, CustomBarDelegate {
         cell.fillCell(withStorableData: currData[indexPath.row], isWithImg: true)
         
         if isStartLoadNextPage(currRow: indexPath.row) {
-            getNextTracksFromSource()
+            getDataFromSource()
         }
         
         return cell
@@ -149,18 +157,18 @@ UITableViewDataSource, CustomBarDelegate {
     // MARK: Private Methods
     
     private func isStartLoadNextPage(currRow: Int) -> Bool {
-        guard !activityIndicator.isLoading else {
+        guard isPagingOn && !activityIndicator.isLoading else {
             return false
         }
         
-        if apiService.itemsPerPage > preLoadCount {
+        if currData.count > preLoadCount {
             return currRow + 1 == currData.count - preLoadCount
         } else {
             return currRow + 1 == currData.count
         }
     }
     
-    private func getNextTracksFromSource() {
+    private func getDataFromSource() {
         guard let currItem = customBar.getSelected(), let info = sections[currItem] else {
             fatalError()
         }
@@ -175,7 +183,11 @@ UITableViewDataSource, CustomBarDelegate {
                 }
             
             } else {
-                self.sections[currItem]?.appendStorableData(data)
+                if self.isPagingOn {
+                    self.sections[currItem]?.appendStorableData(data)
+                } else {
+                    self.sections[currItem]?.rewriteStorableData(data)
+                }
                 self.tableView.reloadData()
                 self.activityIndicator.hideAndStop()
             }
