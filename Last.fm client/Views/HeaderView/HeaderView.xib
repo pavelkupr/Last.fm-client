@@ -47,7 +47,7 @@
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="skE-La-55n" secondAttribute="trailing" id="7dX-Id-TMd"/>
                 <constraint firstItem="skE-La-55n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="FAE-bc-3vB"/>
-                <constraint firstItem="skE-La-55n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UGw-EZ-pwN"/>
+                <constraint firstItem="skE-La-55n" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="UGw-EZ-pwN"/>
                 <constraint firstAttribute="bottom" secondItem="skE-La-55n" secondAttribute="bottom" id="XT8-9g-Xjn"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

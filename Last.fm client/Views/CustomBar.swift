@@ -27,11 +27,7 @@ import UIKit
     private var border: CALayer?
     private var selected: Int? {
         didSet {
-            if let selected = selected {
-                let width = bounds.width / CGFloat(buttons.count)
-                border?.setFrame(edge: .bottom, color: tintColor, thickness: 2,
-                                start: CGFloat(selected) * width, length: width)
-            }
+            paintBorder()
         }
     }
     
@@ -65,6 +61,10 @@ import UIKit
         
     }
     
+    override func layoutSubviews() {
+        paintBorder()
+    }
+    
     func getSelected() -> UIButton? {
         return buttons.first{$0.isSelected}
     }
@@ -89,7 +89,14 @@ import UIKit
         button.setTitleShadowColor(tintColor, for: .selected)
         button.backgroundColor = buttonColor
     }
-
+    
+    private func paintBorder() {
+        if let selected = selected {
+            let width = bounds.width / CGFloat(buttons.count)
+            border?.setFrame(edge: .bottom, color: tintColor, thickness: 2,
+                             start: CGFloat(selected) * width, length: width)
+        }
+    }
 }
 
 protocol CustomBarDelegate {

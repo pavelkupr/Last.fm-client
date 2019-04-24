@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="365" height="92.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WvF-wt-dic">
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WvF-wt-dic">
                         <rect key="frame" x="20" y="5" width="335" height="79.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="6cw-nl-MfL" customClass="RoundedImageView" customModule="Last_fm_client" customModuleProvider="target">
