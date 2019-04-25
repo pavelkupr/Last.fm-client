@@ -29,16 +29,16 @@ extension CacheManager {
     
     func retrieve(key: String, completion: @escaping (DataType?) -> Void) {
         Self.memoryCache.retrieve(key: key) { data in
-            if let image = data as? DataType {
-                completion(image)
+            if let object = data as? DataType {
+                completion(object)
                 return
             }
             
             Self.diskCache.retrieve(key: key, completion: { data in
                 if let data = data {
-                    let image = self.decode(data)
-                    Self.memoryCache.store(key: key, object: image as MemoryCache.DataType)
-                    completion(image)
+                    let object = self.decode(data)
+                    Self.memoryCache.store(key: key, object: object as MemoryCache.DataType)
+                    completion(object)
                 } else {
                     completion(nil)
                 }

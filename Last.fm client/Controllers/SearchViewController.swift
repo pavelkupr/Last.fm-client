@@ -37,7 +37,8 @@ UITableViewDelegate, UITableViewDataSource {
     private let searchInfoCount = 3
     private let sectionLabelShift: CGFloat = 20
     private let apiService = APIService()
-
+    private let userDefaultsService = UserDefaultsService()
+    
     private var activityIndicator = TableViewActivityIndicator()
     private var isResentMode = true
     private var searchModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
@@ -59,6 +60,11 @@ UITableViewDelegate, UITableViewDataSource {
         searchTableView.delegate = self
         searchTableView.dataSource = self
         searchTableView.tableFooterView = activityIndicator
+        
+        for index in 0..<recentModeSectionsInfo.count where
+           recentModeSectionsInfo[index].key == .resentSearches {
+            recentModeSectionsInfo[index].value = userDefaultsService.getSearchRequests()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,7 +160,19 @@ UITableViewDelegate, UITableViewDataSource {
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if isResentMode && editingStyle == .delete {
+            for index in 0..<recentModeSectionsInfo.count where
+                recentModeSectionsInfo[index].key == recentModeSectionsInfo[indexPath.section].key {
+                    
+                recentModeSectionsInfo[index].value.remove(at: indexPath.row)
+                userDefaultsService.saveSearchRequests(requests: recentModeSectionsInfo[index].value)
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     // MARK: UISearchBarDelegate
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -221,6 +239,7 @@ UITableViewDelegate, UITableViewDataSource {
             if recentModeSectionsInfo[index].key == .resentSearches &&
                 !recentModeSectionsInfo[index].value.contains(where: {$0.mainInfo == info}) {
                 recentModeSectionsInfo[index].value.append(info)
+                userDefaultsService.saveSearchRequests(requests: recentModeSectionsInfo[index].value)
             }
         }
     }
