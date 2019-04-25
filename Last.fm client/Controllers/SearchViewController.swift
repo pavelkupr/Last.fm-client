@@ -113,16 +113,15 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerName = ""
-        var sectionHeader: HeaderView
-
+        let sectionHeader = HeaderView()
+        sectionHeader.shift = sectionLabelShift
+        sectionHeader.isWithBorder = true
+        
         if isResentMode {
-            headerName = recentModeSectionsInfo[section].key.getStringDefinition()
-            sectionHeader = HeaderView(labelShift: sectionLabelShift, nameOfHeader: headerName)
+            sectionHeader.headerName.text = recentModeSectionsInfo[section].key.getStringDefinition()
             sectionHeader.moreButton.isHidden = true
         } else {
-            headerName = searchModeSectionsInfo[section].key.getStringDefinition()
-            sectionHeader = HeaderView(labelShift: sectionLabelShift, nameOfHeader: headerName)
+            sectionHeader.headerName.text = searchModeSectionsInfo[section].key.getStringDefinition()
             sectionHeader.isHidden = searchModeSectionsInfo[section].value.isEmpty
 
             if searchModeSectionsInfo[section].value.count > searchInfoCount {

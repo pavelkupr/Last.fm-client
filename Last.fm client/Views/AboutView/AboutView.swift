@@ -39,7 +39,7 @@ class AboutView: UIView {
         addFitConstraints(view: contentView)
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
-        headerView.label.text = "About"
+        headerView.headerName.text = "About"
     }
     
 }

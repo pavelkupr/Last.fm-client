@@ -36,7 +36,7 @@ class SimilarView: UIView {
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil),
                                 forCellWithReuseIdentifier: "CustomCell")
         headerView.moreButton.isHidden = true
-        headerView.label.text = "Similar"
+        headerView.headerName.text = "Similar"
     }
 
 }

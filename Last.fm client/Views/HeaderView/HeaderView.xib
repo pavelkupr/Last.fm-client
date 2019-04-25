@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderView" customModule="Last_fm_client" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="GBP-GC-DwC"/>
-                <outlet property="label" destination="0Pd-x7-agQ" id="ueZ-Tm-emf"/>
+                <outlet property="headerName" destination="0Pd-x7-agQ" id="ueZ-Tm-emf"/>
                 <outlet property="leadingShift" destination="UGw-EZ-pwN" id="unf-rb-HJT"/>
                 <outlet property="moreButton" destination="xE3-ao-QFg" id="mHa-oq-OQs"/>
             </connections>

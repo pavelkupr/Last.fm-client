@@ -40,7 +40,7 @@ class AlbumView: UIView {
     }
     
     func setAlbum(_ album: Storable) {
-        headerView.label.text = "Album"
+        headerView.headerName.text = "Album"
         nameLabel.text = album.mainInfo
         if let imgs = album.imageURLs, let img = imgs[imageSize], let url = URL(string: img) {
             imageLoader.downloadImage(from: url, to: imageView, placeholder: placeholder)
@@ -57,6 +57,6 @@ class AlbumView: UIView {
         addFitConstraints(view: contentView)
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         headerView.moreButton.isHidden = true
-        headerView.label.text = "Album"
+        headerView.headerName.text = "Album"
     }
 }

@@ -33,17 +33,10 @@ import UIKit
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initView()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        initView()
-    }
-    
-    private func initView() {
-        border = layer.addBorder(edge: .bottom, color: tintColor, thickness: 2,
-                                 start: 0, length: 0)
     }
     
     func setButtons(withItems items: [UIButton]) {

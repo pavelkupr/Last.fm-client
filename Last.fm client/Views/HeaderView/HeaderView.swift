@@ -13,9 +13,17 @@ class HeaderView: UIView {
     // MARK: Properties
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var moreButton: UIButton!
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var headerName: UILabel!
     @IBOutlet weak var leadingShift: NSLayoutConstraint!
+    private var bottomBorder: CALayer?
 
+    var isWithBorder = false
+    var shift: CGFloat = 0 {
+        didSet {
+            leadingShift.constant = shift
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
@@ -26,14 +34,6 @@ class HeaderView: UIView {
         initView()
     }
 
-    init(labelShift shift: CGFloat, nameOfHeader: String) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        initView()
-        leadingShift.constant = shift
-        label?.text = nameOfHeader
-
-    }
-
     // MARK: Private methods
 
     private func initView() {
@@ -42,5 +42,16 @@ class HeaderView: UIView {
         addFitConstraints(view: contentView)
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
-
+    
+    override func layoutSubviews() {
+        if isWithBorder {
+            if bottomBorder == nil {
+                bottomBorder = layer.addBorder(edge: .bottom, color: .lightGray,
+                                               thickness: 1, start: 0, length: bounds.width)
+            } else {
+                bottomBorder?.setFrame(edge: .bottom, color: .lightGray,
+                                       thickness: 1, start: 0, length: bounds.width)
+            }
+        }
+    }
 }
