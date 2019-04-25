@@ -16,10 +16,9 @@ class CustomSearchBar: UISearchBar {
         showCancelButton()
     }
     
-    override func resignFirstResponder() -> Bool {
-        let result = super.resignFirstResponder()
+    func resignFirstResponderAndShowCancelButton() {
+        super.resignFirstResponder()
         showCancelButton()
-        return result
     }
     
     private func showCancelButton() {

@@ -175,7 +175,7 @@ UITableViewDelegate, UITableViewDataSource {
     // MARK: UITableViewDragDelegate
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        searchBarView.resignFirstResponder()
+        searchBarView.resignFirstResponderAndShowCancelButton()
     }
     
     // MARK: UISearchBarDelegate
