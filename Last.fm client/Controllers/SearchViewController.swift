@@ -55,7 +55,7 @@ UITableViewDelegate, UITableViewDataSource {
 
         searchTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "CustomCell")
-
+        
         searchBarView.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
@@ -171,6 +171,11 @@ UITableViewDelegate, UITableViewDataSource {
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    // MARK: UITableViewDragDelegate
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBarView.resignFirstResponder()
     }
     
     // MARK: UISearchBarDelegate
