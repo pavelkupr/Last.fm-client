@@ -12,15 +12,6 @@ import SwiftyJSON
 typealias ArtistSource = ((_ closure: @escaping ([Artist], Error?) -> Void ) -> Void)
 typealias TrackSource = ((_ closure: @escaping ([Track], Error?) -> Void ) -> Void)
 
-enum APIMethod: String {
-    case topArtists = "chart.gettopartists"
-    case topTracks = "chart.gettoptracks"
-    case searchArtists = "artist.search"
-    case searchTracks = "track.search"
-    case artistInfo = "artist.getinfo"
-    case trackInfo = "track.getinfo"
-}
-
 enum Format: String {
     case json
 }
@@ -31,6 +22,15 @@ enum ImageSize: String {
 
 class APIService {
 
+    private enum APIMethod: String {
+        case topArtists = "chart.gettopartists"
+        case topTracks = "chart.gettoptracks"
+        case searchArtists = "artist.search"
+        case searchTracks = "track.search"
+        case artistInfo = "artist.getinfo"
+        case trackInfo = "track.getinfo"
+    }
+    
     // MARK: Properties
 
     let itemsPerPage = 50

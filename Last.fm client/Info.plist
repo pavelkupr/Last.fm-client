@@ -6,6 +6,10 @@
 	<string>https://ws.audioscrobbler.com/2.0/</string>
 	<key>API_KEY</key>
 	<string>cddc3343b13cef8300ae79d73e11c87d</string>
+	<key>MAP_API_KEY</key>
+	<string>AIzaSyA_OjJcQ3nhaItQRZsyoZO3f5lHHsrhwgM</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
