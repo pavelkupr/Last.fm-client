@@ -34,6 +34,7 @@ UITableViewDataSource, CustomBarDelegate {
     private let apiService = APIService()
     private let preLoadCount = 3
     var isPagingOn = true
+    var rightNavButton: UIView?
     
     private var sections = [UIButton:TableViewInfo]()
     private var tableViewsInfo = [TableViewInfo]()
@@ -57,6 +58,10 @@ UITableViewDataSource, CustomBarDelegate {
         tableView.tableFooterView = activityIndicator
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "CustomCell")
+        
+        if let navButton = rightNavButton {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navButton)
+        }
         
         var items = [UIButton]()
         

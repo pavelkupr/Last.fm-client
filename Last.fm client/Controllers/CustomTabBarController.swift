@@ -10,6 +10,8 @@ import UIKit
 
 class CustomTabBarController: UITabBarController {
     
+    var navControllerForGeoButton: UINavigationController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +26,9 @@ class CustomTabBarController: UITabBarController {
         let searchController = SearchViewController.getInstanceFromStoryboard()
         controller1.setData(viewsInfo: [TableViewInfo(data: [], navName: "Top Artists", dataSource: apiService.getTopArtistsClosure()),
                                         TableViewInfo(data: [], navName: "Top Tracks", dataSource: apiService.getTopTracksClosure())])
+        let btn = FavoriteButton()
+        btn.button.addTarget(self, action: #selector(buttonTapped(button:)), for: .touchUpInside)
+        controller1.rightNavButton = btn
         controller2.setData(viewsInfo: [TableViewInfo(data: [], navName: "Favorite Artists", dataSource: dataService.getFavoriteArtistsClosure()),
                                         TableViewInfo(data: [], navName: "Favorite Tracks", dataSource: dataService.getFavoriteTracksClosure())])
         controller2.isPagingOn = false
@@ -31,10 +36,16 @@ class CustomTabBarController: UITabBarController {
         let item1 = UINavigationController(rootViewController: controller1)
         let item2 = UINavigationController(rootViewController: searchController)
         let item3 = UINavigationController(rootViewController: controller2)
+        navControllerForGeoButton = item1
+        
         item1.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
         item2.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         item3.tabBarItem = UITabBarItem(title: "Favorites", image: emptyHeart, selectedImage: filledHeart)
         viewControllers = [item1, item3, item2]
     }
     
+    @objc private func buttonTapped(button: UIButton) {
+        let viewController = GoogleMapViewController.getInstanceFromStoryboard()
+        navControllerForGeoButton?.pushViewController(viewController, animated: true)
+    }
 }

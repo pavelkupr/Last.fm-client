@@ -19,6 +19,7 @@ protocol HTTPClient {
     init(baseURL: String)
 
     func get(parameters: [String: String]?, contentType: ContentType, callback: @escaping (Any?, Error?) -> Void)
+    func get(urlAppend: String?, contentType: ContentType, callback: @escaping (Any?, Error?) -> Void)
 }
 
 class URLSessionHTTPClient: HTTPClient {
@@ -76,5 +77,42 @@ class URLSessionHTTPClient: HTTPClient {
         }
 
     }
-
+    
+    func get(urlAppend: String? = nil, contentType: ContentType = .json,
+             callback: @escaping (Any?, Error?) -> Void) {
+        
+        if let urlComponents = URLComponents(string: baseURL + (urlAppend ?? "")) {
+            
+            guard let url = urlComponents.url else {
+                fatalError("Unexisting URL")
+            }
+            
+            let dataTask = defaultSession.dataTask(with: url) { data, _, error in
+                
+                guard error == nil else {
+                    DispatchQueue.main.async {callback(nil, error)}
+                    return
+                }
+                
+                if var convertibleData = data as Any? {
+                    
+                    switch contentType {
+                        
+                    case .json:
+                        convertibleData = JSON(convertibleData)
+                        
+                    case .raw:
+                        break
+                    }
+                    
+                    DispatchQueue.main.async {callback(convertibleData, nil)}
+                } else {
+                    DispatchQueue.main.async {callback(nil, nil)}
+                }
+            }
+            
+            dataTask.resume()
+        }
+        
+    }
 }

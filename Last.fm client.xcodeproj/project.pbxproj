@@ -36,6 +36,7 @@
 		3F7FFF0C2264CA2A005AF46F /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF0B2264CA2A005AF46F /* MemoryCache.swift */; };
 		3F7FFF0E2264CA76005AF46F /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF0D2264CA76005AF46F /* ImageCacheManager.swift */; };
 		3F7FFF122264D856005AF46F /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FFF112264D856005AF46F /* URLExtension.swift */; };
+		3F809530227718BE0052CC40 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80952F227718BE0052CC40 /* Countries.swift */; };
 		3F80ACA62267394600C615DE /* ViewControllerForStorableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80ACA52267394600C615DE /* ViewControllerForStorableData.swift */; };
 		3F80ACAC2267426C00C615DE /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */; };
 		3F8B217A2268745000FC8382 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8B21792268745000FC8382 /* RatingControl.swift */; };
@@ -47,7 +48,7 @@
 		3FA0DAB0225E22C900E6E5F3 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAAF225E22C900E6E5F3 /* Album.swift */; };
 		3FA0DAB4225E324600E6E5F3 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0DAB3225E324600E6E5F3 /* AboutView.swift */; };
 		3FA7E40722719FBC00E8CD3B /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7E40622719FBC00E8CD3B /* UserDefaultsService.swift */; };
-		3FA7E4092271BBDE00E8CD3B /* GoogleMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7E4082271BBDE00E8CD3B /* GoogleMapService.swift */; };
+		3FA7E4092271BBDE00E8CD3B /* GeoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7E4082271BBDE00E8CD3B /* GeoService.swift */; };
 		3FA7E40B2271BFC500E8CD3B /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7E40A2271BFC500E8CD3B /* GoogleMapViewController.swift */; };
 		3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9E49F224A554900AE3541 /* Main.storyboard */; };
 		3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */; };
@@ -93,6 +94,7 @@
 		3F7FFF0B2264CA2A005AF46F /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 		3F7FFF0D2264CA76005AF46F /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		3F7FFF112264D856005AF46F /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		3F80952F227718BE0052CC40 /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		3F80ACA52267394600C615DE /* ViewControllerForStorableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerForStorableData.swift; sourceTree = "<group>"; };
 		3F80ACAB2267426C00C615DE /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		3F8B21792268745000FC8382 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
@@ -104,7 +106,7 @@
 		3FA0DAAF225E22C900E6E5F3 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		3FA0DAB3225E324600E6E5F3 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		3FA7E40622719FBC00E8CD3B /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
-		3FA7E4082271BBDE00E8CD3B /* GoogleMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapService.swift; sourceTree = "<group>"; };
+		3FA7E4082271BBDE00E8CD3B /* GeoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoService.swift; sourceTree = "<group>"; };
 		3FA7E40A2271BFC500E8CD3B /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 		3FD9E49F224A554900AE3541 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -138,7 +140,7 @@
 				E9E6E92A224979B5003BFD02 /* APIService.swift */,
 				3F8B219D22688FAA00FC8382 /* CoreDataService.swift */,
 				3FA7E40622719FBC00E8CD3B /* UserDefaultsService.swift */,
-				3FA7E4082271BBDE00E8CD3B /* GoogleMapService.swift */,
+				3FA7E4082271BBDE00E8CD3B /* GeoService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -312,6 +314,7 @@
 				3F43A8BA224904B4002E676C /* AppDelegate.swift */,
 				3F43A8C1224904B4002E676C /* Assets.xcassets */,
 				3F43A8C3224904B4002E676C /* LaunchScreen.storyboard */,
+				3F80952F227718BE0052CC40 /* Countries.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -519,7 +522,7 @@
 				E9233B5C225C73CF00F34CA0 /* CustomTableViewCell.swift in Sources */,
 				E9DAFA65224A22C900FC1BB7 /* Track.swift in Sources */,
 				3FA7E40722719FBC00E8CD3B /* UserDefaultsService.swift in Sources */,
-				3FA7E4092271BBDE00E8CD3B /* GoogleMapService.swift in Sources */,
+				3FA7E4092271BBDE00E8CD3B /* GeoService.swift in Sources */,
 				3F6FC42F2255DB260051CE06 /* TableViewActivityIndicator.swift in Sources */,
 				3F7FFF122264D856005AF46F /* URLExtension.swift in Sources */,
 				3F80ACAC2267426C00C615DE /* CustomTabBarController.swift in Sources */,
@@ -546,6 +549,7 @@
 				3FA0DAB0225E22C900E6E5F3 /* Album.swift in Sources */,
 				3F80ACA62267394600C615DE /* ViewControllerForStorableData.swift in Sources */,
 				3F04FFFB2254BB4700C48292 /* CALayerExtension.swift in Sources */,
+				3F809530227718BE0052CC40 /* Countries.swift in Sources */,
 				3F2AC976225B9A0300492D42 /* CustomCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

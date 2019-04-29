@@ -17,4 +17,20 @@ class UserDefaultsService {
     func getSearchRequests() -> [Storable]{
         return UserDefaults.standard.stringArray(forKey: "SearchRequests") ?? []
     }
+    
+    func saveCountry(name: String ) {
+        UserDefaults.standard.set(name, forKey: "CountryName")
+    }
+    
+    func getCurrCountry() -> String? {
+        return UserDefaults.standard.string(forKey: "CountryName")
+    }
+    
+    func saveGeoState(state: Bool ) {
+        UserDefaults.standard.set(state, forKey: "GeoState")
+    }
+    
+    func getGeoState() -> Bool {
+        return UserDefaults.standard.bool(forKey: "GeoState")
+    }
 }
