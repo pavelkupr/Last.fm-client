@@ -189,43 +189,50 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="A6N-NX-2ta">
                                 <rect key="frame" x="0.0" y="96" width="414" height="800"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="JlX-WF-tQM">
-                                        <rect key="frame" x="20" y="0.0" width="374" height="136.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hef-F4-4gz">
+                                        <rect key="frame" x="4" y="0.0" width="406" height="244.5"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BAs-Oj-59o">
-                                                <rect key="frame" x="0.0" y="53" width="51" height="31"/>
-                                                <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <connections>
-                                                    <action selector="changeState:" destination="ZcE-ry-aBC" eventType="valueChanged" id="nQ0-v0-8lm"/>
-                                                </connections>
-                                            </switch>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Geolocation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKH-a7-l5R">
-                                                <rect key="frame" x="57" y="58" width="317" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="JlX-WF-tQM">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="31"/>
+                                                <subviews>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BAs-Oj-59o">
+                                                        <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                        <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <connections>
+                                                            <action selector="changeState:" destination="ZcE-ry-aBC" eventType="valueChanged" id="nQ0-v0-8lm"/>
+                                                        </connections>
+                                                    </switch>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Geolocation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKH-a7-l5R">
+                                                        <rect key="frame" x="57" y="5.5" width="93" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="CYK-n6-c28"/>
+                                                </constraints>
+                                            </stackView>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUb-Y3-yd5">
+                                                <rect key="frame" x="158" y="0.0" width="248" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="iKj-CZ-u14"/>
+                                                </constraints>
+                                            </pickerView>
                                         </subviews>
                                     </stackView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUb-Y3-yd5">
-                                        <rect key="frame" x="0.0" y="144.5" width="414" height="100"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="iKj-CZ-u14"/>
-                                        </constraints>
-                                    </pickerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9G-Pf-eVd" customClass="GMSMapView">
                                         <rect key="frame" x="0.0" y="252.5" width="414" height="547.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="JlX-WF-tQM" firstAttribute="leading" secondItem="A6N-NX-2ta" secondAttribute="leading" constant="20" id="JfW-ic-TJo"/>
                                     <constraint firstItem="F9G-Pf-eVd" firstAttribute="leading" secondItem="A6N-NX-2ta" secondAttribute="leading" id="Nb3-6O-2zN"/>
-                                    <constraint firstItem="EUb-Y3-yd5" firstAttribute="leading" secondItem="A6N-NX-2ta" secondAttribute="leading" id="SM2-bU-aBx"/>
+                                    <constraint firstItem="hef-F4-4gz" firstAttribute="leading" secondItem="A6N-NX-2ta" secondAttribute="leading" constant="4" id="TCN-go-WEu"/>
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="A6N-NX-2ta" secondAttribute="trailing" id="9OC-we-zQX"/>
                             <constraint firstItem="A6N-NX-2ta" firstAttribute="top" secondItem="JW0-wa-zi6" secondAttribute="top" constant="8" id="IDn-Qy-pq6"/>

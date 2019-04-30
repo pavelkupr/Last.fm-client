@@ -29,6 +29,8 @@ class APIService {
         case searchTracks = "track.search"
         case artistInfo = "artist.getinfo"
         case trackInfo = "track.getinfo"
+        case topArtistsByCountry = "geo.gettopartists"
+        case topTracksByCountry = "geo.gettoptracks"
     }
     
     // MARK: Properties
@@ -343,6 +345,118 @@ class APIService {
 
     }
 
+    func getTopArtistsClosure(byCountry country: String, withStartPage startPage: Int = 1) -> ArtistSource {
+        var isEnd = false
+        var isWorking = false
+        var pageCounter = startPage
+        var topCounter = 0
+        
+        return { (closure: @escaping ([Artist], Error?) -> Void ) -> Void in
+            guard !isEnd else {
+                closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                return
+            }
+            guard !isWorking else {
+                closure([], NSError(domain: "Can't perform many requests", code: 400, userInfo: nil))
+                return
+            }
+            isWorking = true
+            
+            let params = [
+                "method": APIMethod.topArtistsByCountry.rawValue,
+                "api_key": self.apiKey,
+                "format": Format.json.rawValue,
+                "page": String(pageCounter),
+                "limit": String(self.itemsPerPage),
+                "country": country
+            ]
+            
+            self.httpClient.get(parameters: params, contentType: .json) { data, error in
+                var artists: [Artist]
+                guard error == nil else {
+                    closure([], error)
+                    return
+                }
+                
+                if let jsonData = data as? JSON {
+                    do {
+                        var artistArray = jsonData["topartists"]["artist"].array ?? []
+                        artistArray = self.apiSecondPageBugFix(pageCounter, artistArray)
+                        artists = try artistArray.map {try Artist(jsonArtist: $0, numInChart: topCounter.increment())}
+                        
+                        if artists.count == 0 {
+                            isEnd = true
+                            closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                            return
+                        }
+                        closure(artists, nil)
+                        pageCounter += 1
+                        isWorking = false
+                        
+                    } catch let parseError as NSError {
+                        print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                    }
+                }
+            }
+        }
+    }
+    
+    func getTopTracksClosure(byCountry country: String, withStartPage startPage: Int = 1) -> TrackSource {
+        var isEnd = false
+        var pageCounter = startPage
+        var isWorking = false
+        var topCounter = 0
+        
+        return { (closure: @escaping ([Track], Error?) -> Void ) -> Void in
+            
+            guard !isEnd else {
+                closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                return
+            }
+            guard !isWorking else {
+                closure([], NSError(domain: "Can't perform many requests", code: 400, userInfo: nil))
+                return
+            }
+            isWorking = true
+            
+            let params = [
+                "method": APIMethod.topTracksByCountry.rawValue,
+                "api_key": self.apiKey,
+                "format": Format.json.rawValue,
+                "page": String(pageCounter),
+                "limit": String(self.itemsPerPage),
+                "country": country
+            ]
+            
+            self.httpClient.get(parameters: params, contentType: .json) { data, error in
+                var tracks: [Track]
+                guard error == nil else {
+                    closure([], error)
+                    return
+                }
+                
+                if let jsonData = data as? JSON {
+                    do {
+                        let tracksArray = jsonData["tracks"]["track"].array ?? []
+                        tracks = try tracksArray.map {try Track(jsonTrack: $0, numInChart: topCounter.increment())}
+                        
+                        if tracks.count == 0 {
+                            isEnd = true
+                            closure([], NSError(domain: "There isn't data", code: 404, userInfo: nil))
+                            return
+                        }
+                        closure(tracks, nil)
+                        pageCounter += 1
+                        isWorking = false
+                        
+                    } catch let parseError as NSError {
+                        print( "JSONSerialization error: \(parseError.localizedDescription)\n")
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: Private Methods
 
     private func apiSecondPageBugFix(_ page: Int, _ data: [JSON]) -> [JSON] {

@@ -18,12 +18,22 @@ class UserDefaultsService {
         return UserDefaults.standard.stringArray(forKey: "SearchRequests") ?? []
     }
     
-    func saveCountry(name: String ) {
-        UserDefaults.standard.set(name, forKey: "CountryName")
+    func saveCountry(location: Location ) {
+        UserDefaults.standard.set(location.name, forKey: "CountryName")
+        UserDefaults.standard.set(location.coord.latitude, forKey: "CountryLat")
+        UserDefaults.standard.set(location.coord.longitude, forKey: "CountryLng")
     }
     
-    func getCurrCountry() -> String? {
-        return UserDefaults.standard.string(forKey: "CountryName")
+    func getCurrCountry() -> Location? {
+        let name = UserDefaults.standard.string(forKey: "CountryName")
+        let lat = UserDefaults.standard.double(forKey: "CountryLat")
+        let lng = UserDefaults.standard.double(forKey: "CountryLng")
+        
+        if let name = name, lng != 0 || lat != 0 {
+            return Location(name: name, lat: lat, lng: lng)
+        }
+        
+        return nil
     }
     
     func saveGeoState(state: Bool ) {

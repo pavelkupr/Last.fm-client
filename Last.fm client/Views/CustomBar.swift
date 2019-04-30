@@ -40,6 +40,13 @@ import UIKit
     }
     
     func setButtons(withItems items: [UIButton]) {
+        for button in buttons {
+            button.removeFromSuperview()
+        }
+        if border != nil {
+            border?.removeFromSuperlayer()
+        }
+        
         buttons = items
         for item in items {
             setButtonStyle(item)
@@ -49,6 +56,7 @@ import UIKit
         }
         border = layer.addBorder(edge: .bottom, color: tintColor, thickness: 2,
                                  start: 0, length: 0)
+        
         selected = 0
         buttons[0].isSelected = true
         

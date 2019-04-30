@@ -58,28 +58,9 @@ UITableViewDataSource, CustomBarDelegate {
         tableView.tableFooterView = activityIndicator
         tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "CustomCell")
-        
+        setBar()
         if let navButton = rightNavButton {
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: navButton)
-        }
-        
-        var items = [UIButton]()
-        
-        for info in tableViewsInfo {
-            let button = UIButton()
-            button.setTitle(info.navName, for: .normal)
-            sections[button] = info
-            items.append(button)
-        }
-        
-        customBar.setButtons(withItems: items)
-        
-        if customBar.itemsCount <= 1 {
-            customBar.isHidden = true
-        }
-        
-        if let selected = customBar.getSelected(), let info = sections[selected] {
-            navigationItem.title = info.navName
         }
         
         if currData.isEmpty {
@@ -89,8 +70,14 @@ UITableViewDataSource, CustomBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         if isPagingOn {
-            tableView.reloadData()
+            if currData.isEmpty {
+                tableView.reloadData()
+                getDataFromSource()
+            } else {
+                tableView.reloadData()
+            }
         } else {
             getDataFromSource()
         }
@@ -111,6 +98,9 @@ UITableViewDataSource, CustomBarDelegate {
         }
         
         tableViewsInfo = viewsInfo
+        if viewIfLoaded != nil {
+            setBar()
+        }
     }
     
     // MARK: CustomBar Delegate
@@ -201,6 +191,27 @@ UITableViewDataSource, CustomBarDelegate {
             }
         }
         
+    }
+    
+    private func setBar() {
+        var items = [UIButton]()
+        
+        for info in tableViewsInfo {
+            let button = UIButton()
+            button.setTitle(info.navName, for: .normal)
+            sections[button] = info
+            items.append(button)
+        }
+        
+        customBar.setButtons(withItems: items)
+        
+        if customBar.itemsCount <= 1 {
+            customBar.isHidden = true
+        }
+        
+        if let selected = customBar.getSelected(), let info = sections[selected] {
+            navigationItem.title = info.navName
+        }
     }
     
     private func pushInfoViewController(withStoreableData value: Storable) {
