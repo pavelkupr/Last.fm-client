@@ -65,7 +65,6 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         geoSwitch.isOn = userDefaults.getGeoState()
         locationSwitch.isOn = userDefaults.getLocationState()
         updateCurrLocationState()
-        updateCurrGeoState()
         
         if !geoSwitch.isOn {
             if let location = currLocation {
@@ -76,6 +75,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                 setCountry(withName: "United States")
                 setPickerValue("United States")
             }
+        } else {
+            updateCurrGeoState()
         }
     }
    
