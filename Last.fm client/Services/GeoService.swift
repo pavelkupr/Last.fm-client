@@ -11,6 +11,10 @@ import GoogleMaps
 import SwiftyJSON
 
 class GeoService {
+    
+    private let userDefaults = UserDefaultsService()
+    private let apiService = APIService()
+    
     private lazy var httpClient: HTTPClient = {
         guard let baseURL = Bundle.main.infoDictionary?["Countries_URL"] as? String else {
             fatalError("Can't find base URL")
@@ -33,6 +37,20 @@ class GeoService {
                                                       longitude: lngMap)
                 closure(locCoord, nil)
             }
+        }
+    }
+    
+    func getLocationRelatedTop() -> [TableViewInfo] {
+        if userDefaults.getLocationState() {
+            guard let location = userDefaults.getCurrCountry() else {
+                fatalError("Location is empty")
+            }
+            
+            return [TableViewInfo(data: [], navName: "Top Artists", dataSource: apiService.getTopArtistsClosure(byCountry: location.name)),
+                    TableViewInfo(data: [], navName: "Top Tracks", dataSource: apiService.getTopTracksClosure(byCountry: location.name))]
+        } else {
+            return [TableViewInfo(data: [], navName: "Top Artists", dataSource: apiService.getTopArtistsClosure()),
+                    TableViewInfo(data: [], navName: "Top Tracks", dataSource: apiService.getTopTracksClosure())]
         }
     }
 }

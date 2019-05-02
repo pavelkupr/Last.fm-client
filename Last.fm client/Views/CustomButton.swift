@@ -8,7 +8,11 @@
 
 import UIKit
 
-@IBDesignable class FavoriteButton: UIView {
+@objc enum BtnType: Int {
+    case Fav, Geo
+}
+
+@IBDesignable class CustomButton: UIView {
     
     var button: UIButton!
     private var heightConstraint: NSLayoutConstraint!
@@ -25,6 +29,12 @@ import UIKit
             heightConstraint.constant = btnSize
             widthConstraint.constant = btnSize
             setButton()
+        }
+    }
+    
+    @IBInspectable var buttonType: BtnType = .Fav {
+        didSet {
+            setImg()
         }
     }
     
@@ -45,13 +55,9 @@ import UIKit
     private func setButton() {
         button?.removeFromSuperview()
         button = UIButton()
-        let bundle = Bundle(for: type(of: self))
-        let filledHeart = UIImage(named: "filledHeart", in: bundle, compatibleWith: self.traitCollection)
-        let emptyHeart = UIImage(named:"emptyHeart", in: bundle, compatibleWith: self.traitCollection)
-        
+        setImg()
         button.tintColor = buttonColor
-        button.setImage(emptyHeart, for: .normal)
-        button.setImage(filledHeart, for: .selected)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
         button.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
@@ -63,5 +69,22 @@ import UIKit
         widthConstraint = widthAnchor.constraint(equalToConstant: btnSize)
         heightConstraint.isActive = true
         widthConstraint.isActive = true
+    }
+    
+    private func setImg() {
+        let bundle = Bundle(for: type(of: self))
+        switch buttonType {
+        case .Fav:
+            let filledHeart = UIImage(named: "filledHeart", in: bundle, compatibleWith: self.traitCollection)
+            let emptyHeart = UIImage(named:"emptyHeart", in: bundle, compatibleWith: self.traitCollection)
+            
+            button.setImage(emptyHeart, for: .normal)
+            button.setImage(filledHeart, for: .selected)
+        case .Geo:
+            let globe = UIImage(named: "globe", in: bundle, compatibleWith: self.traitCollection)?.withRenderingMode(.alwaysTemplate)
+            let filledGlobe = UIImage(named:"filledGlobe", in: bundle, compatibleWith: self.traitCollection)?.withRenderingMode(.alwaysTemplate)
+            button.setImage(globe, for: .normal)
+            button.setImage(filledGlobe, for: .highlighted)
+        }
     }
 }

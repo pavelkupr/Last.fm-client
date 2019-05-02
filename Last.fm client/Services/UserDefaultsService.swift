@@ -43,4 +43,12 @@ class UserDefaultsService {
     func getGeoState() -> Bool {
         return UserDefaults.standard.bool(forKey: "GeoState")
     }
+    
+    func saveLocationState(state: Bool ) {
+        UserDefaults.standard.set(state, forKey: "LocationState")
+    }
+    
+    func getLocationState() -> Bool {
+        return UserDefaults.standard.bool(forKey: "LocationState")
+    }
 }

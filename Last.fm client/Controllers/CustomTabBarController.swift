@@ -10,9 +10,10 @@ import UIKit
 
 class CustomTabBarController: UITabBarController {
     
-    var controllerForGeoButton: ViewControllerForStorableData?
-    let apiService = APIService()
-    let dataService = CoreDataService()
+    private let apiService = APIService()
+    private let dataService = CoreDataService()
+    private let geoService = GeoService()
+    private var controllerForGeoButton: ViewControllerForStorableData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,29 +22,46 @@ class CustomTabBarController: UITabBarController {
         let filledHeart = UIImage(named: "tabBarFilledHeart", in: bundle, compatibleWith: self.traitCollection)
         let emptyHeart = UIImage(named:"tabBarEmptyHeart", in: bundle, compatibleWith: self.traitCollection)
         
-        let controller1 = ViewControllerForStorableData.getInstanceFromStoryboard()
-        let controller2 = ViewControllerForStorableData.getInstanceFromStoryboard()
-        let searchController = SearchViewController.getInstanceFromStoryboard()
-        
-        controller1.setData(viewsInfo: [TableViewInfo(data: [], navName: "Top Artists", dataSource: apiService.getTopArtistsClosure()),
-                                        TableViewInfo(data: [], navName: "Top Tracks", dataSource: apiService.getTopTracksClosure())])
-        let btn = FavoriteButton()
-        btn.button.addTarget(self, action: #selector(buttonTapped(button:)), for: .touchUpInside)
-        controller1.rightNavButton = btn
-        controllerForGeoButton = controller1
-        
-        controller2.setData(viewsInfo: [TableViewInfo(data: [], navName: "Favorite Artists", dataSource: dataService.getFavoriteArtistsClosure()),
-                                        TableViewInfo(data: [], navName: "Favorite Tracks", dataSource: dataService.getFavoriteTracksClosure())])
-        controller2.isPagingOn = false
+        let controller1 = createController1()
+        let controller2 = createController2()
+        let controller3 = createController3()
         
         let item1 = UINavigationController(rootViewController: controller1)
-        let item2 = UINavigationController(rootViewController: searchController)
-        let item3 = UINavigationController(rootViewController: controller2)
+        let item2 = UINavigationController(rootViewController: controller2)
+        let item3 = UINavigationController(rootViewController: controller3)
         
         item1.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
-        item2.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
-        item3.tabBarItem = UITabBarItem(title: "Favorites", image: emptyHeart, selectedImage: filledHeart)
-        viewControllers = [item1, item3, item2]
+        item2.tabBarItem = UITabBarItem(title: "Favorites", image: emptyHeart, selectedImage: filledHeart)
+        item3.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        viewControllers = [item1, item2, item3]
+    }
+    
+    private func createController1() -> UIViewController {
+        let controller = ViewControllerForStorableData.getInstanceFromStoryboard()
+        controller.setData(viewsInfo: geoService.getLocationRelatedTop())
+        let btn = CustomButton()
+        btn.buttonType = .Geo
+        btn.buttonColor = view.tintColor
+        btn.button.addTarget(self, action: #selector(buttonTapped(button:)), for: .touchUpInside)
+        controller.rightNavButton = btn
+        controllerForGeoButton = controller
+        
+        return controller
+    }
+    
+    private func createController2() -> UIViewController {
+        let controller = ViewControllerForStorableData.getInstanceFromStoryboard()
+        controller.setData(viewsInfo: [TableViewInfo(data: [], navName: "Favorite Artists", dataSource: dataService.getFavoriteArtistsClosure()),
+                                        TableViewInfo(data: [], navName: "Favorite Tracks", dataSource: dataService.getFavoriteTracksClosure())])
+        controller.isPagingOn = false
+        
+        return controller
+    }
+    
+    private func createController3() -> UIViewController {
+        let controller = SearchViewController.getInstanceFromStoryboard()
+        
+        return controller
     }
     
     @objc private func buttonTapped(button: UIButton) {

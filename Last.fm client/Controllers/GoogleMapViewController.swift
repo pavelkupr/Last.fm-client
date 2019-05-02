@@ -31,29 +31,20 @@ struct Location {
 
 class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    // MARK: Properties
+    
     @IBOutlet weak var countryPicker: UIPickerView!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var geoSwitch: UISwitch!
+    @IBOutlet weak var locationSwitch: UISwitch!
     
     private let locationManager = CLLocationManager()
     private let geoService = GeoService()
     private let userDefaults = UserDefaultsService()
-    private let apiService = APIService()
     private let marker = GMSMarker()
     private let defaultZoom: Float = 3.0
-    
+    private var currLocation: Location?
     var associatedTVC: ViewControllerForStorableData?
-    
-    private var currLocation: Location? {
-        didSet {
-            navigationItem.title = currLocation?.name
-            if let location = currLocation {
-            associatedTVC?.setData(viewsInfo: [
-                TableViewInfo(data: [], navName: "Top Artists", dataSource: apiService.getTopArtistsClosure(byCountry: location.name)),
-                TableViewInfo(data: [], navName: "Top Tracks", dataSource: apiService.getTopTracksClosure(byCountry: location.name))])
-            }
-        }
-    }
     
     lazy var countries = {
         return countriesCode.map({$0.value}).sorted { (str1, str2) in
@@ -63,22 +54,27 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         marker.map = mapView
         mapView.delegate = self
-        countryPicker.dataSource = self
         countryPicker.delegate = self
         locationManager.delegate = self
+        countryPicker.dataSource = self
+        
         currLocation = userDefaults.getCurrCountry()
         geoSwitch.isOn = userDefaults.getGeoState()
+        locationSwitch.isOn = userDefaults.getLocationState()
+        updateCurrLocationState()
         
         if geoSwitch.isOn {
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
+            updateCurrGeoState()
         } else if let location = currLocation {
+            setPickerValue(location.name)
             marker.position = location.coord
             mapView.camera = GMSCameraPosition.camera(withTarget: location.coord, zoom: defaultZoom)
         } else {
-            setCountry(withName: "Belarus")
+            setCountry(withName: "United States")
+            setPickerValue("United States")
         }
     }
    
@@ -91,6 +87,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         return controller
     }
     
+    // MARK: CLLocationManagerDelegate
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else {
             return
@@ -102,6 +100,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         setCountry(byCoord: locValue)
     
     }
+    
+    // MARK: GMSMapViewDelegate
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         marker.position = coordinate
@@ -131,52 +131,102 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     
     // MARK: Actions
     
-    @IBAction func changeState(_ sender: UISwitch) {
-        if sender.isOn {
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-            userDefaults.saveGeoState(state: true)
-        } else {
-            locationManager.stopUpdatingLocation()
-            userDefaults.saveGeoState(state: false)
-        }
+    @IBAction func changeGeoState(_ sender: UISwitch) {
+        updateCurrGeoState()
+    }
+    
+    @IBAction func changeLocationState(_ sender: UISwitch) {
+        updateCurrLocationState()
+        associatedTVC?.setData(viewsInfo: geoService.getLocationRelatedTop())
     }
     
     // MARK: Private Methods
     
     private func setCountry(withName name: String) {
-        let fixedName = errorNames[name] ?? name
+        let fixedName = wrongNamesFix[name] ?? name
         guard let pair = countriesCode.first(where: {$0.value == fixedName}) else {
             fatalError("Cant find pair")
         }
-        
+        setUserPeekIsEnable(false)
         geoService.getCountry(byCode: pair.key) { data, error in
             self.marker.position = data
             self.marker.title = name
             self.mapView.camera = GMSCameraPosition.camera(withTarget: data, zoom: self.defaultZoom)
             
             let location = Location(coord: data, name: name)
-            self.userDefaults.saveCountry(location: location)
-            self.currLocation = location
+            self.setLocationAndUpdateTVCIfNeeded(location)
+            self.setUserPeekIsEnable(true)
         }
     }
     
     private func setCountry(byCoord coord: CLLocationCoordinate2D) {
         let geocoder = GMSGeocoder()
-        
+        setUserPeekIsEnable(false)
         geocoder.reverseGeocodeCoordinate(coord) { data, err in
             
             let address = data?.firstResult()
             
             if var country = address?.country {
-                country = errorNames[country] ?? country
+                country = wrongNamesFix[country] ?? country
                 self.marker.title = country
                 
                 let location = Location(coord: coord, name: country)
-                self.userDefaults.saveCountry(location: location)
-                self.currLocation = location
+                self.setLocationAndUpdateTVCIfNeeded(location)
+                self.setPickerValue(country)
+                self.setUserPeekIsEnable(true)
             }
         }
     }
     
+    private func updateCurrLocationState() {
+        if locationSwitch.isOn {
+            geoSwitch.isEnabled = true
+            setUserPeekIsEnable(true)
+            userDefaults.saveLocationState(state: true)
+            navigationItem.title = currLocation?.name
+        } else {
+            geoSwitch.isOn = false
+            geoSwitch.isEnabled = false
+            locationManager.stopUpdatingLocation()
+            setUserPeekIsEnable(false)
+            userDefaults.saveGeoState(state: false)
+            userDefaults.saveLocationState(state: false)
+            navigationItem.title = "World"
+        }
+    }
+    
+    private func updateCurrGeoState() {
+        if geoSwitch.isOn {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+            setUserPeekIsEnable(false)
+            userDefaults.saveGeoState(state: true)
+        } else {
+            locationManager.stopUpdatingLocation()
+            setUserPeekIsEnable(true)
+            userDefaults.saveGeoState(state: false)
+        }
+    }
+    
+    private func setLocationAndUpdateTVCIfNeeded(_ location: Location) {
+        userDefaults.saveCountry(location: location)
+        if locationSwitch.isOn && currLocation?.name != location.name {
+            navigationItem.title = location.name
+            associatedTVC?.setData(viewsInfo: geoService.getLocationRelatedTop())
+        }
+        currLocation = location
+    }
+    
+    private func setPickerValue(_ name: String) {
+        if let id = countries.firstIndex(where: {$0 == name}) {
+            countryPicker.selectRow(id, inComponent: 0, animated: true)
+        } else {
+            countryPicker.selectRow(0, inComponent: 0, animated: true)
+        }
+    }
+    
+    private func setUserPeekIsEnable(_ state: Bool) {
+        mapView.isUserInteractionEnabled = state
+        countryPicker.isUserInteractionEnabled = state
+    }
 }

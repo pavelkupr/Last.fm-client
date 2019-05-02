@@ -17,7 +17,7 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
     @IBOutlet weak var topInfoLabel: UILabel!
     @IBOutlet weak var ratingControl: RatingControl!
     
-    @IBOutlet weak var likeButton: FavoriteButton!
+    @IBOutlet weak var likeButton: CustomButton!
     private var data: Storable?
     private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large

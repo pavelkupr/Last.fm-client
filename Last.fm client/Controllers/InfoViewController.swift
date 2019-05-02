@@ -14,7 +14,7 @@ RatingControlDelegate {
     // MARK: Properties
     
     @IBOutlet weak var infoView: InfoView!
-    @IBOutlet weak var favoriteButton: FavoriteButton!
+    @IBOutlet weak var favoriteButton: CustomButton!
     
     private let apiService = APIService()
     private var data: Storable?

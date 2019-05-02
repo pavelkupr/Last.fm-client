@@ -8,11 +8,8 @@
 
 import Foundation
 
-let errorNames = ["The Bahamas":"Bahamas",
-                  "Curaçao":"Venezuella",
-                  "Caribbean Netherlands":"Venezuella",
-                  "Russia":"Russian Federation"
-]
+let wrongNamesFix = ["The Bahamas":"Bahamas",
+                     "Russia":"Russian Federation"]
 
 let countriesCode = ["BD": "Bangladesh",
                  "BE": "Belgium",
@@ -35,6 +32,7 @@ let countriesCode = ["BD": "Bangladesh",
                  "WS": "Samoa",
                  "BR": "Brazil",
                  "BS": "Bahamas",
+                 "BQ": "Caribbean Netherlands",
                  "JE": "Jersey",
                  "BY": "Belarus",
                  "BZ": "Belize",
@@ -176,6 +174,7 @@ let countriesCode = ["BD": "Bangladesh",
                  "CR": "Costa Rica",
                  "CV": "Cape Verde",
                  "CU": "Cuba",
+                 "CW": "Curaçao",
                  "SZ": "Swaziland",
                  "SY": "Syria",
                  "SX": "Sint Maarten",
@@ -213,7 +212,6 @@ let countriesCode = ["BD": "Bangladesh",
                  "US": "United States",
                  "UY": "Uruguay",
                  "YT": "Mayotte",
-                 "UM": "United States Minor Outlying Islands",
                  "LB": "Lebanon",
                  "LC": "Saint Lucia",
                  "LA": "Laos",
