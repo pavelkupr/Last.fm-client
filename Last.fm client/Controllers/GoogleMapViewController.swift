@@ -70,6 +70,7 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
             if let location = currLocation {
                 setPickerValue(location.name)
                 marker.position = location.coord
+                marker.title = location.name
                 mapView.camera = GMSCameraPosition.camera(withTarget: location.coord, zoom: defaultZoom)
             } else {
                 setCountry(withName: "United States")

@@ -120,8 +120,10 @@ RatingControlDelegate {
         button.isSelected = !button.isSelected
         if button.isSelected {
             data?.addToFavorite()
+            showToast(message: "Added to favorite")
         } else {
             data?.removeFromFavorite()
+            showToast(message: "Removed from favorite")
         }
     }
     

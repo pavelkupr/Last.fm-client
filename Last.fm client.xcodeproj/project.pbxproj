@@ -50,6 +50,7 @@
 		3FA7E40722719FBC00E8CD3B /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7E40622719FBC00E8CD3B /* UserDefaultsService.swift */; };
 		3FA7E4092271BBDE00E8CD3B /* GeoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7E4082271BBDE00E8CD3B /* GeoService.swift */; };
 		3FA7E40B2271BFC500E8CD3B /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA7E40A2271BFC500E8CD3B /* GoogleMapViewController.swift */; };
+		3FB003DC227B053200DC379F /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB003DB227B053200DC379F /* UIViewControllerExtension.swift */; };
 		3FD9E4A0224A554900AE3541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FD9E49F224A554900AE3541 /* Main.storyboard */; };
 		3FD9E4A2224A58FD00AE3541 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */; };
 		CBE8C1B587F881F92710561C /* Pods_Last_fm_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7647A5FCC4422B0FC4A158F9 /* Pods_Last_fm_client.framework */; };
@@ -108,6 +109,7 @@
 		3FA7E40622719FBC00E8CD3B /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		3FA7E4082271BBDE00E8CD3B /* GeoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoService.swift; sourceTree = "<group>"; };
 		3FA7E40A2271BFC500E8CD3B /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
+		3FB003DB227B053200DC379F /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		3FD9E49F224A554900AE3541 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3FD9E4A1224A58FD00AE3541 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		69E294A2364B171FBAC5BB88 /* Pods-Last.fm client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Last.fm client.release.xcconfig"; path = "Target Support Files/Pods-Last.fm client/Pods-Last.fm client.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				3F04FFFA2254BB4700C48292 /* CALayerExtension.swift */,
+				3FB003DB227B053200DC379F /* UIViewControllerExtension.swift */,
 				3F04FFFC2254BB9500C48292 /* IntExtension.swift */,
 				3F6FC430225621650051CE06 /* StringExtension.swift */,
 				3FA0DAAD225E0B3900E6E5F3 /* UIViewExtension.swift */,
@@ -537,6 +540,7 @@
 				3FA0DAB4225E324600E6E5F3 /* AboutView.swift in Sources */,
 				3F43A8BB224904B4002E676C /* AppDelegate.swift in Sources */,
 				3F43A8D322491B81002E676C /* Artist.swift in Sources */,
+				3FB003DC227B053200DC379F /* UIViewControllerExtension.swift in Sources */,
 				3F7FFF0C2264CA2A005AF46F /* MemoryCache.swift in Sources */,
 				3F6FC294225F2C3500133E26 /* SimilarView.swift in Sources */,
 				3FA7E40B2271BFC500E8CD3B /* GoogleMapViewController.swift in Sources */,
