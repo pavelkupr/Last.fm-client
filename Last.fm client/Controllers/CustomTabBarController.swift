@@ -22,17 +22,14 @@ class CustomTabBarController: UITabBarController {
         let filledHeart = UIImage(named: "tabBarFilledHeart", in: bundle, compatibleWith: self.traitCollection)
         let emptyHeart = UIImage(named:"tabBarEmptyHeart", in: bundle, compatibleWith: self.traitCollection)
         
-        let controller1 = createController1()
-        let controller2 = createController2()
-        let controller3 = createController3()
-        
-        let item1 = UINavigationController(rootViewController: controller1)
-        let item2 = UINavigationController(rootViewController: controller2)
-        let item3 = UINavigationController(rootViewController: controller3)
+        let item1 = UINavigationController(rootViewController: createController1())
+        let item2 = UINavigationController(rootViewController: createController2())
+        let item3 = UINavigationController(rootViewController: createController3())
         
         item1.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
         item2.tabBarItem = UITabBarItem(title: "Favorites", image: emptyHeart, selectedImage: filledHeart)
         item3.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        
         viewControllers = [item1, item2, item3]
     }
     
