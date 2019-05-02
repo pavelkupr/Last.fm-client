@@ -53,4 +53,12 @@ class GeoService {
                     TableViewInfo(data: [], navName: "Top Tracks", dataSource: apiService.getTopTracksClosure())]
         }
     }
+    
+    func getChartsHeaderWithCountryCode() -> String {
+        if userDefaults.getLocationState(), let location = userDefaults.getCurrCountry(),
+            let code = countriesCode.first(where: {$0.value == location.name})?.key {
+            return "Charts" + " [" + code + "]"
+        }
+        return "Charts"
+    }
 }

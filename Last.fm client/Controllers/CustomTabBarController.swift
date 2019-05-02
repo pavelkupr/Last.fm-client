@@ -38,7 +38,8 @@ class CustomTabBarController: UITabBarController {
     
     private func createController1() -> UIViewController {
         let controller = ViewControllerForStorableData.getInstanceFromStoryboard()
-        controller.setData(viewsInfo: geoService.getLocationRelatedTop())
+        controller.setData(viewsInfo: geoService.getLocationRelatedTop(), header: geoService.getChartsHeaderWithCountryCode())
+        
         let btn = CustomButton()
         btn.buttonType = .Geo
         btn.buttonColor = view.tintColor
@@ -52,7 +53,8 @@ class CustomTabBarController: UITabBarController {
     private func createController2() -> UIViewController {
         let controller = ViewControllerForStorableData.getInstanceFromStoryboard()
         controller.setData(viewsInfo: [TableViewInfo(data: [], navName: "Favorite Artists", dataSource: dataService.getFavoriteArtistsClosure()),
-                                        TableViewInfo(data: [], navName: "Favorite Tracks", dataSource: dataService.getFavoriteTracksClosure())])
+                                       TableViewInfo(data: [], navName: "Favorite Tracks", dataSource: dataService.getFavoriteTracksClosure())],
+                                       header: "Favorites")
         controller.isPagingOn = false
         
         return controller

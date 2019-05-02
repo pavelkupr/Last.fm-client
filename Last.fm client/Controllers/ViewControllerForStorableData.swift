@@ -92,11 +92,12 @@ UITableViewDataSource, CustomBarDelegate {
         return controller
     }
     
-    func setData(viewsInfo: [TableViewInfo]) {
+    func setData(viewsInfo: [TableViewInfo], header: String?) {
         guard viewsInfo.count != 0 else {
             fatalError("Empty array!")
         }
         
+        navigationItem.title = header
         tableViewsInfo = viewsInfo
         if viewIfLoaded != nil {
             setBar()
@@ -106,9 +107,6 @@ UITableViewDataSource, CustomBarDelegate {
     // MARK: CustomBar Delegate
     
     func customBarSelectedDidChange(button: UIButton) {
-        if let info = sections[button] {
-            navigationItem.title = info.navName
-        }
         
         tableView.reloadData()
         if currData.isEmpty {
@@ -207,10 +205,6 @@ UITableViewDataSource, CustomBarDelegate {
         
         if customBar.itemsCount <= 1 {
             customBar.isHidden = true
-        }
-        
-        if let selected = customBar.getSelected(), let info = sections[selected] {
-            navigationItem.title = info.navName
         }
     }
     

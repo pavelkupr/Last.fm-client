@@ -137,7 +137,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
     
     @IBAction func changeLocationState(_ sender: UISwitch) {
         updateCurrLocationState()
-        associatedTVC?.setData(viewsInfo: geoService.getLocationRelatedTop())
+        associatedTVC?.setData(viewsInfo: geoService.getLocationRelatedTop(),
+                               header: geoService.getChartsHeaderWithCountryCode())
     }
     
     // MARK: Private Methods
@@ -155,7 +156,9 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
             
             let location = Location(coord: data, name: name)
             self.setLocationAndUpdateTVCIfNeeded(location)
-            self.setUserPeekIsEnable(true)
+            if self.locationSwitch.isOn && !self.geoSwitch.isOn{
+                self.setUserPeekIsEnable(true)
+            }
         }
     }
     
@@ -173,7 +176,9 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
                 let location = Location(coord: coord, name: country)
                 self.setLocationAndUpdateTVCIfNeeded(location)
                 self.setPickerValue(country)
-                self.setUserPeekIsEnable(true)
+                if self.locationSwitch.isOn && !self.geoSwitch.isOn{
+                    self.setUserPeekIsEnable(true)
+                }
             }
         }
     }
@@ -212,7 +217,8 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         userDefaults.saveCountry(location: location)
         if locationSwitch.isOn && currLocation?.name != location.name {
             navigationItem.title = location.name
-            associatedTVC?.setData(viewsInfo: geoService.getLocationRelatedTop())
+            associatedTVC?.setData(viewsInfo: geoService.getLocationRelatedTop(),
+                                   header: geoService.getChartsHeaderWithCountryCode())
         }
         currLocation = location
     }
@@ -229,4 +235,5 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         mapView.isUserInteractionEnabled = state
         countryPicker.isUserInteractionEnabled = state
     }
+
 }
