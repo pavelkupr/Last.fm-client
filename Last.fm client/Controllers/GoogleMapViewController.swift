@@ -65,16 +65,17 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate, GMSM
         geoSwitch.isOn = userDefaults.getGeoState()
         locationSwitch.isOn = userDefaults.getLocationState()
         updateCurrLocationState()
+        updateCurrGeoState()
         
-        if geoSwitch.isOn {
-            updateCurrGeoState()
-        } else if let location = currLocation {
-            setPickerValue(location.name)
-            marker.position = location.coord
-            mapView.camera = GMSCameraPosition.camera(withTarget: location.coord, zoom: defaultZoom)
-        } else {
-            setCountry(withName: "United States")
-            setPickerValue("United States")
+        if !geoSwitch.isOn {
+            if let location = currLocation {
+                setPickerValue(location.name)
+                marker.position = location.coord
+                mapView.camera = GMSCameraPosition.camera(withTarget: location.coord, zoom: defaultZoom)
+            } else {
+                setCountry(withName: "United States")
+                setPickerValue("United States")
+            }
         }
     }
    
