@@ -11,34 +11,34 @@ import UIKit
 class AlbumView: UIView {
 
     // MARK: Properties
-    
+
     @IBOutlet var contentView: UIStackView!
     @IBOutlet weak var headerView: HeaderView!
     @IBOutlet weak var imageView: RoundedImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    
+
     private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {
         if let placeholder = UIImage(named: "Placeholder") {
             return placeholder
-            
+
         } else {
             NSLog("Can't find placeholder")
             return nil
         }
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initView()
     }
-    
+
     func setAlbum(_ album: Storable) {
         headerView.headerName.text = "Album"
         nameLabel.text = album.mainInfo
@@ -48,9 +48,9 @@ class AlbumView: UIView {
             imageView.image = placeholder
         }
     }
-    
+
     // MARK: Private methods
-    
+
     private func initView() {
         Bundle.main.loadNibNamed("AlbumView", owner: self, options: nil)
         addSubview(contentView)

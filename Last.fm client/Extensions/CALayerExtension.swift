@@ -10,10 +10,10 @@ import UIKit
 
 extension CALayer {
 
-    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat, start: CGFloat, length: CGFloat) -> CALayer{
+    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat, start: CGFloat, length: CGFloat) -> CALayer {
 
         let border = CALayer()
-        
+
         switch edge {
         case .top:
             border.frame = CGRect(x: start, y: 0, width: start + length, height: thickness)
@@ -32,12 +32,12 @@ extension CALayer {
         addSublayer(border)
         return border
     }
-    
+
     func setFrame(edge: UIRectEdge, color: UIColor, thickness: CGFloat, start: CGFloat, length: CGFloat) {
         guard let rect = superlayer?.frame else {
             return
         }
-        
+
         switch edge {
         case .top:
             frame = CGRect(x: start, y: 0, width: start + length, height: thickness)
@@ -50,7 +50,7 @@ extension CALayer {
         default:
             break
         }
-        
+
         backgroundColor = color.cgColor
     }
 }

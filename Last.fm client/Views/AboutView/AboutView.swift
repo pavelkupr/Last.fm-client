@@ -11,7 +11,7 @@ import UIKit
 class AboutView: UIView {
 
     // MARK: Properties
-    
+
     @IBOutlet var contentView: UIStackView!
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var headerView: HeaderView!
@@ -26,7 +26,7 @@ class AboutView: UIView {
         initView()
     }
 
-    func getContentHeight() -> CGFloat{
+    func getContentHeight() -> CGFloat {
         return contentView.spacing + infoTextView.text.height(withConstrainedWidth:
             infoTextView.bounds.width, font: infoTextView.font!) + headerView.bounds.height
     }
@@ -41,5 +41,5 @@ class AboutView: UIView {
 
         headerView.headerName.text = "About"
     }
-    
+
 }

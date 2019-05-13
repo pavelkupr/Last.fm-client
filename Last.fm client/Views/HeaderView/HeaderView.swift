@@ -23,7 +23,7 @@ class HeaderView: UIView {
             leadingShift.constant = shift
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
@@ -42,7 +42,7 @@ class HeaderView: UIView {
         addFitConstraints(view: contentView)
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
-    
+
     override func layoutSubviews() {
         if isWithBorder {
             if bottomBorder == nil {

@@ -9,9 +9,9 @@
 import UIKit
 
 class TableViewActivityIndicator: UIView {
-    
+
     // MARK: Properties
-    
+
     private var activityIndicator: UIActivityIndicatorView?
     var isLoading = false
     override var frame: CGRect {

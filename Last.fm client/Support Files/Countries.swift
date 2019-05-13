@@ -8,8 +8,8 @@
 
 import Foundation
 
-let wrongNamesFix = ["The Bahamas":"Bahamas",
-                     "Russia":"Russian Federation"]
+let wrongNamesFix = ["The Bahamas": "Bahamas",
+                     "Russia": "Russian Federation"]
 
 let countriesCode = ["BD": "Bangladesh",
                  "BE": "Belgium",

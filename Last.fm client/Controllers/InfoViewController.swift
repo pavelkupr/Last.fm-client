@@ -12,10 +12,10 @@ class InfoViewController: UIViewController, UICollectionViewDelegate, UICollecti
 RatingControlDelegate {
 
     // MARK: Properties
-    
+
     @IBOutlet weak var infoView: InfoView!
     @IBOutlet weak var favoriteButton: CustomButton!
-    
+
     private let apiService = APIService()
     private var data: Storable?
     private var similar = [Storable]()
@@ -26,18 +26,18 @@ RatingControlDelegate {
         infoView.similarView.collectionView.dataSource = self
         infoView.ratingControl.delegate = self
         favoriteButton.button.addTarget(self, action: #selector(buttonTapped(button:)), for: .touchUpInside)
-        
+
         if let value = data {
             loadAdditionalInfo(value)
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         if let value = data {
             infoView.updateMainInfoSection(withStorableData: value)
-            
+
             if let isFavorite = value.isFavorite {
                 favoriteButton.isHidden = false
                 favoriteButton.button.isSelected = isFavorite
@@ -46,7 +46,7 @@ RatingControlDelegate {
             }
         }
     }
-    
+
     static func getInstanceFromStoryboard() -> InfoViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyboard.instantiateViewController(withIdentifier: "InfoViewController")
@@ -55,17 +55,17 @@ RatingControlDelegate {
         }
         return controller
     }
-    
+
     func setStoreableData(_ data: Storable) {
         self.data = data
     }
-    
+
     // MARK: RatingControlDelegate
-    
+
     func ratingDidChange(newRating: Int16) {
         data?.rating = newRating
     }
-    
+
     // MARK: CollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -113,9 +113,9 @@ RatingControlDelegate {
             }
             self.infoView.activityIndicator.stopAnimating()
         }
-        
+
     }
-    
+
     @objc private func buttonTapped(button: UIButton) {
         button.isSelected = !button.isSelected
         if button.isSelected {
@@ -126,7 +126,7 @@ RatingControlDelegate {
             showToast(message: "Removed from favorite")
         }
     }
-    
+
     private func pushSameController(withStoreableData value: Storable) {
         let viewController = InfoViewController.getInstanceFromStoryboard()
         viewController.setStoreableData(value)

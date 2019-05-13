@@ -25,14 +25,15 @@ extension String {
     }
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin,
+                                            attributes: [NSAttributedString.Key.font: font], context: nil)
+
         return ceil(boundingBox.height)
     }
 }
 
 extension String: Storable {
-    
+
     var mainInfo: String {
         return self
     }
@@ -48,25 +49,22 @@ extension String: Storable {
     var imageURLs: [ImageSize: String]? {
         return nil
     }
-    
+
     var rating: Int16? {
-        get{
-            return nil
-        }
-        set{}
+        get { return nil }
+        set { _ = newValue }
     }
-    
+
     var isFavorite: Bool? {
-        get{
-            return nil
-        }
+        return nil
+
     }
-    
-    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
+
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> Void) {
         let additional = AdditionalInfo()
         closure(additional)
     }
-    
+
     func addToFavorite() {
         return
     }

@@ -9,12 +9,12 @@
 import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
-    
+
     // MARK: Properties
-    
+
     @IBOutlet var imageView: RoundedImageView!
     @IBOutlet var mainInfo: UILabel!
-    
+
     private let imageLoader = ImageLoader()
     private let imageSize = ImageSize.large
     private lazy var placeholder: UIImage? = {

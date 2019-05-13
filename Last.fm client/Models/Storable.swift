@@ -9,15 +9,15 @@
 import Foundation
 
 protocol Storable {
-    
+
     var mainInfo: String { get }
     var topInfo: String? { get }
     var bottomInfo: String? { get }
     var imageURLs: [ImageSize: String]? { get }
     var rating: Int16? { get set }
     var isFavorite: Bool? { get }
-    
-    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ())
+
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> Void)
     func addToFavorite()
     func removeFromFavorite()
 }

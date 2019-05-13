@@ -9,14 +9,14 @@
 import UIKit
 
 class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
-    
+
     // MARK: Properties
     @IBOutlet weak var photoImageView: RoundedImageView!
     @IBOutlet weak var mainInfoLabel: UILabel!
     @IBOutlet weak var bottomInfoLabel: UILabel!
     @IBOutlet weak var topInfoLabel: UILabel!
     @IBOutlet weak var ratingControl: RatingControl!
-    
+
     @IBOutlet weak var likeButton: CustomButton!
     private var data: Storable?
     private let imageLoader = ImageLoader()
@@ -54,12 +54,12 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
                 photoImageView.image = placeholder
             }
         }
-        
+
         if let rating = data.rating {
             ratingControl.isHidden = false
             ratingControl.rating = rating
         }
-        
+
         if let isFavorite = data.isFavorite {
             likeButton.isHidden = false
             likeButton.button.isSelected = isFavorite
@@ -78,15 +78,15 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
             photoImageView.highlightBorder(withColour: tintColor)
         }
     }
-    
+
     // MARK: RatingControlDelegate
-    
+
     func ratingDidChange(newRating: Int16) {
         data?.rating = newRating
     }
-    
+
     // MARK: Private methods
-    
+
     private func hideCell() {
         bottomInfoLabel.isHidden = true
         photoImageView.isHidden = true
@@ -94,7 +94,7 @@ class CustomTableViewCell: UITableViewCell, RatingControlDelegate {
         ratingControl.isHidden = true
         likeButton.isHidden = true
     }
-    
+
     @objc private func buttonTapped(button: UIButton) {
         button.isSelected = !button.isSelected
         if button.isSelected {

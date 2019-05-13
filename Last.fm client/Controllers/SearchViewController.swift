@@ -38,14 +38,14 @@ UITableViewDelegate, UITableViewDataSource {
     private let sectionLabelShift: CGFloat = 20
     private let apiService = APIService()
     private let userDefaultsService = UserDefaultsService()
-    
+
     private var activityIndicator = TableViewActivityIndicator()
     private var isResentMode = true
     private var searchModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
         [(.tracks, [Track]()), (.artists, [Artist]())]
     private var recentModeSectionsInfo: [(key: SectionItem, value: [Storable])] =
         [(.resentSearches, [String]())]
-    
+
     private var currSearchRequest: String?
     private var tracksSource: TrackSource?
     private var artistsSource: ArtistSource?
@@ -55,24 +55,24 @@ UITableViewDelegate, UITableViewDataSource {
 
         searchTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "CustomCell")
-        
+
         searchBarView.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
         searchTableView.tableFooterView = activityIndicator
-        
+
         for index in 0..<recentModeSectionsInfo.count where
            recentModeSectionsInfo[index].key == .resentSearches {
             recentModeSectionsInfo[index].value = userDefaultsService.getSearchRequests()
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         searchTableView.reloadData()
     }
-    
-    static func getInstanceFromStoryboard() -> SearchViewController{
+
+    static func getInstanceFromStoryboard() -> SearchViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyboard.instantiateViewController(withIdentifier: "SearchController")
             as? SearchViewController else {
@@ -80,7 +80,7 @@ UITableViewDelegate, UITableViewDataSource {
         }
         return controller
     }
-    
+
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -122,7 +122,7 @@ UITableViewDelegate, UITableViewDataSource {
         let sectionHeader = HeaderView()
         sectionHeader.shift = sectionLabelShift
         sectionHeader.isWithBorder = true
-        
+
         if isResentMode {
             sectionHeader.headerName.text = recentModeSectionsInfo[section].key.getStringDefinition()
             sectionHeader.moreButton.isHidden = true
@@ -160,12 +160,13 @@ UITableViewDelegate, UITableViewDataSource {
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         if isResentMode && editingStyle == .delete {
             for index in 0..<recentModeSectionsInfo.count where
                 recentModeSectionsInfo[index].key == recentModeSectionsInfo[indexPath.section].key {
-                    
+
                 recentModeSectionsInfo[index].value.remove(at: indexPath.row)
                 userDefaultsService.saveSearchRequests(requests: recentModeSectionsInfo[index].value)
             }
@@ -173,11 +174,11 @@ UITableViewDelegate, UITableViewDataSource {
         }
     }
     // MARK: UITableViewDragDelegate
-    
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchBarView.resignFirstResponderAndShowCancelButton()
     }
-    
+
     // MARK: UISearchBarDelegate
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -199,9 +200,9 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     // MARK: Actions
-    
+
     @objc func moreArtists(_ sender: UIButton) {
-        
+
         for element in searchModeSectionsInfo where element.key == .artists {
             guard let searchRequest = currSearchRequest else {
                 fatalError("Search request is empty")
@@ -215,7 +216,7 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     @objc func moreTracks(_ sender: UIButton) {
-        
+
         for element in searchModeSectionsInfo where element.key == .tracks {
             guard let searchRequest = currSearchRequest else {
                 fatalError("Search request is empty")
@@ -294,7 +295,7 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     private func pushInfoViewWithData(atIndex index: IndexPath) {
-        
+
         let viewController = InfoViewController.getInstanceFromStoryboard()
         viewController.setStoreableData(searchModeSectionsInfo[index.section].value[index.row])
         navigationController?.pushViewController(viewController, animated: true)

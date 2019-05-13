@@ -67,7 +67,7 @@ struct Track {
             }
         }
     }
-    
+
     init(name: String, artist: String, photoUrls: [ImageSize: String]) {
         self.name = name
         self.artistName = artist
@@ -76,7 +76,7 @@ struct Track {
 }
 
 extension Track: Storable {
-    
+
     var mainInfo: String {
         return name
     }
@@ -95,36 +95,34 @@ extension Track: Storable {
     var imageURLs: [ImageSize: String]? {
         return photoUrls
     }
-    
+
     var rating: Int16? {
-        get{
+        get {
             let dataService = CoreDataService()
             return dataService.getRating(artist: artistName, track: name) ?? 0
         }
-        set{
+        set {
             if let value = newValue {
                 let dataService = CoreDataService()
                 dataService.addRating(withArtist: artistName, withTrack: name, withRating: value)
             }
         }
     }
-    
+
     var isFavorite: Bool? {
-        get{
-            let dataService = CoreDataService()
-            return dataService.isInFavoriteTrack(name: self.name, artist: self.artistName)
-        }
+        let dataService = CoreDataService()
+        return dataService.isInFavoriteTrack(name: self.name, artist: self.artistName)
     }
-    
-    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
+
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> Void) {
         let apiService = APIService()
         var additional = AdditionalInfo()
         apiService.getTrackInfo(byTrackName: name, byArtistName:
         artistName) { data, error in
-            
+
             if let err = error {
                 NSLog("Error: \(err)")
-                
+
             } else if let data = data {
                 additional.aboutInfo = data.info == "" ? nil : data.info
                 additional.parent = data.album
@@ -132,11 +130,12 @@ extension Track: Storable {
             closure(additional)
         }
     }
-    
+
     func addToFavorite() {
         let dataService = CoreDataService()
         dataService.addFavoriteTrack(withTrack: self)
     }
+
     func removeFromFavorite() {
         let dataService = CoreDataService()
         dataService.removeFavoriteTrack(withTrack: self)

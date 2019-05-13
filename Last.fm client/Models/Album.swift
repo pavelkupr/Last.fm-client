@@ -30,39 +30,38 @@ struct Album {
 }
 
 extension Album: Storable {
-    
+
     var mainInfo: String {
         return name
     }
-    
+
     var topInfo: String? {
         return nil
     }
-    
+
     var bottomInfo: String? {
         return artistName
     }
-    
+
     var imageURLs: [ImageSize: String]? {
         return photoUrls
     }
-    
+
     var rating: Int16? {
-        get{
-            return nil
-        }
-        set{}
+        get { return nil }
+        set { _ = newValue }
     }
+
     var isFavorite: Bool? {
-        get{
-            return nil
-        }
+        return nil
+
     }
-    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> ()) {
+
+    func getAddidtionalInfo(closure: @escaping (AdditionalInfo) -> Void) {
         let additional = AdditionalInfo()
         closure(additional)
     }
-    
+
     func addToFavorite() {
         return
     }
